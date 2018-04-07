@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
-public class GazeController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
-    [SerializeField] float speed;
+public class GazeController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
@@ -15,22 +11,13 @@ public class GazeController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		
 	}
 
-
-    public void MoveBox()
+    public void OnPointerEnter()
     {
-        Debug.Log("in gaze!!!!");
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + new Vector3(0, 10), step);
-
+        Debug.Log("in gaze");
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerExit()
     {
-        MoveBox();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
+        Debug.Log("out of gaze");
     }
 }
