@@ -1394,7 +1394,7 @@ Prefab:
     - target: {fileID: 224897046936725846, guid: 9bac7499a84402e419dde4e080b549af,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114096268216473946, guid: 9bac7499a84402e419dde4e080b549af,
         type: 2}
@@ -2301,7 +2301,7 @@ GameObject:
   - component: {fileID: 1734580149}
   - component: {fileID: 1734580151}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: SceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
