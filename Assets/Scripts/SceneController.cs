@@ -20,6 +20,25 @@ namespace Physikef
         {
 
         }
+
+        static public GameObject getTarget()
+        {
+            return GameObject.FindGameObjectWithTag("Target");
+        }
+
+        static public float getTargetDistanceFromRamp()
+        {
+            GameObject ramp = GameObject.FindGameObjectWithTag("Ramp");
+            GameObject target = GameObject.FindGameObjectWithTag("Target");
+
+            if (!ramp || !target)
+            {
+                return 0;
+            }
+
+            return Vector3.Distance(ramp.transform.position, target.transform.position);
+        }
+
     }
 
 }

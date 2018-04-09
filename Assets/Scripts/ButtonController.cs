@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 namespace Physikef
 {
@@ -8,6 +9,7 @@ namespace Physikef
         Slider fillBar;
         [SerializeField] float millsecsToFill = 200f;
         private float elapsedTime = 0f;
+        [SerializeField] float value = 0f;
         private float progressBits;
 
         // Use this for initialization
@@ -25,7 +27,23 @@ namespace Physikef
 
         public void DoAction()
         {
+            TestValue();
+
             Debug.Log(string.Format("{0} Doing action", this));
+        }
+
+        private void TestValue()
+        {
+            float distance = SceneController.getTargetDistanceFromRamp();
+
+            if ( Enumerable.Range(1, 100).Contains(Mathf.RoundToInt(value)) )
+            {
+                Debug.Log("Good!");
+            }
+            else
+            {
+                Debug.Log("Try again!");
+            }
         }
 
         // Update is called once per frame
