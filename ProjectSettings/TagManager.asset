@@ -7,6 +7,8 @@ TagManager:
   - Target
   - Button
   - Ramp
+  - Question
+  - Flare
   layers:
   - Default
   - TransparentFX

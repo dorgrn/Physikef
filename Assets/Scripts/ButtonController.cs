@@ -5,17 +5,16 @@ namespace Physikef
 {
     public class ButtonController : MonoBehaviour
     {
-        private bool gazedAt = false;
         Slider fillBar;
         [SerializeField] float millsecsToFill = 200f;
+        [SerializeField] int value = 0;
+        private bool gazedAt = false;
         private float elapsedTime = 0f;
-        [SerializeField] float value = 0f;
-        private float progressBits;
+        private float sliderProgressAmount;
 
-        // Use this for initialization
         void Start()
         {
-            progressBits = millsecsToFill / 1000f;
+            sliderProgressAmount = millsecsToFill / 1000f;
             fillBar = GetComponent<Slider>();
         }
 
@@ -27,27 +26,18 @@ namespace Physikef
 
         public void DoAction()
         {
-            TestValue();
-
-            Debug.Log(string.Format("{0} Doing action", this));
+            SceneController.answerValue = value;
+            SceneController.isAnswered = true;
         }
 
-        private void TestValue()
-        {
-            float distance = SceneController.getTargetDistanceFromRamp();
 
-            if ( Enumerable.Range(1, 100).Contains(Mathf.RoundToInt(value)) )
-            {
-                Debug.Log("Good!");
-            }
-            else
-            {
-                Debug.Log("Try again!");
-            }
-        }
 
-        // Update is called once per frame
         void Update()
+        {
+            CheckSliderValue();
+        }
+
+        private void CheckSliderValue()
         {
             if (fillBar.value >= 1f)
             {
@@ -61,10 +51,10 @@ namespace Physikef
             }
 
             elapsedTime += Time.deltaTime;
-            if (elapsedTime >= progressBits && fillBar.value < 1f)
+            if (elapsedTime >= sliderProgressAmount && fillBar.value < 1f)
             {
-                elapsedTime = elapsedTime % progressBits;
-                fillBar.value += progressBits;
+                elapsedTime = elapsedTime % sliderProgressAmount;
+                fillBar.value += sliderProgressAmount;
             }
         }
     }
