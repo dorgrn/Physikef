@@ -141,16 +141,8 @@ public class GvrEditorEmulator : MonoBehaviour {
   }
 
   private void UpdateHeadPositionAndRotation() {
-        //HeadRotation = Quaternion.Euler(mouseY, mouseX, mouseZ);
-        IEnumerator<Camera> validCameras = ValidCameras();
-        while (validCameras.MoveNext())
-        {
-            Camera cam = validCameras.Current;
-            HeadRotation = Quaternion.Euler(mouseY, mouseX-90, mouseZ);
-            HeadPosition = cam.transform.position; 
-            //HeadRotation = Quaternion.Euler(cam.transform.localPosition.y, cam.transform.localPosition.x, cam.transform.localPosition.z);
-            //HeadPosition = HeadRotation * NECK_OFFSET - NECK_OFFSET.y * Vector3.up;
-        }
+    HeadRotation = Quaternion.Euler(mouseY, mouseX, mouseZ);
+    HeadPosition = HeadRotation * NECK_OFFSET - NECK_OFFSET.y * Vector3.up;
   }
 
   private IEnumerator<Camera> ValidCameras() {
