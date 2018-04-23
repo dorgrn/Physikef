@@ -19,8 +19,6 @@ namespace PropertyController
 
         private float m_Value;
 
-        public int Precision;
-
         public float Offset;
 
         public float MaxVal;
@@ -54,7 +52,7 @@ namespace PropertyController
             {
                 foreach (GameObject currentGameObject in objectsArray)
                 {
-                    if (currentGameObject.CompareTag(ObjectTagToUpdate))
+                    if ((currentGameObject.name).CompareTo(ObjectTagToUpdate) == 0)
                     {
                         m_ObjectToUpdate = currentGameObject;
                         break;
@@ -73,9 +71,11 @@ namespace PropertyController
 
         public abstract void UpdateProperty();
 
+
+        // Update values
         void OnButtonUpClick()
         {
-            if (m_Value < MaxVal)
+            if (m_Value + Offset < MaxVal)
             {
                 m_Value += Offset;
             }
@@ -83,7 +83,7 @@ namespace PropertyController
 
         void OnButtonDownClick()
         {
-            if (m_Value > MinVal)
+            if (m_Value - Offset> MinVal)
             {
                 m_Value -= Offset;
             }
