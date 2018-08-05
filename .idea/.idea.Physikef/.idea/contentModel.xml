@@ -226,16 +226,21 @@
           </e>
         </e>
       </e>
-      <e p="Assets\Pendulum.cs" t="Include" />
       <e p="Assets\Scripts" t="Include">
         <e p="ButtonController.cs" t="Include" />
         <e p="CollisionDetector.cs" t="Include" />
+        <e p="FrictionProperty.cs" t="Include" />
         <e p="GazeController.cs" t="Include" />
         <e p="GazeManager.cs" t="Include" />
+        <e p="GravityProperty.cs" t="Include" />
+        <e p="HeightProperty.cs" t="Include" />
         <e p="HoverOverBall.cs" t="Include" />
         <e p="LockRotation.cs" t="Include" />
+        <e p="Pendulum.cs" t="Include" />
+        <e p="PropertyController.cs" t="Include" />
         <e p="SceneController.cs" t="Include" />
         <e p="Spin.cs" t="Include" />
+        <e p="SwitchScene.cs" t="Include" />
         <e p="TextController.cs" t="Include" />
       </e>
       <e p="Assets\Thirdparty" t="Include">

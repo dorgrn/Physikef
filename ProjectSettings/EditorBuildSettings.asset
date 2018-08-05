@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/main.unity
     guid: a3cd016189d122748a9550050d390351
+  - enabled: 1
+    path: Assets/Scenes/pendulum.unity
+    guid: d9528d123bdadca48a7f68c28aec7698
