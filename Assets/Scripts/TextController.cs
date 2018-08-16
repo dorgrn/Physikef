@@ -1,43 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Attributes;
 using UnityEngine;
 using UnityEngine.UI;
-namespace Physikef
+using Zenject;
+
+public class TextController : MonoBehaviour
 {
-    public class TextController : MonoBehaviour
+    [Inject] private ApplicationManager applicationManager;
+    private AttributContainer attributeContainer;
+    private AttributContainer.AttributeEnum attribute;
+    [SerializeField] private Text labelText;
+
+    // Use this for initialization
+    void Start()
     {
-        [SerializeField] Transform target;
-        [SerializeField] Text forcesText;
-        [SerializeField] string targetName = string.Empty;
-        private Rigidbody targetRB;
-        private int nextUpdate = 1;
-
-        // Use this for initialization
-        void Start()
-        {
-            if (target == null)
-                target = GameObject.FindWithTag("Target").transform;
-            targetRB = target.GetComponent<Rigidbody>();
-            if (forcesText == null)
-                forcesText = FindObjectOfType<Text>();
-            if (targetName.Equals(string.Empty))
-                targetName = target.name;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (Time.time >= nextUpdate)
-            {
-                nextUpdate = Mathf.FloorToInt(Time.time) + 1;
-                forcesText.text = string.Format("Velocity: {3}m/s\nMass: {4}kg\nHeight: {0}m\nGravity: {1}G\nFriction: {2}N\n",
-                    Mathf.FloatToHalf(target.position.y + 1f),
-                    -1 * Physics.gravity.normalized, targetRB.drag, -1 * targetRB.velocity,
-                    targetRB.mass);
-            }
-
-        }
-
+        attributeContainer = applicationManager.GetAttributeContainer();
+        var parentScript = GetComponentInParent<AttributeEnumInstance>();
+        attribute = parentScript.AttributeEnum;
+        InvokeRepeating("updateLabel", 0f, 1f);
     }
 
+    private void updateLabel()
+    {
+        labelText.text = string.Format("{0}: {1}{2}", attributeContainer.GetAttributeName(attribute),
+            attributeContainer.GetAttributeValue(attribute), attributeContainer.GetAttributeUnit(attribute));
+    }
 }
