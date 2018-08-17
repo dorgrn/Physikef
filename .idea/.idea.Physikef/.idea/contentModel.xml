@@ -3,7 +3,6 @@
   <component name="ContentModelStore">
     <e p="C:\Users\dorgr\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_Physikef.-682284148.00" t="ExcludeRecursive" />
     <e p="C:\Users\dorgr\Unity\Physikef" t="IncludeRecursive">
-      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -17,89 +16,6 @@
       </e>
       <e p="Assets\Plugins" t="Include">
         <e p="GoogleVR" t="Include">
-          <e p="Demos" t="Include">
-            <e p="Editor" t="Include">
-              <e p="DemoInputManagerEditor.cs" t="Include" />
-              <e p="PermissionsDemoBuildProcessor.cs" t="Include" />
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="DemoInputManager.cs" t="Include" />
-              <e p="DemoSceneManager.cs" t="Include" />
-              <e p="HelloVR" t="Include">
-                <e p="HeadsetDemoManager.cs" t="Include" />
-                <e p="HelloVRManager.cs" t="Include" />
-                <e p="ObjectController.cs" t="Include" />
-              </e>
-              <e p="KeyboardDemo" t="Include">
-                <e p="KeyboardDelegateExample.cs" t="Include" />
-              </e>
-              <e p="PermissionsDemo" t="Include">
-                <e p="PermissionsFlowManager.cs" t="Include" />
-              </e>
-              <e p="VideoDemo" t="Include">
-                <e p="AppButtonInput.cs" t="Include" />
-                <e p="AutoPlayVideo.cs" t="Include" />
-                <e p="InputEvents.cs" t="Include" />
-                <e p="MenuHandler.cs" t="Include" />
-                <e p="PositionSwapper.cs" t="Include" />
-                <e p="ScrubberEvents.cs" t="Include" />
-                <e p="SwitchVideos.cs" t="Include" />
-                <e p="ToggleAction.cs" t="Include" />
-                <e p="VideoControlsManager.cs" t="Include" />
-                <e p="VideoPlayerReference.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Shaders" t="Include">
-              <e p="HelloVR" t="Include">
-                <e p="HelloVRUnlitGrayscaleToColor.shader" t="Include" />
-              </e>
-            </e>
-          </e>
-          <e p="Editor" t="Include">
-            <e p="Controller" t="Include">
-              <e p="GvrControllerVisualEditor.cs" t="Include" />
-              <e p="GvrLaserPointerEditor.cs" t="Include" />
-              <e p="GvrLaserVisualEditor.cs" t="Include" />
-              <e p="GvrTooltipEditor.cs" t="Include" />
-            </e>
-            <e p="EventSystem" t="Include">
-              <e p="GvrPointerScrollInputEditor.cs" t="Include" />
-            </e>
-            <e p="GvrBuildProcessor.cs" t="Include" />
-            <e p="GvrEditorEmulatorEditor.cs" t="Include" />
-            <e p="GvrEditorMenu.cs" t="Include" />
-            <e p="GvrEditorSettings.cs" t="Include" />
-          </e>
-          <e p="Legacy" t="Include">
-            <e p="Editor" t="Include">
-              <e p="Audio" t="Include">
-                <e p="GvrAudioListenerEditor.cs" t="Include" />
-                <e p="GvrAudioRoomEditor.cs" t="Include" />
-                <e p="GvrAudioSoundfieldEditor.cs" t="Include" />
-                <e p="GvrAudioSourceEditor.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="Audio" t="Include">
-                <e p="GvrAudio.cs" t="Include" />
-                <e p="GvrAudioListener.cs" t="Include" />
-                <e p="GvrAudioRoom.cs" t="Include" />
-                <e p="GvrAudioSoundfield.cs" t="Include" />
-                <e p="GvrAudioSource.cs" t="Include" />
-              </e>
-              <e p="GvrController.cs" t="Include" />
-              <e p="GvrControllerVisualManager.cs" t="Include" />
-              <e p="GvrPointerManager.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Plugins" t="Include">
-            <e p="Android" t="Include">
-              <e p="AndroidManifest-6DOF.xml" t="Include" />
-              <e p="AndroidManifest-Cardboard.xml" t="Include" />
-              <e p="AndroidManifest-Daydream.xml" t="Include" />
-              <e p="proguard-gvr.txt" t="Include" />
-            </e>
-          </e>
           <e p="Scripts" t="Include">
             <e p="Cardboard" t="Include">
               <e p="GvrReticlePointer.cs" t="Include" />
@@ -111,12 +27,14 @@
                 <e p="IGvrArmModelReceiver.cs" t="Include" />
               </e>
               <e p="GvrControllerInput.cs" t="Include" />
+              <e p="GvrControllerInputDevice.cs" t="Include" />
               <e p="GvrControllerReticleVisual.cs" t="Include" />
               <e p="GvrControllerVisual.cs" t="Include" />
               <e p="GvrLaserPointer.cs" t="Include" />
               <e p="GvrLaserVisual.cs" t="Include" />
               <e p="GvrRecenterOnlyController.cs" t="Include" />
               <e p="GvrTrackedController.cs" t="Include" />
+              <e p="IGvrControllerInputDeviceReceiver.cs" t="Include" />
               <e p="Internal" t="Include">
                 <e p="ControllerProviderFactory.cs" t="Include" />
                 <e p="ControllerProviders" t="Include">
@@ -127,6 +45,7 @@
                   <e p="MouseControllerProvider.cs" t="Include" />
                 </e>
                 <e p="ControllerState.cs" t="Include" />
+                <e p="ControllerUtils.cs" t="Include" />
                 <e p="Emulator" t="Include">
                   <e p="EmulatorClientSocket.cs" t="Include" />
                   <e p="EmulatorConfig.cs" t="Include" />
@@ -622,6 +541,7 @@
           <e p="Question.cs" t="Include" />
           <e p="QuestionController.cs" t="Include" />
         </e>
+        <e p="SceneAttributes.cs" t="Include" />
         <e p="ScrollDetailTexture.cs" t="Include" />
         <e p="ShowSliderValue.cs" t="Include" />
         <e p="Spin.cs" t="Include" />

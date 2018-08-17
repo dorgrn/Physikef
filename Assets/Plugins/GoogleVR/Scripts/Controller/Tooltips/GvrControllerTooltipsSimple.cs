@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc. All rights reserved.
+﻿// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -63,7 +63,6 @@ public class GvrControllerTooltipsSimple : MonoBehaviour, IGvrArmModelReceiver {
   }
 
   protected void OnVisualUpdate () {
-
     float alpha = ArmModel != null ? ArmModel.TooltipAlphaValue : 1.0f;
     materialPropertyBlock.SetColor(colorId, new Color(1,1,1,alpha));
     tooltipRenderer.SetPropertyBlock(materialPropertyBlock);

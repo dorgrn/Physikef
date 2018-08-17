@@ -1,4 +1,4 @@
-// Copyright 2017 Google Inc. All rights reserved.
+﻿// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public static class GvrIntent {
 #endif  // UNITY_EDITOR || !UNITY_ANDROID
   }
 
-  // Returns true if the intent category contains com.google.intent.category.DAYDREAM.
+  // Returns true if the intent category contains "android.intent.extra.VR_LAUNCH".
   public static bool IsLaunchedFromVr() {
 #if UNITY_EDITOR || !UNITY_ANDROID
     return false;

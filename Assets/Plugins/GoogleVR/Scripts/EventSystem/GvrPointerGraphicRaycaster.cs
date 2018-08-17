@@ -1,4 +1,4 @@
-// Copyright 2016 Google Inc. All rights reserved.
+﻿// Copyright 2016 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class GvrPointerGraphicRaycaster : GvrBasePointerRaycaster {
   private const int NO_EVENT_MASK_SET = -1;
 
   public bool ignoreReversedGraphics = true;
-  public BlockingObjects blockingObjects = BlockingObjects.None;
+  public BlockingObjects blockingObjects = BlockingObjects.ThreeD;
   public LayerMask blockingMask = NO_EVENT_MASK_SET;
 
   private Canvas targetCanvas;
