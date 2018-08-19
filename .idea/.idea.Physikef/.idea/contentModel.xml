@@ -526,8 +526,10 @@
             <e p="CannonController.cs" t="Include" />
           </e>
           <e p="Penudulum" t="Include">
+            <e p="ColliderDetector.cs" t="Include" />
             <e p="MathEquations.cs" t="Include" />
             <e p="Pendulum.cs" t="Include" />
+            <e p="PendulumSimleImp.cs" t="Include" />
             <e p="SceneController.cs" t="Include" />
           </e>
         </e>

@@ -7,6 +7,7 @@ TagManager:
   - Target
   - Button
   - Ramp
+  - Bob
   layers:
   - Default
   - TransparentFX

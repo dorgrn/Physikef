@@ -3,11 +3,9 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
-/Assets/AssetStoreTools*
-/Assets/GoogleVR
-/Assets/Cope! Free Skybox Pack
-/Assets/KTK_Effect_Samples
-/Assets/NatureStarterKit2
+
+# idea
+/.idea/
 
 # Visual Studio 2015 cache directory
 /.vs/
