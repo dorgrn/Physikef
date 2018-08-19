@@ -503,24 +503,32 @@
           <e p="Attribute.cs" t="Include" />
           <e p="AttributeContainer.cs" t="Include" />
           <e p="AttributeEnumInstance.cs" t="Include" />
-          <e p="ObjectController.cs" t="Include" />
         </e>
         <e p="ChangeColor.cs" t="Include" />
         <e p="Controller" t="Include">
           <e p="GazeController.cs" t="Include" />
           <e p="PropertyController.cs" t="Include" />
-          <e p="SceneController.cs" t="Include" />
           <e p="SwitchScene.cs" t="Include" />
           <e p="TextController.cs" t="Include" />
         </e>
         <e p="FrictionProperty.cs" t="Include" />
         <e p="GameScenes" t="Include">
           <e p="BallOnRamp" t="Include">
+            <e p="ButtonController.cs" t="Include" />
             <e p="CollisionDetector.cs" t="Include" />
+            <e p="PositionFromRamp.cs" t="Include" />
+            <e p="RingController.cs" t="Include" />
             <e p="SceneAttributes.cs" t="Include" />
+            <e p="SceneController.cs" t="Include" />
+          </e>
+          <e p="CannonLaunch" t="Include">
+            <e p="CannonBall.cs" t="Include" />
+            <e p="CannonController.cs" t="Include" />
           </e>
           <e p="Penudulum" t="Include">
+            <e p="MathEquations.cs" t="Include" />
             <e p="Pendulum.cs" t="Include" />
+            <e p="SceneController.cs" t="Include" />
           </e>
         </e>
         <e p="GravityProperty.cs" t="Include" />
@@ -533,6 +541,7 @@
           <e p="ButtonController.cs" t="Include" />
           <e p="MenuController.cs" t="Include" />
         </e>
+        <e p="ObjectController.cs" t="Include" />
         <e p="PanelManager.cs" t="Include" />
         <e p="Questions" t="Include">
           <e p="InfoController.cs" t="Include" />
@@ -541,7 +550,6 @@
           <e p="Question.cs" t="Include" />
           <e p="QuestionController.cs" t="Include" />
         </e>
-        <e p="SceneAttributes.cs" t="Include" />
         <e p="ScrollDetailTexture.cs" t="Include" />
         <e p="ShowSliderValue.cs" t="Include" />
         <e p="Spin.cs" t="Include" />

@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
+using ModestTree;
+using Debug = UnityEngine.Debug;
 
 // Author: Eric Eastwood (ericeastwood.com)
 //
@@ -19,7 +22,7 @@ public class Pendulum : MonoBehaviour
 
     public float mass = 1f;
 
-    float ropeLength = 2f;
+    public float ropeLength = 2f;
 
     public Vector3 bobStartingPosition;
     bool bobStartingPositionSet = true;
@@ -32,9 +35,12 @@ public class Pendulum : MonoBehaviour
     private Vector3 tangentDirection;
     private Vector3 pendulumSideDirection;
 
+
     private float tensionForce = 0f;
     private float gravityForce = 0f;
 
+    private readonly Stopwatch oscillationTimer = new Stopwatch(); // mine
+    private int oscillationCounter = 0;
 
     // Keep track of the current velocity
     Vector3 currentVelocity = new Vector3();
@@ -49,6 +55,7 @@ public class Pendulum : MonoBehaviour
         // Set the starting position for later use in the context menu reset methods
         this.bobStartingPosition = this.Bob.transform.position;
         this.bobStartingPositionSet = true;
+        this.oscillationTimer.Start();
 
         this.PendulumInit();
     }
@@ -58,6 +65,8 @@ public class Pendulum : MonoBehaviour
     float dt = 0.01f;
     float currentTime = 0f;
     float accumulator = 0f;
+    public float minialDistance = 0.2f;
+
 
     void Update()
     {
@@ -89,6 +98,20 @@ public class Pendulum : MonoBehaviour
 
         // create line to connect Bob and Pivot
         CreateLine();
+        StartCoroutine(CheckOscillation());
+    }
+
+    IEnumerator CheckOscillation()
+    {
+        if (bobStartingPosition.x - currentStatePosition.x <= minialDistance)
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (oscillationCounter++ == 2)
+            {
+                oscillationTimer.Stop();
+                Debug.Log(oscillationTimer.ElapsedMilliseconds);
+            }
+        }
     }
 
     private void CreateLine()
@@ -169,6 +192,7 @@ public class Pendulum : MonoBehaviour
 
             this.currentVelocity += this.tensionDirection * this.tensionForce * deltaTime;
         }
+
 
         // Get the movement delta
         Vector3 movementDelta = Vector3.zero;
