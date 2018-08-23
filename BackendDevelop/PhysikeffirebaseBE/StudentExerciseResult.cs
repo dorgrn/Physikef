@@ -9,8 +9,8 @@
 
         public override string ToString()
         {
-            return "Student ID: " + AnsweringStudentId + ", Question: " + Question
-                   + ", Student Answer: " + StudentAnswer + ", which is " + (isCorrect ? "Correct" : "Wrong");
+            return "Student ID: " + AnsweringStudentId + "\n, Question: " + Question
+                   + ",\n Student Answer: " + StudentAnswer + ",\n which is " + (isCorrect ? "Correct" : "Wrong");
         }
     }
 }

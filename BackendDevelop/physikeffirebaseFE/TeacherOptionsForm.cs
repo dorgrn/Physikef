@@ -24,7 +24,7 @@ namespace physikeffirebaseFE
 
         private void GetStatisticsButton_Click(object sender, EventArgs e)
         {
-            new ShowStatisticsForm(m_DAL).Show();
+            new ShowStatisticsForm(m_DAL, new StatisticsSummaryGenerator()).Show();
         }
 
         private void CreateExerciseButton_Click(object sender, EventArgs e)
