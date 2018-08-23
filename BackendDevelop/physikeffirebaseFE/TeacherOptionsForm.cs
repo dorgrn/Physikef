@@ -26,5 +26,10 @@ namespace physikeffirebaseFE
         {
             new ShowStatisticsForm(m_DAL).Show();
         }
+
+        private void CreateExerciseButton_Click(object sender, EventArgs e)
+        {
+            new CreateExerciseForm(m_DAL).Show();
+        }
     }
 }

@@ -30,11 +30,12 @@
         {
             this.CreateHomeworkButton = new System.Windows.Forms.Button();
             this.GetStatisticsButton = new System.Windows.Forms.Button();
+            this.CreateExerciseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CreateHomeworkButton
             // 
-            this.CreateHomeworkButton.Location = new System.Drawing.Point(61, 37);
+            this.CreateHomeworkButton.Location = new System.Drawing.Point(61, 140);
             this.CreateHomeworkButton.Name = "CreateHomeworkButton";
             this.CreateHomeworkButton.Size = new System.Drawing.Size(138, 23);
             this.CreateHomeworkButton.TabIndex = 0;
@@ -44,7 +45,7 @@
             // 
             // GetStatisticsButton
             // 
-            this.GetStatisticsButton.Location = new System.Drawing.Point(61, 92);
+            this.GetStatisticsButton.Location = new System.Drawing.Point(61, 189);
             this.GetStatisticsButton.Name = "GetStatisticsButton";
             this.GetStatisticsButton.Size = new System.Drawing.Size(138, 23);
             this.GetStatisticsButton.TabIndex = 1;
@@ -52,11 +53,22 @@
             this.GetStatisticsButton.UseVisualStyleBackColor = true;
             this.GetStatisticsButton.Click += new System.EventHandler(this.GetStatisticsButton_Click);
             // 
+            // CreateExerciseButton
+            // 
+            this.CreateExerciseButton.Location = new System.Drawing.Point(61, 90);
+            this.CreateExerciseButton.Name = "CreateExerciseButton";
+            this.CreateExerciseButton.Size = new System.Drawing.Size(138, 23);
+            this.CreateExerciseButton.TabIndex = 2;
+            this.CreateExerciseButton.Text = "Create Exercise";
+            this.CreateExerciseButton.UseVisualStyleBackColor = true;
+            this.CreateExerciseButton.Click += new System.EventHandler(this.CreateExerciseButton_Click);
+            // 
             // TeacherOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(278, 424);
+            this.Controls.Add(this.CreateExerciseButton);
             this.Controls.Add(this.GetStatisticsButton);
             this.Controls.Add(this.CreateHomeworkButton);
             this.Name = "TeacherOptionsForm";
@@ -69,5 +81,6 @@
 
         private System.Windows.Forms.Button CreateHomeworkButton;
         private System.Windows.Forms.Button GetStatisticsButton;
+        private System.Windows.Forms.Button CreateExerciseButton;
     }
 }

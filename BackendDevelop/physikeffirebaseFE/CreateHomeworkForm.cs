@@ -17,10 +17,12 @@ namespace physikeffirebaseFE
             m_LoggedInUser = loggedInUser;
         }
 
-        private void CreateHomeWorkButton_Click(object sender, EventArgs e)
+        private async  void CreateHomeWorkButton_Click(object sender, EventArgs e)
         {
             var students = studentsTextBox.Text.Split('\n');
-            m_DAL.AddHomeworkAsync(m_LoggedInUser.displayname ,HomeWorkNameTextBox.Text, SceneNameTextBox.Text, students);
+            await m_DAL.AddHomeworkAsync(m_LoggedInUser.displayname ,HomeWorkNameTextBox.Text, SceneNameTextBox.Text, students);
+            MessageBox.Show("Home work was added");
+            Close();
         }
     }
 }
