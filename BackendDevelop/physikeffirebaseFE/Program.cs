@@ -20,14 +20,6 @@ namespace physikeffirebaseFE
             AuthenticationManager authManager = new AuthenticationManager(client, provider);
             DataAccessLayer dal = new DataAccessLayer(client);
 
-            /* // temp code to generate random jibrish exercises
-            for (int i = 0; i < 5; i++)
-            {
-               Exercise exercise = RandomExerciseGenerator.GetExercise("crashing cars");
-               dal.AddExerciseAsync(exercise.SceneName, exercise.Question, exercise.Answers, exercise.CorrectAnswerIndex);
-            }
-            */
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm(authManager, dal));

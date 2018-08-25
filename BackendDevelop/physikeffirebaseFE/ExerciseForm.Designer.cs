@@ -31,9 +31,9 @@
             this.QuestionLabel = new System.Windows.Forms.Label();
             this.answer1 = new System.Windows.Forms.RadioButton();
             this.AnswersBox = new System.Windows.Forms.GroupBox();
-            this.answer2 = new System.Windows.Forms.RadioButton();
-            this.answer3 = new System.Windows.Forms.RadioButton();
             this.answer4 = new System.Windows.Forms.RadioButton();
+            this.answer3 = new System.Windows.Forms.RadioButton();
+            this.answer2 = new System.Windows.Forms.RadioButton();
             this.CheckAnswerButton = new System.Windows.Forms.Button();
             this.AnswersBox.SuspendLayout();
             this.SuspendLayout();
@@ -64,33 +64,11 @@
             this.AnswersBox.Controls.Add(this.answer3);
             this.AnswersBox.Controls.Add(this.answer2);
             this.AnswersBox.Controls.Add(this.answer1);
-            this.AnswersBox.Location = new System.Drawing.Point(16, 52);
+            this.AnswersBox.Location = new System.Drawing.Point(12, 113);
             this.AnswersBox.Name = "AnswersBox";
             this.AnswersBox.Size = new System.Drawing.Size(200, 124);
             this.AnswersBox.TabIndex = 2;
             this.AnswersBox.TabStop = false;
-            // 
-            // answer2
-            // 
-            this.answer2.AutoSize = true;
-            this.answer2.Location = new System.Drawing.Point(18, 42);
-            this.answer2.Name = "answer2";
-            this.answer2.Size = new System.Drawing.Size(85, 17);
-            this.answer2.TabIndex = 2;
-            this.answer2.TabStop = true;
-            this.answer2.Text = "radioButton2";
-            this.answer2.UseVisualStyleBackColor = true;
-            // 
-            // answer3
-            // 
-            this.answer3.AutoSize = true;
-            this.answer3.Location = new System.Drawing.Point(18, 65);
-            this.answer3.Name = "answer3";
-            this.answer3.Size = new System.Drawing.Size(85, 17);
-            this.answer3.TabIndex = 3;
-            this.answer3.TabStop = true;
-            this.answer3.Text = "radioButton3";
-            this.answer3.UseVisualStyleBackColor = true;
             // 
             // answer4
             // 
@@ -103,9 +81,31 @@
             this.answer4.Text = "radioButton4";
             this.answer4.UseVisualStyleBackColor = true;
             // 
+            // answer3
+            // 
+            this.answer3.AutoSize = true;
+            this.answer3.Location = new System.Drawing.Point(18, 65);
+            this.answer3.Name = "answer3";
+            this.answer3.Size = new System.Drawing.Size(85, 17);
+            this.answer3.TabIndex = 3;
+            this.answer3.TabStop = true;
+            this.answer3.Text = "radioButton3";
+            this.answer3.UseVisualStyleBackColor = true;
+            // 
+            // answer2
+            // 
+            this.answer2.AutoSize = true;
+            this.answer2.Location = new System.Drawing.Point(18, 42);
+            this.answer2.Name = "answer2";
+            this.answer2.Size = new System.Drawing.Size(85, 17);
+            this.answer2.TabIndex = 2;
+            this.answer2.TabStop = true;
+            this.answer2.Text = "radioButton2";
+            this.answer2.UseVisualStyleBackColor = true;
+            // 
             // CheckAnswerButton
             // 
-            this.CheckAnswerButton.Location = new System.Drawing.Point(72, 205);
+            this.CheckAnswerButton.Location = new System.Drawing.Point(57, 300);
             this.CheckAnswerButton.Name = "CheckAnswerButton";
             this.CheckAnswerButton.Size = new System.Drawing.Size(75, 23);
             this.CheckAnswerButton.TabIndex = 3;
