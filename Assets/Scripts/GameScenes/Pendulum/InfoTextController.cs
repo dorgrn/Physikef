@@ -13,7 +13,7 @@ namespace GameScenes.Pendulum
 
         private void FixedUpdate()
         {
-            infoText.text = string.Format("Rope length:{0}\nGravity:{1}\nOscillation period(avg.):{2}",
+            infoText.text = string.Format("Rope length:{0}\nGravity:{1}\nOscillation period(avg.):{2:0.00}",
                 pendulumScript.ropeLength, Physics.gravity.magnitude,
                 pendulumColliderDetector.GetAvgOscillationPeriodInMillisec() / 1000);
         }
