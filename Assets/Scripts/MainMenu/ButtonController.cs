@@ -7,10 +7,10 @@ namespace MainMenu
 {
     public class ButtonController : MonoBehaviour
     {
-        private bool gazedAt = false;
-        private float progressBits;
-        private float elapsedTime = 0f;
-        private Slider fillBar;
+        private bool m_gazedAt = false;
+        private float m_progressBits;
+        private float m_elapsedTime = 0f;
+        private Slider m_fillBar;
         [SerializeField] float millsecsToFill = 200f;
         [SerializeField] float value = 0f;
         [SerializeField] private SceneEnum sceneEnum;
@@ -21,25 +21,24 @@ namespace MainMenu
             Back,
             BallOnRamp,
             Pendulum
-        };
-
+        }
 
         // Use this for initialization
         void Start()
         {
-            progressBits = millsecsToFill / 1000f;
-            fillBar = GetComponent<Slider>();
+            m_progressBits = millsecsToFill / 1000f;
+            m_fillBar = GetComponent<Slider>();
         }
 
         public void SetGazedAt(bool gazedAt)
         {
             Debug.Log(string.Format("{0} Gazed at to {1}", this, gazedAt));
-            this.gazedAt = gazedAt;
+            this.m_gazedAt = gazedAt;
         }
 
         public void DoAction()
         {
-            if (fillBar.value < 1f)
+            if (m_fillBar.value < 1f)
             {
                 return;
             }
@@ -63,22 +62,22 @@ namespace MainMenu
         // Update is called once per frame
         void Update()
         {
-            if (fillBar.value >= 1f)
+            if (m_fillBar.value >= 1f)
             {
                 DoAction();
             }
 
-            if (!gazedAt)
+            if (!m_gazedAt)
             {
-                fillBar.value = 0f;
+                m_fillBar.value = 0f;
                 return;
             }
 
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= progressBits && fillBar.value < 1f)
+            m_elapsedTime += Time.deltaTime;
+            if (m_elapsedTime >= m_progressBits && m_fillBar.value < 1f)
             {
-                elapsedTime = elapsedTime % progressBits;
-                fillBar.value += progressBits;
+                m_elapsedTime = m_elapsedTime % m_progressBits;
+                m_fillBar.value += m_progressBits;
             }
         }
     }

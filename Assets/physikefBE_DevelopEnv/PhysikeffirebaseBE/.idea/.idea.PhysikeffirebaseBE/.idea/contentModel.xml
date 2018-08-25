@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="\88bfb320" t="IncludeRecursive" />
+    <e p="\app" t="IncludeRecursive" />
+    <e p="C:\Users\dorgr\.Rider2018.2\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\dorgr\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\dorgr\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_PhysikeffirebaseBE.-342559883.00" t="ExcludeRecursive" />
+    <e p="C:\Users\dorgr\Unity\Physikef\Assets\physikefBE_DevelopEnv\PhysikeffirebaseBE" t="IncludeRecursive">
+      <e p="app.config" t="Include" />
+      <e p="AuthenticationManager.cs" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="DataAccessLayer.cs" t="Include" />
+      <e p="Exercise.cs" t="Include" />
+      <e p="FirebaseClientFactory.cs" t="Include" />
+      <e p="HomeWork.cs" t="Include" />
+      <e p="Interfaces" t="Include">
+        <e p="IAuthenticationManager.cs" t="Include" />
+        <e p="IDataAccessLayer.cs" t="Include" />
+        <e p="IFirebaseAuthProviderFactory.cs" t="Include" />
+        <e p="IFirebaseClientFactory.cs" t="Include" />
+      </e>
+      <e p="LoginResult.cs" t="Include" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="PhysikeffirebaseBE.csproj" t="IncludeRecursive" />
+      <e p="PhysikeffirebaseBE.sln" t="IncludeFlat" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+      </e>
+      <e p="ProvidersFactory.cs" t="Include" />
+      <e p="RandomExerciseGenerator.cs" t="Include" />
+      <e p="StudentExerciseResult.cs" t="Include" />
+      <e p="User.cs" t="Include" />
+    </e>
+    <e p="C:\Users\dorgr\Unity\Physikef\Assets\physikefBE_DevelopEnv\physikeffirebaseFE" t="IncludeRecursive">
+      <e p="app.config" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="CreateHomeworkForm.cs" t="Include" />
+      <e p="CreateHomeworkForm.Designer.cs" t="Include" />
+      <e p="CreateHomeworkForm.resx" t="Include" />
+      <e p="ExerciseForm.cs" t="Include" />
+      <e p="ExerciseForm.Designer.cs" t="Include" />
+      <e p="ExerciseForm.resx" t="Include" />
+      <e p="LoginForm.cs" t="Include" />
+      <e p="LoginForm.Designer.cs" t="Include" />
+      <e p="LoginForm.resx" t="Include" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="physikeffirebaseFE.csproj" t="IncludeRecursive" />
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="Resources.Designer.cs" t="Include" />
+        <e p="Resources.resx" t="Include" />
+        <e p="Settings.Designer.cs" t="Include" />
+        <e p="Settings.settings" t="Include" />
+      </e>
+      <e p="RegisterForm.cs" t="Include" />
+      <e p="RegisterForm.Designer.cs" t="Include" />
+      <e p="RegisterForm.resx" t="Include" />
+      <e p="ShowHomeworkForm.cs" t="Include" />
+      <e p="ShowHomeworkForm.Designer.cs" t="Include" />
+      <e p="ShowHomeworkForm.resx" t="Include" />
+      <e p="ShowStatisticsForm.cs" t="Include" />
+      <e p="ShowStatisticsForm.Designer.cs" t="Include" />
+      <e p="ShowStatisticsForm.resx" t="Include" />
+      <e p="TeacherOptionsForm.cs" t="Include" />
+      <e p="TeacherOptionsForm.Designer.cs" t="Include" />
+      <e p="TeacherOptionsForm.resx" t="Include" />
+    </e>
+  </component>
+</project>

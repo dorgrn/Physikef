@@ -1,5 +1,5 @@
 using Attributes;
-using Questions;
+using Exercises;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -13,8 +13,8 @@ namespace GameScenes.BallOnRamp
         private AttributContainer attributContainer;
 
         // questions
-        [Inject] private IQuestionPublisher questionPublisher; // question supplier
-        private Question sceneQuestion; // current scene questions
+        [Inject] private IExercisePublisher m_exercisePublisher; // question supplier
+        private Exercise m_sceneExercise; // current scene questions
 
 
         [SerializeField] private GameObject target;
@@ -24,7 +24,7 @@ namespace GameScenes.BallOnRamp
 
         void Awake()
         {
-            sceneQuestion = questionPublisher.GetQuestionForScene(SceneManager.GetActiveScene().name);
+            m_sceneExercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
             attributContainer = applicationManager.GetAttributeContainer();
         }
 
@@ -38,7 +38,7 @@ namespace GameScenes.BallOnRamp
 
         public void SubmitAnswer(string answer)
         {
-            if (sceneQuestion.Answer.Equals(answer))
+            if (m_sceneExercise.Answer.Equals(answer))
             {
                 Debug.Log("Correct!");
                 // TODO: answer correct

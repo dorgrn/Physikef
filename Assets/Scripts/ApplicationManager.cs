@@ -4,6 +4,12 @@ using UnityEditor;
 public class ApplicationManager
 {
     private readonly AttributContainer attributeContainer;
+    private bool m_hardCodedAnswers = true;
+
+    public bool isHardCodedAnswers
+    {
+        get { return m_hardCodedAnswers; }
+    }
 
     protected ApplicationManager()
     {
