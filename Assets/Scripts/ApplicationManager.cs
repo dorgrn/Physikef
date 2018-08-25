@@ -1,5 +1,5 @@
 using Attributes;
-using UnityEditor;
+using UnityEngine;
 
 public class ApplicationManager
 {
@@ -19,11 +19,12 @@ public class ApplicationManager
 
     public static void Quit()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-		Application.Quit();
-		#endif
+        //#if UNITY_EDITOR
+        //        EditorApplication.isPlaying = false;
+        //#else
+        //		Application.Quit();
+        //		#endif
+        Application.Quit();
     }
 
     public AttributContainer GetAttributeContainer()
