@@ -8,6 +8,7 @@ namespace GameScenes.Pendulum
     {
         private Stopwatch m_collisionTimer;
         private int m_collisionNumber = 0;
+        private float m_sumOscillationPeriod = 0f;
 
         private void Start()
         {
@@ -24,6 +25,7 @@ namespace GameScenes.Pendulum
                 if (m_collisionNumber % 2 == 0) // is oscillation of bob
                 {
                     Debug.Log("timer is: " + m_collisionTimer.ElapsedMilliseconds);
+                    m_sumOscillationPeriod += m_collisionTimer.ElapsedMilliseconds;
                     m_collisionTimer = Stopwatch.StartNew();
                 }
             }
@@ -31,6 +33,11 @@ namespace GameScenes.Pendulum
             {
                 Debug.Log("problem!");
             }
+        }
+
+        public float GetAvgOscillationPeriodInMillisec()
+        {
+            return m_collisionNumber == 0 ? 0 : m_sumOscillationPeriod / m_collisionNumber;
         }
     }
 }

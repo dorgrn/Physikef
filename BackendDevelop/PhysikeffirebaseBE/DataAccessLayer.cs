@@ -49,8 +49,8 @@ namespace PhysikeffirebaseBE
             {
                 SceneName = sceneName,
                 Question = question,
-                Answers = answers,
-                CorrectAnswerIndex = correctAnswerIndex
+                Choices = answers,
+                CorrectChoiceIndex = correctAnswerIndex
             };
 
             await m_FirebaseClient.Child("exercise").PostAsync(exercise);

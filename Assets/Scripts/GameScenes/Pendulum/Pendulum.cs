@@ -62,7 +62,7 @@ namespace GameScenes.Pendulum
         float accumulator = 0f;
 
 
-        void Update()
+        private void Update()
         {
             /* */
             // Fixed deltaTime rendering at any speed with smoothing

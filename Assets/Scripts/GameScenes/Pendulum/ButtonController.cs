@@ -10,7 +10,6 @@ namespace GameScenes.Pendulum
         private float m_elapsedTime = 0f;
         private Slider m_fillBar;
         private const float millsecsToFill = 200f;
-        private string m_value;
         private SceneController m_sceneController;
 
         private void Awake()
@@ -22,8 +21,6 @@ namespace GameScenes.Pendulum
         {
             m_progressBits = millsecsToFill / 1000f;
             m_fillBar = GetComponent<Slider>();
-            Text label = GetComponentInChildren<Text>();
-            m_value = label.text;
         }
 
         public void SetGazedAt(bool gazedAt)
@@ -39,7 +36,8 @@ namespace GameScenes.Pendulum
                 return;
             }
 
-            m_sceneController.SubmitAnswer(m_value);
+            Text label = GetComponentInChildren<Text>();
+            m_sceneController.SubmitAnswer(label.text);
         }
 
         void FixedUpdate()

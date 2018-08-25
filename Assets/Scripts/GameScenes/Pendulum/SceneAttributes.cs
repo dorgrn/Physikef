@@ -4,7 +4,7 @@ namespace GameScenes.Pendulum
 {
     public class SceneAttributes
     {
-        private Attribute RopeLength { get; set; }
+        public Attribute RopeLength { get; set; }
         public Attribute Gravity { get; set; }
 
         public SceneAttributes()
