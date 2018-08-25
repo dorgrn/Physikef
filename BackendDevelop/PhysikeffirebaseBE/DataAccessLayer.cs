@@ -11,9 +11,9 @@ namespace PhysikeffirebaseBE
     {
         private readonly FirebaseClient m_FirebaseClient;
 
-        public DataAccessLayer(FirebaseClient client)
+        public DataAccessLayer()
         {
-            m_FirebaseClient = client;
+            m_FirebaseClient = new FirebaseClientFactory().CreateClient();
         }
 
         public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
