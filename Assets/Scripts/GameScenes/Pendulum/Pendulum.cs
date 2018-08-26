@@ -196,7 +196,6 @@ namespace GameScenes.Pendulum
             // purple
             Gizmos.color = new Color(.5f, 0f, .5f);
             Gizmos.DrawWireSphere(this.Pivot.transform.position, this.ropeLength);
-
             Gizmos.DrawWireCube(this.bobStartingPosition, new Vector3(.5f, .5f, .5f));
 
 
