@@ -1,4 +1,5 @@
 using Attributes;
+using Exercises;
 using Questions;
 using Zenject;
 
@@ -8,7 +9,7 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<IQuestionPublisher>().To<InternalQuestionPublisher>().AsTransient();
+            Container.Bind<IExercisePublisher>().To<InternalExercisePublisher>().AsTransient();
             Container.Bind<ApplicationManager>().AsSingle().NonLazy();
         }
     }

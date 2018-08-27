@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,11 +7,7 @@ namespace MainMenu
     {
         public static void Quit()
         {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-        Application.Quit ();
-#endif
+            Application.Quit();
         }
 
         public static void SwitchToChooseGame()

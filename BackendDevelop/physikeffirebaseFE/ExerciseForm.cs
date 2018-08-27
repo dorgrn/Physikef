@@ -18,7 +18,7 @@ namespace physikeffirebaseFE
             m_DAL = DAL;
             InitializeComponent();
 
-            var answers = m_Exercise.Answers.ToList();
+            var answers = m_Exercise.Choices.ToList();
 
             QuestionLabel.Text = m_Exercise.Question;
             answer1.Text = answers[0];
@@ -30,7 +30,7 @@ namespace physikeffirebaseFE
         private void CheckAnswerButton_Click(object sender, EventArgs e)
         {
             var selectedAnswer = AnswersBox.Controls.OfType<RadioButton>().First(r => r.Checked).Text;
-            bool isCorrect = selectedAnswer == m_Exercise.Answers.ToList()[m_Exercise.CorrectAnswerIndex];
+            bool isCorrect = selectedAnswer == m_Exercise.Choices.ToList()[m_Exercise.CorrectChoiceIndex];
             m_DAL.AddStudentExerciseResultAsync(m_LoggedInUser.userid, m_Exercise.Question, selectedAnswer, isCorrect);
 
             if (isCorrect)

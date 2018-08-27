@@ -9,6 +9,7 @@ namespace physikeffirebaseFE
     {
         private readonly IAuthenticationManager m_AuthManager;
         private readonly IDataAccessLayer m_Dal;
+
         public LoginForm(IAuthenticationManager AuthManager, IDataAccessLayer dal)
         {
             InitializeComponent();
@@ -37,7 +38,6 @@ namespace physikeffirebaseFE
             {
                 MessageBox.Show("Invalid login parameters");
             }
-
         }
 
         private void RegisterButton_Click(object sender, System.EventArgs e)
