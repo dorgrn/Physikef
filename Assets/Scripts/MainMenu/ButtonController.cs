@@ -19,7 +19,7 @@ namespace MainMenu
         enum SceneEnum
         {
             Back,
-            BallOnRamp,
+            CannonLaunch,
             Pendulum
         }
 
@@ -48,11 +48,11 @@ namespace MainMenu
                 case SceneEnum.Back:
                     SceneManager.LoadScene("MainMenu");
                     break;
-                case SceneEnum.BallOnRamp:
-                    SceneManager.LoadScene("BallOnRamp");
+                case SceneEnum.CannonLaunch:
+                    SceneManager.LoadScene("CannonLaunch");
                     break;
                 case SceneEnum.Pendulum:
-                    SceneManager.LoadScene("Penudulum");
+                    SceneManager.LoadScene("Pendulum");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

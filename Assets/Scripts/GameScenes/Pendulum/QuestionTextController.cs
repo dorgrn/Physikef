@@ -1,6 +1,5 @@
 ﻿using System;
 using Exercises;
-using Questions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,28 +10,28 @@ namespace GameScenes.Pendulum
 {
     public class QuestionTextController : MonoBehaviour
     {
-        [Inject] private IExercisePublisher m_exercisePublisher;
-        [SerializeField] private TextMeshProUGUI m_questionText;
-        [SerializeField] private Text[] m_choicesLabels;
+        [Inject] private IExercisePublisher m_ExercisePublisher;
+        [SerializeField] private TextMeshProUGUI m_QuestionText;
+        [SerializeField] private Text[] m_ChoicesLabels;
 
         void Start()
         {
-            Exercise exercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            Exercise exercise = m_ExercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
             initExercises(exercise);
         }
 
         private void initExercises(Exercise exercise)
         {
-            m_questionText.text = exercise.Body;
+            m_QuestionText.text = exercise.Body;
 
-            if (m_choicesLabels.Length != exercise.Choices.Count)
+            if (m_ChoicesLabels.Length != exercise.Choices.Count)
             {
                 throw new Exception("Question choices and actual text labels differ in size!");
             }
 
-            for (var i = 0; i < m_choicesLabels.Length; i++)
+            for (var i = 0; i < m_ChoicesLabels.Length; i++)
             {
-                m_choicesLabels[i].text = exercise.Choices[i];
+                m_ChoicesLabels[i].text = exercise.Choices[i];
             }
         }
     }

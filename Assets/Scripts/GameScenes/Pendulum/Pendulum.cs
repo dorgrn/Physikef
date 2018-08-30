@@ -234,5 +234,10 @@ namespace GameScenes.Pendulum
             Gizmos.DrawRay(this.Bob.transform.position, 3f * this.tangentDirection);
             Gizmos.DrawSphere(this.Bob.transform.position + 3f * this.tangentDirection, .2f);
         }
+
+        public float GetGoniometerRadius()
+        {
+            return Pivot.transform.position.x;
+        }
     }
 }
