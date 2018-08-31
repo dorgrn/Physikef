@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RegisterScreenScript : MonoBehaviour
@@ -21,11 +23,19 @@ public class RegisterScreenScript : MonoBehaviour
     public void RegisterButton_Click()
     {
         //TODO: validate input parameters
-        ServicesManager.GetAuthManager().Register(
-            EmailUIElement.text,
-            NameUIElement.text, 
-            PasswordUIElement.text,
-            IDUIElement.text,
-            TypeUIElement.options[TypeUIElement.value].text);
+        try
+        {
+            ServicesManager.GetAuthManager().Register(
+                EmailUIElement.text,
+                NameUIElement.text,
+                PasswordUIElement.text,
+                IDUIElement.text,
+                TypeUIElement.options[TypeUIElement.value].text);
+            SceneManager.LoadScene("LoginScreen");
+
+        } catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
     }
 }
