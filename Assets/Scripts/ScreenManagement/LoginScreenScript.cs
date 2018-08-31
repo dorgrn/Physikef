@@ -1,14 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Firebase.Auth;
 
 public class LoginScreenScript : MonoBehaviour
 {
+    private InputField EmailUIElement;
+    private InputField PasswordUIElement;
+
+    void Start()
+    {
+        EmailUIElement = GameObject.Find("EmailInput").GetComponent<InputField>();
+        PasswordUIElement = GameObject.Find("PasswordInput").GetComponent<InputField>();
+    }
+
     public void CreateNewAccount_Click()
     {
         //SceneManager.LoadScene("RegisterScreen");
-
-        var auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-        auth.CreateUserWithEmailAndPasswordAsync("alex@gmail.com", "123456").ContinueWith(task => {
+        var auth = FirebaseAuth.DefaultInstance;
+        auth.CreateUserWithEmailAndPasswordAsync(EmailUIElement.text, PasswordUIElement.text).ContinueWith(task => {
             if (task.IsCanceled)
             {
                 Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
@@ -21,7 +30,7 @@ public class LoginScreenScript : MonoBehaviour
             }
 
             // Firebase user has been created.
-            Firebase.Auth.FirebaseUser newUser = task.Result;
+            FirebaseUser newUser = task.Result;
             Debug.LogFormat("Firebase user created successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
         });
@@ -32,8 +41,8 @@ public class LoginScreenScript : MonoBehaviour
     public void LoginButton_Click()
     {
         Debug.Log("Trying to login.");
-        var auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-        auth.SignInWithEmailAndPasswordAsync("alex@gmail.com", "123456").ContinueWith(task => {
+        var auth = FirebaseAuth.DefaultInstance;
+        auth.SignInWithEmailAndPasswordAsync(EmailUIElement.text, PasswordUIElement.text).ContinueWith(task => {
             if (task.IsCanceled)
             {
                 Debug.Log("SignInWithEmailAndPasswordAsync was canceled.");
@@ -45,7 +54,7 @@ public class LoginScreenScript : MonoBehaviour
                 return;
             }
 
-            Firebase.Auth.FirebaseUser newUser = task.Result;
+            FirebaseUser newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
         });
