@@ -1,14 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
+using Firebase.Unity.Editor;
 using UnityEngine;
 
 public class AuthenticationManager : IAuthenticationManager
 {
+    private readonly DatabaseReference _databaseRef;
+    public AuthenticationManager()
+    {
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://physikef-18062.firebaseio.com/");
+        _databaseRef = FirebaseDatabase.DefaultInstance.RootReference;
+    }
+
     public async Task RegisterAsync(string email, string userDisplayName, string password,string userID, string userType)
     {
         var auth = FirebaseAuth.DefaultInstance;
-        await auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
+        await auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(async task => {
             if (task.IsCanceled)
             {
                 Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
@@ -25,22 +36,38 @@ public class AuthenticationManager : IAuthenticationManager
             Debug.LogFormat("Firebase user created successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
 
-            // Save extra details about the user in the database
-            /*
-            if (result.User != null)
+            if (newUser != null)
             {
                 var registeredUser = new User()
                 {
-                    displayname = result.User.DisplayName,
-                    email = result.User.Email,
+                    displayname = userDisplayName,
+                    email = email,
                     userid = userID,
                     usertype = userType
                 };
 
-                await m_FirebaseClient.Child("users").PostAsync(registeredUser);
+                await AddUserAsync(registeredUser);
             }
-            */
         });
+    }
+
+    private async Task AddUserAsync(User user)
+    {
+        var key = _databaseRef.Child("users").Push().Key;
+        Dictionary<string, object> userDetails = new Dictionary<string, object>()
+        {
+            {
+                key , new Dictionary<string, object>()
+                {
+                    { nameof(user.displayname), user.displayname},
+                    { nameof(user.email), user.email},
+                    { nameof(user.userid), user.userid},
+                    { nameof(user.usertype), user.usertype}
+                }
+            }
+        };
+
+        await _databaseRef.Child("users").UpdateChildrenAsync(userDetails);
     }
 
     public async Task LoginAsync(string email, string password)
@@ -119,10 +146,5 @@ public class AuthenticationManager : IAuthenticationManager
             Debug.LogFormat("User signed in successfully: {0} ({1})",
                 newUser.DisplayName, newUser.UserId);
         });
-    }
-
-    public async Task LogoutAsync()
-    {
-        throw new System.NotImplementedException();
     }
 }
