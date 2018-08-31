@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Firebase.Auth;
 using UnityEngine.SceneManagement;
 
 public class LoginScreenScript : MonoBehaviour
@@ -20,12 +19,12 @@ public class LoginScreenScript : MonoBehaviour
         SceneManager.LoadScene("RegisterScreen");
     }
 
-    public void LoginButton_Click()
+    public async void LoginButton_Click()
     {
         //TODO: add input validation checks
         try
         {
-            ServicesManager.GetAuthManager().Login(EmailUIElement.text, PasswordUIElement.text);
+             await ServicesManager.GetAuthManager().LoginAsync(EmailUIElement.text, PasswordUIElement.text);
             //TODO: move to next scene according to user type
         }
         catch (Exception e)
@@ -34,16 +33,21 @@ public class LoginScreenScript : MonoBehaviour
         }
     }
 
-    public void SkipButton_Click()
+    public async void SkipButton_Click()
     {
         try
         {
-            ServicesManager.GetAuthManager().AnonymousLogin();
+            await ServicesManager.GetAuthManager().AnonymousLoginAsync();
             SceneManager.LoadScene("AnonymousOptionsScreen");
         }
         catch (Exception e)
         {
             Debug.Log(e.Message);
         }
+    }
+
+    public void ForgotPasswordButton_Click()
+    {
+        SceneManager.LoadScene("ForgotPasswordScreen");
     }
 }

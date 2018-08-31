@@ -1,8 +1,10 @@
-﻿public interface IAuthenticationManager
+﻿using System.Threading.Tasks;
+
+public interface IAuthenticationManager
 {
-    void Register(string email, string userDisplayName, string password,string userID, string userType);
-    void Login(string email, string password);
-    void AnonymousLogin();
-    void Logout();
-    void ResetPassword(string email);
+    Task RegisterAsync(string email, string userDisplayName, string password,string userID, string userType);
+    Task LoginAsync(string email, string password);
+    Task AnonymousLoginAsync();
+    Task LogoutAsync();
+    Task ResetPasswordAsync(string email);
 }

@@ -20,12 +20,12 @@ public class RegisterScreenScript : MonoBehaviour
         TypeUIElement = GameObject.Find("TypeDropdown").GetComponent<Dropdown>();
     }
 
-    public void RegisterButton_Click()
+    public async void RegisterButton_Click()
     {
         //TODO: validate input parameters
         try
         {
-            ServicesManager.GetAuthManager().Register(
+            await ServicesManager.GetAuthManager().RegisterAsync(
                 EmailUIElement.text,
                 NameUIElement.text,
                 PasswordUIElement.text,
