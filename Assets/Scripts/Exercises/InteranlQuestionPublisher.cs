@@ -18,8 +18,8 @@ namespace Questions
                 new Exercise("Where will the ball reach?", new List<string> {"20m", "50m", "100m"}, "20m"));
             sceneQuestions.Add("Pendulum",
                 new Exercise(
-                    "Given the length of the rope L=150cm and the gravity is 9.8m/s^2 what would be the oscillation period in seconds?",
-                    new List<string> {"1.2", "1.6", "5.2", "5.7"}, "1.6"));
+                    "Given the length of the rope L=2m and the gravity is 9.8m/s^2 what would be the oscillation period in seconds?",
+                    new List<string> {"2.8", "1.6", "5.2", "5.7"}, "2.8"));
         }
 
 
