@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -24,8 +25,7 @@ public class LoginScreenScript : MonoBehaviour
         //TODO: add input validation checks
         try
         {
-             await ServicesManager.GetAuthManager().LoginAsync(EmailUIElement.text, PasswordUIElement.text);
-            //TODO: move to next scene according to user type
+            await ServicesManager.GetAuthManager().LoginAsync(EmailUIElement.text, PasswordUIElement.text);
         }
         catch (Exception e)
         {

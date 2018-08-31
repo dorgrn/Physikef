@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public interface IDataAccessLayer
 {
@@ -8,4 +9,5 @@ public interface IDataAccessLayer
     IEnumerable<Exercise> GetExercises(string sceneName);
     void AddStudentExerciseResult(string answeringStudentId, string question, string studentAnswer, bool isCorrect);
     IEnumerable<StudentExerciseResult> GetStudentStatistics(string studentId);
+    Task AddUserAsync(User registeredUser);
 }

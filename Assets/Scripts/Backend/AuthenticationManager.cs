@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Firebase;
 using Firebase.Auth;
@@ -9,13 +10,6 @@ using UnityEngine;
 
 public class AuthenticationManager : IAuthenticationManager
 {
-    private readonly DatabaseReference _databaseRef;
-    public AuthenticationManager()
-    {
-        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://physikef-18062.firebaseio.com/");
-        _databaseRef = FirebaseDatabase.DefaultInstance.RootReference;
-    }
-
     public async Task RegisterAsync(string email, string userDisplayName, string password,string userID, string userType)
     {
         var auth = FirebaseAuth.DefaultInstance;
@@ -46,29 +40,12 @@ public class AuthenticationManager : IAuthenticationManager
                     usertype = userType
                 };
 
-                await AddUserAsync(registeredUser);
+                await ServicesManager.GetDataAccessLayer().AddUserAsync(registeredUser);
             }
         });
     }
 
-    private async Task AddUserAsync(User user)
-    {
-        var key = _databaseRef.Child("users").Push().Key;
-        Dictionary<string, object> userDetails = new Dictionary<string, object>()
-        {
-            {
-                key , new Dictionary<string, object>()
-                {
-                    { nameof(user.displayname), user.displayname},
-                    { nameof(user.email), user.email},
-                    { nameof(user.userid), user.userid},
-                    { nameof(user.usertype), user.usertype}
-                }
-            }
-        };
-
-        await _databaseRef.Child("users").UpdateChildrenAsync(userDetails);
-    }
+    
 
     public async Task LoginAsync(string email, string password)
     {
