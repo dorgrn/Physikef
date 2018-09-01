@@ -18,7 +18,7 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
     {
         var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
-        return (IEnumerable<HomeWork>)allHomeworks.Where(hw => ((HomeWork)hw).Students.Contains(userID));      
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userID));      
     }
 
     public async Task AddHomeworkAsync(HomeWork newHomework)
@@ -29,7 +29,7 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName)
     {
         var allExercises = await GetDataFromFirebaseDBAsync("exercise");
-        return (IEnumerable<Exercise>)allExercises.Where(exe => ((Exercise)exe).SceneName == sceneName);
+        return allExercises.Cast<Exercise>().Where(exe => exe.SceneName == sceneName);
     }
 
     public async Task AddExerciseAsync(Exercise newExercise)
@@ -45,7 +45,7 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<IEnumerable<StudentExerciseResult>> GetStudentStatisticsAsync(string studentId)
     {
         var allStudentStatistics = await GetDataFromFirebaseDBAsync("statistics");
-        return (IEnumerable<StudentExerciseResult>)allStudentStatistics.Where(result => ((StudentExerciseResult)result).AnsweringStudentId == studentId);
+        return allStudentStatistics.Cast<StudentExerciseResult>().Where(result => result.AnsweringStudentId == studentId);
     }
 
     public async Task AddUserAsync(User newUser)
