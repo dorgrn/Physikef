@@ -9,12 +9,12 @@ public class StatisticsSummaryGenerator
 
         foreach (var result in studentStatistics)
         {
-            if (result.IsCorrect)
+            if (result.isCorrect)
             {
                 correctAnswersCount++;
             }
         }
 
-        return string.Format("correct answers: {0} / {1}", correctAnswersCount, studentStatistics.Count());
+        return $"correct answers: {correctAnswersCount} / {studentStatistics.Count()}";
     }
 }

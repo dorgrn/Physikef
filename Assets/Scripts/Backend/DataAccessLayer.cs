@@ -56,7 +56,7 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<User> GetUserAsync(string userEmail)
     {
         var allUsers = await GetDataFromFirebaseDBAsync("users");
-        return (User) allUsers.First(user => ((User) user).email == userEmail);
+        return allUsers.Cast<User>().First(user => user.email == userEmail);
     }
 
     private async Task AddDataToFirebaseDBAsync(IFirebaseConvertable dataObject)

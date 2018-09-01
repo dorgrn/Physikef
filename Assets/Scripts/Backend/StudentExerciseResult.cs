@@ -5,14 +5,14 @@ public class StudentExerciseResult: IFirebaseConvertable
     public string AnsweringStudentId { get; set; }
     public string Question { get; set; }
     public string StudentAnswer { get; set; }
-    public bool IsCorrect { get; set; }
+    public bool isCorrect { get; set; }
 
     public void FromDictionary(IDictionary<string, object> data)
     {
         AnsweringStudentId = (string)data[nameof(AnsweringStudentId)];
         Question = (string)data[nameof(Question)];
         StudentAnswer = (string)data[nameof(StudentAnswer)];
-        IsCorrect = (bool)data[nameof(IsCorrect)];
+        isCorrect = (bool)data[nameof(isCorrect)];
     }
 
     public string GetTableName()
@@ -27,13 +27,13 @@ public class StudentExerciseResult: IFirebaseConvertable
             {nameof(AnsweringStudentId), AnsweringStudentId},
             {nameof(Question), Question},
             {nameof(StudentAnswer), StudentAnswer},
-            {nameof(IsCorrect), IsCorrect}
+            {nameof(isCorrect), isCorrect}
         };
     }
 
     public override string ToString()
     {
         return "Student ID: " + AnsweringStudentId + "\n, Question: " + Question
-                + ",\n Student Answer: " + StudentAnswer + ",\n which is " + (IsCorrect ? "Correct" : "Wrong");
+                + ",\n Student Answer: " + StudentAnswer + ",\n which is " + (isCorrect ? "Correct" : "Wrong");
     }
 }
