@@ -10,4 +10,5 @@ public interface IDataAccessLayer
     void AddStudentExerciseResult(string answeringStudentId, string question, string studentAnswer, bool isCorrect);
     IEnumerable<StudentExerciseResult> GetStudentStatistics(string studentId);
     Task AddUserAsync(User registeredUser);
+    Task<User> GetUserAsync(string userEmail);
 }

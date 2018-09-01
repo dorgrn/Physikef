@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Firebase;
 using Firebase.Auth;
-using Firebase.Database;
-using Firebase.Unity.Editor;
 using UnityEngine;
 
 public class AuthenticationManager : IAuthenticationManager
@@ -27,8 +22,6 @@ public class AuthenticationManager : IAuthenticationManager
 
             // Firebase user has been created.
             FirebaseUser newUser = task.Result;
-            Debug.LogFormat("Firebase user created successfully: {0} ({1})",
-                newUser.DisplayName, newUser.UserId);
 
             if (newUser != null)
             {
@@ -41,17 +34,17 @@ public class AuthenticationManager : IAuthenticationManager
                 };
 
                 await ServicesManager.GetDataAccessLayer().AddUserAsync(registeredUser);
+                Debug.LogFormat("Firebase user created successfully: {0} ({1})",
+                    newUser.DisplayName, newUser.UserId);
             }
         });
     }
 
-    
-
-    public async Task LoginAsync(string email, string password)
+    public async Task<LoginResult> LoginAsync(string email, string password)
     {
         Debug.Log("Trying to login with email and password.");
         var auth = FirebaseAuth.DefaultInstance;
-        await auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
+        var resultTask = await auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(async task => {
             if (task.IsCanceled)
             {
                 Debug.Log("SignInWithEmailAndPasswordAsync was canceled.");
@@ -64,23 +57,28 @@ public class AuthenticationManager : IAuthenticationManager
             }
 
             FirebaseUser newUser = task.Result;
-            Debug.LogFormat("User signed in successfully: {0} ({1})",
-                newUser.DisplayName, newUser.UserId);
 
-            // get extra information about the user from the db and return it
-            /*
-            if (result.User != null)
+            // get extra info about user
+            if (newUser != null)
             {
-                var allUsers = await m_FirebaseClient.Child("users").OnceAsync<User>();
+                var loggedInUser = await ServicesManager.GetDataAccessLayer().GetUserAsync(email);
+                Debug.LogFormat("User signed in successfully: {0} ({1})",
+                    newUser.DisplayName, newUser.UserId);
 
                 return new LoginResult()
                 {
                     IsLoggedIn = true,
-                    LoggedInUser = allUsers.First(user => user.Object.email == email).Object
+                    LoggedInUser = loggedInUser,
                 };
             }
-            */
+
+            return new LoginResult()
+            {
+                IsLoggedIn = false,
+            };
         });
+
+        return await resultTask;
     }
 
     public async Task ResetPasswordAsync(string email)

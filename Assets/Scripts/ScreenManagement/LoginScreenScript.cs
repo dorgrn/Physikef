@@ -25,7 +25,22 @@ public class LoginScreenScript : MonoBehaviour
         //TODO: add input validation checks
         try
         {
-            await ServicesManager.GetAuthManager().LoginAsync(EmailUIElement.text, PasswordUIElement.text);
+            var loginResult = await ServicesManager.GetAuthManager().LoginAsync(EmailUIElement.text, PasswordUIElement.text);
+
+            if (loginResult.IsLoggedIn)
+            {
+                if (loginResult.LoggedInUser.usertype == "Teacher")
+                {
+                    Debug.Log("Teacher options");
+                    SceneManager.LoadScene("TeacherOptionsScreen");
+                }
+                else
+                {
+                    Debug.Log("Student options");
+                    SceneManager.LoadScene("StudentOptionsScreen");
+                }
+            }
+
         }
         catch (Exception e)
         {

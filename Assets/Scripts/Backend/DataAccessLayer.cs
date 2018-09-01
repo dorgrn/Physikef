@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Firebase;
 using Firebase.Database;
@@ -89,9 +90,15 @@ public class DataAccessLayer : IDataAccessLayer
         throw new System.NotImplementedException();
     }
 
-    public async Task AddUserAsync(User registeredUser)
+    public async Task AddUserAsync(User newUser)
     {
-        await AddDataToFirebaseDBAsync(registeredUser);
+        await AddDataToFirebaseDBAsync(newUser);
+    }
+
+    public async Task<User> GetUserAsync(string userEmail)
+    {
+        var allUsers = await GetDataFromFirebaseDBAsync("users");
+        return (User) allUsers.First(user => ((User) user).email == userEmail);
     }
 
     private async Task AddDataToFirebaseDBAsync(IFirebaseConvertable dataObject)
