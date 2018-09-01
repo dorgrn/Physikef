@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Exercises;
 
+
 namespace Questions
 {
     public class InternalExercisePublisher : IExercisePublisher
@@ -15,11 +16,12 @@ namespace Questions
         private void addInitalQuestions()
         {
             sceneQuestions.Add("BallOnRamp",
-                new Exercise("Where will the ball reach?", new List<string> {"20m", "50m", "100m"}, "20m"));
+                new Exercise(){ Question = "Where will the ball reach?", Answers = new List<string> {"20m", "50m", "100m"}, CorrectAnswerIndex = 0, SceneName = "BallOnRamp" });
             sceneQuestions.Add("Pendulum",
-                new Exercise(
-                    "Given the length of the rope L=150cm and the gravity is 9.8m/s^2 what would be the oscillation period in seconds?",
-                    new List<string> {"1.2", "1.6", "5.2", "5.7"}, "1.6"));
+                new Exercise() {
+                    Question = "Given the length of the rope L=150cm and the gravity is 9.8m/s^2 what would be the oscillation period in seconds?",
+                    Answers = new List<string> {"1.2", "1.6", "5.2", "5.7"}, CorrectAnswerIndex = 1, SceneName = "Pendulum"
+                });
         }
 
 

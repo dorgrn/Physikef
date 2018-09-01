@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Vuforia;
+//using Vuforia;
 
 namespace GameScenes.Pendulum
 {

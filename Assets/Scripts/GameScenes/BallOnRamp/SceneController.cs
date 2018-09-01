@@ -1,3 +1,4 @@
+using System.Linq;
 using Attributes;
 using Exercises;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace GameScenes.BallOnRamp
 
         public void SubmitAnswer(string answer)
         {
-            if (m_sceneExercise.Answer.Equals(answer))
+            if (m_sceneExercise.Answers.ToList()[m_sceneExercise.CorrectAnswerIndex].Equals(answer))
             {
                 Debug.Log("Correct!");
                 // TODO: answer correct

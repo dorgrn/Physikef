@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Exercises;
 using Questions;
 using UnityEngine;
@@ -21,13 +22,13 @@ public class QuestionController : MonoBehaviour
     void Start()
     {
         // set question body in scene
-        questionText.text = m_sceneExercise.Body;
+        questionText.text = m_sceneExercise.Question;
 
         // set question answers in scene
         for (var i = 0; i < choices.Count; i++)
         {
             var textContainer = choices[i].GetComponent<Text>();
-            textContainer.text = m_sceneExercise.Choices[i];
+            textContainer.text = m_sceneExercise.Answers.ToList()[i];
         }
     }
 }

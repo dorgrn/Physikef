@@ -36,7 +36,7 @@ namespace GameScenes.Pendulum
         public void SubmitAnswer(string answer)
         {
             bool correctAnswer = m_applicationManager.isHardCodedAnswers
-                ? m_exercise.Answer.Equals(answer)
+                ? m_exercise.Answers.ToList()[m_exercise.CorrectAnswerIndex].Equals(answer)
                 : calculateAnswer(answer);
 
             Debug.Log("Submitting answer:" + answer);
@@ -68,7 +68,7 @@ namespace GameScenes.Pendulum
         {
             Debug.Log("Submitting answer: " + answer);
             float answerFloat = float.Parse(answer);
-            List<float> choicesFloat = m_exercise.Choices.Select(choice => float.Parse(choice)).ToList();
+            List<float> choicesFloat = m_exercise.Answers.Select(choice => float.Parse(choice)).ToList();
 
             float actual = MathEquations.FindClosestToAnswer(choicesFloat, answerFloat);
 
