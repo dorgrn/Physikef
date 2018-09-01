@@ -15,79 +15,37 @@ public class DataAccessLayer : IDataAccessLayer
         _databaseRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public IEnumerable<HomeWork> GetHomeWork(string userID)
+    public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
     {
-        /*
-        var allHomeworks =  m_FirebaseClient.Child("homework").OnceAsync<HomeWork>();
-
-        return allHomeworks.Where(hw => hw.Object.Students.Contains(userID)).Select(hw => hw.Object);
-        */
-        throw new System.NotImplementedException();
+        var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
+        return (IEnumerable<HomeWork>)allHomeworks.Where(hw => ((HomeWork)hw).Students.Contains(userID));      
     }
 
-    public void AddHomework(string creator,string name, string sceneName, IEnumerable<string> studentIDs)
+    public async Task AddHomeworkAsync(HomeWork newHomework)
     {
-        /*
-        var homework = new HomeWork()
-        {
-            CreatorName = creator,
-            Name = name,
-            SceneName = sceneName,
-            Students = studentIDs
-        };
-
-        await m_FirebaseClient.Child("homework").PostAsync(homework);
-        */
+        await AddDataToFirebaseDBAsync(newHomework);
     }
 
-    public IEnumerable<Exercise> GetExercises(string sceneName)
+    public async Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName)
     {
-        /*
-        var allExercises = await m_FirebaseClient.Child("exercise").OnceAsync<Exercise>();
-
-        return allExercises.Where(exe => exe.Object.SceneName == sceneName).Select(exe => exe.Object);
-        */
-        throw new System.NotImplementedException();
+        var allExercises = await GetDataFromFirebaseDBAsync("exercise");
+        return (IEnumerable<Exercise>)allExercises.Where(exe => ((Exercise)exe).SceneName == sceneName);
     }
 
-    public void AddExercise(string sceneName, string question, IEnumerable<string> answers, int correctAnswerIndex)
+    public async Task AddExerciseAsync(Exercise newExercise)
     {
-        /*
-        var exercise = new Exercise()
-        {
-            SceneName = sceneName,
-            Question = question,
-            Answers = answers,
-            CorrectAnswerIndex = correctAnswerIndex
-        };
-
-        await m_FirebaseClient.Child("exercise").PostAsync(exercise);
-        */
+        await AddDataToFirebaseDBAsync(newExercise);
     }
 
-    public void AddStudentExerciseResult(string answeringStudentId, string question, string studentAnswer, bool isCorrect)
+    public async Task AddStudentExerciseResultAsync(StudentExerciseResult newExerciseResult)
     {
-        /*
-        var studentExerciseResult = new StudentExerciseResult()
-        {
-            AnsweringStudentId = answeringStudentId,
-            Question = question,
-            StudentAnswer = studentAnswer,
-            isCorrect = isCorrect
-        };
-
-        await m_FirebaseClient.Child("statistics").PostAsync(studentExerciseResult);
-        */
+        await AddDataToFirebaseDBAsync(newExerciseResult);
     }
 
-    public IEnumerable<StudentExerciseResult> GetStudentStatistics(string studentId)
+    public async Task<IEnumerable<StudentExerciseResult>> GetStudentStatisticsAsync(string studentId)
     {
-        /*
-        var allStudentStatistics = await m_FirebaseClient.Child("statistics").OnceAsync<StudentExerciseResult>();
-
-        return allStudentStatistics.Where(result => result.Object.AnsweringStudentId == studentId).Select(result => result.Object);
-        */
-        throw new System.NotImplementedException();
+        var allStudentStatistics = await GetDataFromFirebaseDBAsync("statistics");
+        return (IEnumerable<StudentExerciseResult>)allStudentStatistics.Where(result => ((StudentExerciseResult)result).AnsweringStudentId == studentId);
     }
 
     public async Task AddUserAsync(User newUser)
@@ -138,6 +96,21 @@ public class DataAccessLayer : IDataAccessLayer
         if (tableName == new User().GetTableName())
         {
             return new User();
+        }
+
+        if (tableName == new HomeWork().GetTableName())
+        {
+            return new HomeWork();
+        }
+
+        if (tableName == new Exercise().GetTableName())
+        {
+            return new Exercise();
+        }
+
+        if (tableName == new StudentExerciseResult().GetTableName())
+        {
+            return new StudentExerciseResult();
         }
 
         throw new NotSupportedException();

@@ -9,7 +9,7 @@ public class StatisticsSummaryGenerator
 
         foreach (var result in studentStatistics)
         {
-            if (result.isCorrect)
+            if (result.IsCorrect)
             {
                 correctAnswersCount++;
             }
