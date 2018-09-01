@@ -14,15 +14,10 @@ namespace physikeffirebaseFE
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            FirebaseClient client = new FirebaseClientFactory().CreateClient();
-            FirebaseAuthProvider provider = new ProvidersFactory().CreateAuthProvider();
-            AuthenticationManager authManager = new AuthenticationManager(client, provider);
-            DataAccessLayer dal = new DataAccessLayer(client);
-
+        {            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm(authManager, dal));
+            Application.Run(new LoginForm());
         }
     }
 }

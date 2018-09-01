@@ -9,12 +9,11 @@ namespace physikeffirebaseFE
     {
         private readonly IAuthenticationManager m_AuthManager;
         private readonly IDataAccessLayer m_Dal;
-
-        public LoginForm(IAuthenticationManager AuthManager, IDataAccessLayer dal)
+        public LoginForm()
         {
             InitializeComponent();
-            m_AuthManager = AuthManager;
-            m_Dal = dal;
+            m_AuthManager = ServicesManager.GetAuthManager();
+            m_Dal = ServicesManager.GetDataAccessLayer();
         }
 
         private async void LoginButton_Click(object sender, System.EventArgs e)

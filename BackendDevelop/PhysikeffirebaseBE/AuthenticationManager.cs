@@ -12,10 +12,10 @@ namespace PhysikeffirebaseBE
         private readonly FirebaseClient m_FirebaseClient;
         private readonly FirebaseAuthProvider m_FirebaseProvider;
 
-        public AuthenticationManager(FirebaseClient client, FirebaseAuthProvider provider)
+        public AuthenticationManager()
         {
-            m_FirebaseClient = client;
-            m_FirebaseProvider = provider;
+            m_FirebaseClient = new FirebaseClientFactory().CreateClient();
+            m_FirebaseProvider = new ProvidersFactory().CreateAuthProvider();
         }
 
         public async Task<bool> RegisterAsync(string email, string userDisplayName, string password,string userID, string userType)

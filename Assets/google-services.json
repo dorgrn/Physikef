@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "142002878114",
+    "firebase_url": "https://physikef-18062.firebaseio.com",
+    "project_id": "physikef-18062",
+    "storage_bucket": "physikef-18062.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142002878114:android:1100b18de3e52be7",
+        "android_client_info": {
+          "package_name": "com.physikef.physikefApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142002878114-qac7m4ck30d43j2j1scacb03gi8pdpph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArZxIZGBN6yEXs2sauFRr11GmRpnlwmJw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
