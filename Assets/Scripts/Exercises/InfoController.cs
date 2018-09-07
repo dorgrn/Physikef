@@ -1,30 +1,32 @@
 using System.Collections.Generic;
 using System.Text;
 using Attributes;
+using Exercises;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 public class InfoController : MonoBehaviour
 {
-    [Inject] private ApplicationManager appManager;
-    private AttributContainer attributContainer;
-    [SerializeField] private Text infoText;
+    [Inject] private ApplicationManager m_AppManager;
+    [Inject] private IExercisePublisher m_ExercisePublisher;
+    [SerializeField] private Text m_InfoText;
+
+    private List<Attribute> m_Attributes;
 
     void Awake()
     {
-        attributContainer = appManager.GetAttributeContainer();
+        m_Attributes =
+            m_ExercisePublisher.GetAttributesForExercise(m_AppManager.ChosenScene, m_AppManager.ChosenExercise);
     }
 
     void Start()
     {
-        List<Attribute> attributes = attributContainer.GetAllAttributes();
-
         StringBuilder text = new StringBuilder();
-        attributes.ForEach(
+        m_Attributes.ForEach(
             attribute => text.AppendFormat("{0}: {1}{2}\n", attribute.Name, attribute.Value, attribute.Unit)
         );
 
-        infoText.text = text.ToString();
+        m_InfoText.text = text.ToString();
     }
 }

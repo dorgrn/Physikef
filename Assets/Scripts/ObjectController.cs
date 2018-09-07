@@ -1,4 +1,5 @@
 using System.Xml;
+using Exercises;
 using UnityEngine;
 using Zenject;
 
@@ -6,10 +7,12 @@ namespace Attributes
 {
     public class ObjectController : MonoBehaviour
     {
-        [Inject] private ApplicationManager applicationManager;
-        private AttributContainer attributContainer;
+        [Inject] private ApplicationManager m_ApplicationManager;
+        [Inject] private IExercisePublisher m_ExercisePublisher;
         [SerializeField] private int delta = 1;
-        private AttributContainer.AttributeEnum attribute;
+        [SerializeField] private string attributeName;
+
+        private Attribute m_ActualAttribute;
         private Renderer renderer;
         private readonly Color gazedAtColor = Color.cyan;
         private readonly Color notGzedAtColor = Color.white;
@@ -18,9 +21,8 @@ namespace Attributes
 
         private void Start()
         {
-            attributContainer = applicationManager.GetAttributeContainer();
-            var parentScript = GetComponentInParent<AttributeEnumInstance>();
-            attribute = parentScript.AttributeEnum;
+            m_ActualAttribute = m_ExercisePublisher.GetExercisesForScene(m_ApplicationManager.ChosenScene)
+                .Find(e => e.Name.Equals(attributeName)).Attributes.Find(a => a.Name.Equals(attributeName));
             renderer = GetComponent<Renderer>();
             SetGazedAt(false);
             InvokeRepeating("updateAttribute", 0f, 1f); // update attribute every 1 second
@@ -36,8 +38,8 @@ namespace Attributes
         private void updateAttribute()
         {
             if (!gazedAt) return;
-            attributContainer.ChangeAttribute(attribute, delta);
-            Debug.Log("changing value of " + attribute + " with: " + delta);
+            m_ActualAttribute.Value += delta;
+            Debug.Log("changing value of " + attributeName + " with: " + delta);
         }
     }
 }

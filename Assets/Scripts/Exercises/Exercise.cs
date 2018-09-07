@@ -1,33 +1,27 @@
 using System.Collections.Generic;
+using Attributes;
 
 namespace Exercises
 {
     public class Exercise
     {
-        private string body;
-        private List<string> choices;
-        private string answer;
+        public string Name { get; private set; }
 
-        public string Body
-        {
-            get { return body; }
-        }
+        public List<Attribute> Attributes { get; private set; }
 
-        public List<string> Choices
-        {
-            get { return choices; }
-        }
+        public string Body { get; private set; }
 
-        public string Answer
-        {
-            get { return answer; }
-        }
+        public List<string> Choices { get; private set; }
 
-        public Exercise(string body, List<string> choices, string answer)
+        public string Answer { get; private set; }
+
+        public Exercise(string name, string body, List<string> choices, string answer, List<Attribute> attributes)
         {
-            this.body = body;
-            this.choices = choices;
-            this.answer = answer;
+            Name = name;
+            Body = body;
+            Choices = choices;
+            Answer = answer;
+            Attributes = attributes;
         }
     }
 }

@@ -2,11 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace MainMenu
 {
     public class ButtonController : MonoBehaviour
     {
+        [Inject] private ApplicationManager m_ApplicationManager;
         private bool m_gazedAt = false;
         private float m_progressBits;
         private float m_elapsedTime = 0f;
@@ -46,17 +48,25 @@ namespace MainMenu
             switch (sceneEnum)
             {
                 case SceneEnum.Back:
-                    SceneManager.LoadScene("MainMenu");
+                    loadScene("MainMenu");
                     break;
                 case SceneEnum.CannonLaunch:
-                    SceneManager.LoadScene("CannonLaunch");
+                    loadScene("CannonLaunch");
                     break;
                 case SceneEnum.Pendulum:
-                    SceneManager.LoadScene("Pendulum");
+                    loadScene("Pendulum");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void loadScene(string sceneName)
+        {
+            // temporarily scene name = exercise name
+            m_ApplicationManager.ChosenScene = sceneName;
+            m_ApplicationManager.ChosenExercise = sceneName;
+            SceneManager.LoadScene(sceneName);
         }
 
         // Update is called once per frame

@@ -8,24 +8,23 @@ namespace GameScenes.BallOnRamp
 {
     public class SceneController : MonoBehaviour
     {
-        [Inject] private ApplicationManager applicationManager;
-        private SceneAttributes sceneAttributes = new SceneAttributes();
-        private AttributContainer attributContainer;
+        [Inject] private ApplicationManager m_ApplicationManager;
+        private SceneAttributes m_SceneAttributes = new SceneAttributes();
 
         // questions
-        [Inject] private IExercisePublisher m_exercisePublisher; // question supplier
-        private Exercise m_sceneExercise; // current scene questions
+        [Inject] private IExercisePublisher m_ExercisePublisher; // question supplier
+        private Exercise m_SceneExercise; // current scene questions
 
 
-        [SerializeField] private GameObject target;
-        [SerializeField] private GameObject questionUI;
+        [SerializeField] private GameObject m_Target;
+        [SerializeField] private GameObject m_QuestionUi;
 
-        private Vector3 physicsNormal = new Vector3(0f, -9.8f, 0f);
+        private readonly Vector3 m_PhysicsNormal = new Vector3(0f, -9.8f, 0f);
 
         void Awake()
         {
-            m_sceneExercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
-            attributContainer = applicationManager.GetAttributeContainer();
+            m_SceneExercise = m_ExercisePublisher.GetExercisesForScene(SceneManager.GetActiveScene().name)[0];
+//            m_AttributContainer = m_ApplicationManager.GetAttributeContainer();
         }
 
         void Start()
@@ -38,7 +37,7 @@ namespace GameScenes.BallOnRamp
 
         public void SubmitAnswer(string answer)
         {
-            if (m_sceneExercise.Answer.Equals(answer))
+            if (m_SceneExercise.Answer.Equals(answer))
             {
                 Debug.Log("Correct!");
                 // TODO: answer correct
@@ -49,46 +48,46 @@ namespace GameScenes.BallOnRamp
                 // TODO: answer not correct
             }
 
-            questionUI.SetActive(false);
+            m_QuestionUi.SetActive(false);
             initComponents();
         }
 
 
         void initComponents()
         {
-            Vector3 currentPostion = target.transform.position;
-            Rigidbody rb = target.GetComponent<Rigidbody>();
+            Vector3 currentPostion = m_Target.transform.position;
+            Rigidbody rb = m_Target.GetComponent<Rigidbody>();
             Transform rampTransform = GetRamp().transform;
 
             // set height
-            target.transform.position = currentPostion +
-                                        new Vector3(0, sceneAttributes.Height.Value, 0);
+            m_Target.transform.position = currentPostion +
+                                        new Vector3(0, m_SceneAttributes.Height.Value, 0);
 
             // set mass
-            rb.mass = rb.mass * sceneAttributes.MassMult.Value;
+            rb.mass = rb.mass * m_SceneAttributes.MassMult.Value;
 
             // set Gravity
-            Physics.gravity = physicsNormal; //* sceneAttributes.Gravity.Value;
+            Physics.gravity = m_PhysicsNormal; //* sceneAttributes.Gravity.Value;
 
             // set drag
-            rb.drag = sceneAttributes.DragMult.Value;
+            rb.drag = m_SceneAttributes.DragMult.Value;
         }
 
 
         void initAttributes()
         {
-            sceneAttributes.Gravity = attributContainer.GetAttributeFromEnum(AttributContainer.AttributeEnum.Gravity);
-            sceneAttributes.Height = attributContainer.GetAttributeFromEnum(AttributContainer.AttributeEnum.Height);
-            sceneAttributes.DragMult = attributContainer.GetAttributeFromEnum(AttributContainer.AttributeEnum.Friction);
-            sceneAttributes.Velocity = attributContainer.GetAttributeFromEnum(AttributContainer.AttributeEnum.Velocity);
-            sceneAttributes.AngularDragMult =
-                attributContainer.GetAttributeFromEnum(AttributContainer.AttributeEnum.angularDragMult);
-            sceneAttributes.MassMult = attributContainer.GetAttributeFromEnum(AttributContainer.AttributeEnum.Mass);
+//            m_SceneAttributes.Gravity = m_AttributContainer.GetAttributeFromEnum(AttributeContainer.AttributeEnum.Gravity);
+//            m_SceneAttributes.Height = m_AttributContainer.GetAttributeFromEnum(AttributeContainer.AttributeEnum.Height);
+//            m_SceneAttributes.DragMult = m_AttributContainer.GetAttributeFromEnum(AttributeContainer.AttributeEnum.Friction);
+//            m_SceneAttributes.Velocity = m_AttributContainer.GetAttributeFromEnum(AttributeContainer.AttributeEnum.Velocity);
+//            m_SceneAttributes.AngularDragMult =
+//                m_AttributContainer.GetAttributeFromEnum(AttributeContainer.AttributeEnum.angularDragMult);
+//            m_SceneAttributes.MassMult = m_AttributContainer.GetAttributeFromEnum(AttributeContainer.AttributeEnum.Mass);
         }
 
         public SceneAttributes GetSceneAttributes()
         {
-            return sceneAttributes;
+            return m_SceneAttributes;
         }
 
         public static GameObject GetRamp()

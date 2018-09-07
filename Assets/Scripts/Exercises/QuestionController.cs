@@ -1,33 +1,36 @@
 using System.Collections.Generic;
 using Exercises;
-using Questions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
-public class QuestionController : MonoBehaviour
+namespace Exercises
 {
-    [Inject] private IExercisePublisher m_exercisePublisher;
-    [SerializeField] private Text questionText;
-    [SerializeField] private List<Text> choices;
-    private Exercise m_sceneExercise;
-
-    private void Awake()
+    public class QuestionController : MonoBehaviour
     {
-        m_sceneExercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
-    }
+        [Inject] private IExercisePublisher m_ExercisePublisher;
+        [SerializeField] private Text m_QuestionText;
+        [SerializeField] private List<Text> m_Choices;
+        private Exercise m_SceneExercise;
 
-    void Start()
-    {
-        // set question body in scene
-        questionText.text = m_sceneExercise.Body;
-
-        // set question answers in scene
-        for (var i = 0; i < choices.Count; i++)
+        private void Awake()
         {
-            var textContainer = choices[i].GetComponent<Text>();
-            textContainer.text = m_sceneExercise.Choices[i];
+            // TODO: temp assumption
+            m_SceneExercise = m_ExercisePublisher.GetExercisesForScene(SceneManager.GetActiveScene().name)[0];
+        }
+
+        void Start()
+        {
+            // set question body in scene
+            m_QuestionText.text = m_SceneExercise.Body;
+
+            // set question answers in scene
+            for (var i = 0; i < m_Choices.Count; i++)
+            {
+                var textContainer = m_Choices[i].GetComponent<Text>();
+                textContainer.text = m_SceneExercise.Choices[i];
+            }
         }
     }
 }

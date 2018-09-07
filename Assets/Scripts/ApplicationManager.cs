@@ -1,34 +1,18 @@
-using Attributes;
 using UnityEngine;
 
 public class ApplicationManager
 {
-    private readonly AttributContainer attributeContainer;
-    private bool m_hardCodedAnswers = true;
+    public string ChosenScene { get; set; }
+    public string ChosenExercise { get; set; }
+    public bool IsHardCodedAnswers { get; private set; }
 
-    public bool isHardCodedAnswers
+    protected ApplicationManager(bool isHardCodedAnswers = true)
     {
-        get { return m_hardCodedAnswers; }
+        IsHardCodedAnswers = isHardCodedAnswers;
     }
-
-    protected ApplicationManager()
-    {
-        attributeContainer = new AttributContainer();
-    }
-
 
     public static void Quit()
     {
-        //#if UNITY_EDITOR
-        //        EditorApplication.isPlaying = false;
-        //#else
-        //		Application.Quit();
-        //		#endif
         Application.Quit();
-    }
-
-    public AttributContainer GetAttributeContainer()
-    {
-        return attributeContainer;
     }
 }

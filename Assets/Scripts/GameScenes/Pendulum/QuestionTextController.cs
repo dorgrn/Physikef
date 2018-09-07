@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Exercises;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace GameScenes.Pendulum
 
         void Start()
         {
-            Exercise exercise = m_ExercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            // TODO: temp implementation assuming 1 exercise for scene
+            Exercise exercise = m_ExercisePublisher.GetExercisesForScene(SceneManager.GetActiveScene().name)[0];
             initExercises(exercise);
         }
 

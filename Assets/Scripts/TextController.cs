@@ -1,27 +1,34 @@
-﻿using Attributes;
+﻿using System.Collections.Generic;
+using Attributes;
+using Exercises;
+using ProBuilder2.Common;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 public class TextController : MonoBehaviour
 {
-    [Inject] private ApplicationManager applicationManager;
-    private AttributContainer attributeContainer;
-    private AttributContainer.AttributeEnum attribute;
-    [SerializeField] private Text labelText;
+    [Inject] private ApplicationManager m_ApplicationManager;
+    [Inject] private IExercisePublisher m_ExercisePublisher;
+    [SerializeField] private Text m_LabelText;
+    [SerializeField] private string m_AttributeName;
 
-    // Use this for initialization
+    private Attribute m_ActualAttribute;
+
     void Start()
     {
-        attributeContainer = applicationManager.GetAttributeContainer();
-        var parentScript = GetComponentInParent<AttributeEnumInstance>();
-        attribute = parentScript.AttributeEnum;
+        List<Exercise> exercises = m_ExercisePublisher.GetExercisesForScene(m_ApplicationManager.ChosenScene);
+        m_ActualAttribute = exercises.Find(e => e.Name.Equals(m_ApplicationManager.ChosenExercise)).Attributes
+            .Find(a => a.Name.Equals(m_AttributeName));
         InvokeRepeating("updateLabel", 0f, 1f);
     }
 
-    private void updateLabel()
+    private void UpdateLabel()
     {
-        labelText.text = string.Format("{0}: {1}{2}", attributeContainer.GetAttributeName(attribute),
-            attributeContainer.GetAttributeValue(attribute), attributeContainer.GetAttributeUnit(attribute));
+        m_LabelText.text = string.Format("{0}: {1}{2}",
+            m_ActualAttribute.Name,
+            m_ActualAttribute.Value,
+            m_ActualAttribute.Unit
+        );
     }
 }

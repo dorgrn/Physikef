@@ -118,7 +118,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27474
+  m_Name: pb_Mesh40786
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -830,7 +830,7 @@ GameObject:
   - component: {fileID: 247073411}
   - component: {fileID: 247073410}
   m_Layer: 0
-  m_Name: VelocityAttribute
+  m_Name: Attribute (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -947,7 +947,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27574
+  m_Name: pb_Mesh40960
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1144,7 +1144,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27440
+  m_Name: pb_Mesh40744
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1299,7 +1299,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27704
+  m_Name: pb_Mesh41126
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1594,6 +1594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: -1
+  attributeName: 
 --- !u!64 &427186095
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2098,7 +2099,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27594
+  m_Name: pb_Mesh40988
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -2859,7 +2860,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-49904
+  m_Name: pb_Mesh40848
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -3436,6 +3437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: -1
+  attributeName: 
 --- !u!114 &715970030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4363,7 +4365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4613139f77018c049b950bf0de25691f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelText: {fileID: 1612807398}
+  m_LabelText: {fileID: 0}
+  m_AttributeName: 
 --- !u!64 &997648584
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4936,6 +4939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: -1
+  attributeName: 
 --- !u!64 &998681249
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5382,6 +5386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: -1
+  attributeName: 
 --- !u!64 &1024921149
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5983,6 +5988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: 1
+  attributeName: 
 --- !u!64 &1068574734
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6456,7 +6462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4613139f77018c049b950bf0de25691f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelText: {fileID: 1415217812}
+  m_LabelText: {fileID: 0}
+  m_AttributeName: 
 --- !u!64 &1281004784
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6816,7 +6823,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-37782
+  m_Name: pb_Mesh40936
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -7153,6 +7160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: 1
+  attributeName: 
 --- !u!64 &1284821482
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7464,7 +7472,7 @@ GameObject:
   - component: {fileID: 1309454901}
   - component: {fileID: 1309454902}
   m_Layer: 0
-  m_Name: HeightAttribute
+  m_Name: Attribute (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7508,7 +7516,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-49898
+  m_Name: pb_Mesh40868
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -7886,6 +7894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: 1
+  attributeName: 
 --- !u!64 &1356555543
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8197,7 +8206,7 @@ GameObject:
   - component: {fileID: 1357011292}
   - component: {fileID: 1357011291}
   m_Layer: 0
-  m_Name: MassAttribute
+  m_Name: Attribute (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8335,7 +8344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4613139f77018c049b950bf0de25691f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelText: {fileID: 2120384235}
+  m_LabelText: {fileID: 0}
+  m_AttributeName: 
 --- !u!64 &1388941711
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9149,7 +9159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4613139f77018c049b950bf0de25691f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelText: {fileID: 1672023779}
+  m_LabelText: {fileID: 1672023779}
+  m_AttributeName: 
 --- !u!224 &1404505755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9253,7 +9264,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27374
+  m_Name: pb_Mesh40670
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -9408,7 +9419,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-37776
+  m_Name: pb_Mesh40820
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -9703,6 +9714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: 1
+  attributeName: 
 --- !u!64 &1501376533
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10009,7 +10021,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27456
+  m_Name: pb_Mesh40768
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -10164,7 +10176,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27614
+  m_Name: pb_Mesh41028
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -10459,6 +10471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: -1
+  attributeName: 
 --- !u!64 &1601096274
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10794,6 +10807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: 1
+  attributeName: 
 --- !u!64 &1612209406
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11614,9 +11628,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1778587635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 901c63031002da240b27e05ee9757c7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3898282424e31124da9e95fe58dff0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AttributeHolders:
+  - {fileID: 1309454900}
+  - {fileID: 1952015350}
+  - {fileID: 2001464756}
+  - {fileID: 1357011290}
+  - {fileID: 247073409}
 --- !u!4 &1778587637
 Transform:
   m_ObjectHideFlags: 0
@@ -11628,7 +11648,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1808475928
 GameObject:
@@ -11937,26 +11957,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1952015352}
-  - component: {fileID: 1952015351}
   m_Layer: 0
-  m_Name: GravityAttribute
+  m_Name: Attribute (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1952015351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1952015350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93697f84772d51b43aff420282e8493e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttributeEnum: 1
 --- !u!224 &1952015352
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12029,7 +12036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4613139f77018c049b950bf0de25691f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelText: {fileID: 932411225}
+  m_LabelText: {fileID: 0}
+  m_AttributeName: 
 --- !u!64 &1970853929
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12411,7 +12419,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1975494141
 MonoBehaviour:
@@ -12434,7 +12442,7 @@ GameObject:
   - component: {fileID: 2001464758}
   - component: {fileID: 2001464757}
   m_Layer: 0
-  m_Name: FrictionAttribute
+  m_Name: Attribute (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12478,7 +12486,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-37784
+  m_Name: pb_Mesh40586
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12864,7 +12872,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-49906
+  m_Name: pb_Mesh41010
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -13098,7 +13106,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh27542
+  m_Name: pb_Mesh40906
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2

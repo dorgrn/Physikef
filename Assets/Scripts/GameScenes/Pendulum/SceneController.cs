@@ -12,46 +12,39 @@ namespace GameScenes.Pendulum
     public class SceneController : MonoBehaviour
     {
         [Inject] private ApplicationManager m_applicationManager;
-        [Inject] private IExercisePublisher m_exercisePublisher;
-        [SerializeField] private GameObject m_questionUI;
-        [SerializeField] private FeedbackTextController m_feedbackTextController;
-        private Exercise m_exercise;
-        private readonly SceneAttributes m_sceneAttributes = new SceneAttributes();
-        public Pendulum m_pendulumScript;
+        [Inject] private IExercisePublisher m_ExercisePublisher;
+        [SerializeField] private GameObject m_QuestionUi;
+        [SerializeField] private FeedbackTextController m_FeedbackTextController;
+        private Exercise m_Exercise;
+        public Pendulum pendulumScript;
         private readonly float TOLERANCE = 1.6f;
         private readonly int START_SCENE_DELAY_SECONDS = 3;
 
-
-        public SceneAttributes SceneAttributes
-        {
-            get { return m_sceneAttributes; }
-        }
-
         private void Awake()
         {
-            m_exercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            // TODO: temp implementation, assuming only one exercise for scene
+            m_Exercise =
+                m_ExercisePublisher.GetExercisesForScene(SceneManager.GetActiveScene().name)[0];
             mockCreateSceneAttributes();
         }
 
         public void SubmitAnswer(string answer)
         {
-            bool correctAnswer = m_applicationManager.isHardCodedAnswers
-                ? m_exercise.Answer.Equals(answer)
+            bool correctAnswer = m_applicationManager.IsHardCodedAnswers
+                ? m_Exercise.Answer.Equals(answer)
                 : calculateAnswer(answer);
 
             Debug.Log("Submitting answer:" + answer);
 
             if (correctAnswer)
             {
-                // GOOD
                 Debug.Log("Correct!");
-                StartCoroutine(m_feedbackTextController.ShowCorrect());
+                StartCoroutine(m_FeedbackTextController.ShowCorrect());
             }
             else
             {
-                // BASD
                 Debug.Log("BAD!");
-                StartCoroutine(m_feedbackTextController.ShowWrong());
+                StartCoroutine(m_FeedbackTextController.ShowWrong());
             }
 
             StartCoroutine(startScene());
@@ -60,15 +53,15 @@ namespace GameScenes.Pendulum
         IEnumerator startScene()
         {
             yield return new WaitForSeconds(START_SCENE_DELAY_SECONDS);
-            m_questionUI.SetActive(false);
-            m_pendulumScript.enabled = true;
+            m_QuestionUi.SetActive(false);
+            pendulumScript.enabled = true;
         }
 
         private bool calculateAnswer(string answer)
         {
             Debug.Log("Submitting answer: " + answer);
             float answerFloat = float.Parse(answer);
-            List<float> choicesFloat = m_exercise.Choices.Select(choice => float.Parse(choice)).ToList();
+            List<float> choicesFloat = m_Exercise.Choices.Select(choice => float.Parse(choice)).ToList();
 
             float actual = MathEquations.FindClosestToAnswer(choicesFloat, answerFloat);
 
@@ -77,13 +70,13 @@ namespace GameScenes.Pendulum
 
         public bool isSuspended()
         {
-            return m_pendulumScript.enabled;
+            return pendulumScript.enabled;
         }
 
         private void mockCreateSceneAttributes()
         {
-            SceneAttributes.Gravity.Value = 9.8f;
-            SceneAttributes.RopeLength.Value = 150f;
+//            SceneAttributes.Gravity.Value = 9.8f;
+//            SceneAttributes.RopeLength.Value = 150f;
         }
     }
 }

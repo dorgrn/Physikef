@@ -4,28 +4,22 @@ namespace Attributes
 {
     public class Attribute
     {
-        private string name;
-        private float value;
+        public string Name { get; set; }
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public float Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public float Value { get; set; }
 
         public string Unit { get; set; }
 
-        public Attribute(string name, string unit, float value = 0)
+        public Attribute(string name, string unit, float value = 0f)
         {
-            this.name = name;
-            this.Unit = unit;
-            this.value = value;
+            Name = name;
+            Unit = unit;
+            Value = value;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1:0.00}{2}", Name, Value, Unit);
         }
     }
 }
