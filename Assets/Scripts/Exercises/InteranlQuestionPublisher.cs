@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Exercises;
 
 
@@ -30,9 +31,9 @@ namespace Questions
             sceneQuestions.Add(sceneName, exercise);
         }
 
-        public Exercise GetExerciseForScene(string sceneName)
+        public Task<Exercise> GetExerciseForScene(string sceneName)
         {
-            return sceneQuestions[sceneName];
+            return null;
         }
     }
 }

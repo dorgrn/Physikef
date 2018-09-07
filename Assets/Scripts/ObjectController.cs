@@ -18,7 +18,7 @@ namespace Attributes
 
         private void Start()
         {
-            attributContainer = applicationManager.GetAttributeContainer();
+//            attributContainer = applicationManager.GetAttributeContainer();
             var parentScript = GetComponentInParent<AttributeEnumInstance>();
             attribute = parentScript.AttributeEnum;
             renderer = GetComponent<Renderer>();

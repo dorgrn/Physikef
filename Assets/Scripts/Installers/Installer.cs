@@ -9,7 +9,7 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<IExercisePublisher>().To<InternalExercisePublisher>().AsTransient();
+            Container.Bind<IExercisePublisher>().To<ExternalExercisePublisher>().AsTransient();
             Container.Bind<ApplicationManager>().AsSingle().NonLazy();
         }
     }

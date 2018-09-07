@@ -13,7 +13,7 @@ public class TextController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        attributeContainer = applicationManager.GetAttributeContainer();
+//        attributeContainer = applicationManager.GetAttributeContainer();
         var parentScript = GetComponentInParent<AttributeEnumInstance>();
         attribute = parentScript.AttributeEnum;
         InvokeRepeating("updateLabel", 0f, 1f);

@@ -3,32 +3,27 @@ using UnityEngine;
 
 public class ApplicationManager
 {
-    private readonly AttributContainer attributeContainer;
-    private bool m_hardCodedAnswers = true;
+    public User CurrentUser { get; private set; }
+    public string CurrentScene { get; set; }
+    public string CurrentExercise { get; set; }
 
-    public bool isHardCodedAnswers
-    {
-        get { return m_hardCodedAnswers; }
-    }
+    public bool IsHardCodedAnswers { get; } = true;
 
     protected ApplicationManager()
     {
-        attributeContainer = new AttributContainer();
+        initCurrentUser();
+    }
+
+    private async void initCurrentUser()
+    {
+        // TODO: place holder
+        CurrentUser = await ServicesManager.GetDataAccessLayer().GetUserAsync("olga_abir@yahoo.com");
+
     }
 
 
     public static void Quit()
     {
-        //#if UNITY_EDITOR
-        //        EditorApplication.isPlaying = false;
-        //#else
-        //		Application.Quit();
-        //		#endif
         Application.Quit();
-    }
-
-    public AttributContainer GetAttributeContainer()
-    {
-        return attributeContainer;
     }
 }

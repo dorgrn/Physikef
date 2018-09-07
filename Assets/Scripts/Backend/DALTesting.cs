@@ -5,14 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class DALTesting : MonoBehaviour {
-
+public class DALTesting : MonoBehaviour
+{
     public async void TestDal()
     {
         await HomeworkDALTest();
         await ExerciseDALTest();
         await StudentExerciseResultDALTest();
     }
+
 
     public async Task HomeworkDALTest()
     {
@@ -43,7 +44,7 @@ public class DALTesting : MonoBehaviour {
         var exe = new Exercise()
         {
             SceneName = "Pendullum",
-            Answers = new List<string>() { "1", "2", "3", "4"},
+            Answers = new List<string>() {"1", "2", "3", "4"},
             CorrectAnswerIndex = 3,
             Question = "Ad Matai?" + DateTime.Now
         };

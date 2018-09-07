@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace Exercises
 {
     public interface IExercisePublisher
     {
-        Exercise GetExerciseForScene(string sceneName);
+        Task<Exercise> GetExerciseForScene(string sceneName);
     }
 }

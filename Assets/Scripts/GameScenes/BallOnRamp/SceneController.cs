@@ -25,8 +25,8 @@ namespace GameScenes.BallOnRamp
 
         void Awake()
         {
-            m_sceneExercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
-            attributContainer = applicationManager.GetAttributeContainer();
+//            m_sceneExercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+//            attributContainer = applicationManager.GetAttributeContainer();
         }
 
         void Start()

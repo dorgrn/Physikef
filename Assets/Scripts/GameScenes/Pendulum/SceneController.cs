@@ -11,64 +11,64 @@ namespace GameScenes.Pendulum
 {
     public class SceneController : MonoBehaviour
     {
-        [Inject] private ApplicationManager m_applicationManager;
-        [Inject] private IExercisePublisher m_exercisePublisher;
-        [SerializeField] private GameObject m_questionUI;
-        [SerializeField] private FeedbackTextController m_feedbackTextController;
-        private Exercise m_exercise;
-        private readonly SceneAttributes m_sceneAttributes = new SceneAttributes();
-        public Pendulum m_pendulumScript;
+        [Inject] private ApplicationManager m_ApplicationManager;
+        [Inject] private IExercisePublisher m_ExercisePublisher;
+        [SerializeField] private GameObject m_QuestionUi;
+        [SerializeField] private FeedbackTextController m_FeedbackTextController;
+        private Exercise m_Exercise;
+        private SceneAttributes m_SceneAttributes { get; set; }
+        public Pendulum pendulumScript;
         private readonly float TOLERANCE = 1.6f;
         private readonly int START_SCENE_DELAY_SECONDS = 3;
 
 
-        public SceneAttributes SceneAttributes
-        {
-            get { return m_sceneAttributes; }
-        }
-
         private void Awake()
         {
-            m_exercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            m_SceneAttributes = new SceneAttributes();
             mockCreateSceneAttributes();
         }
 
-        public void SubmitAnswer(string answer)
+        public async void SubmitAnswer(string answer)
         {
-            bool correctAnswer = m_applicationManager.isHardCodedAnswers
-                ? m_exercise.Answers.ToList()[m_exercise.CorrectAnswerIndex].Equals(answer)
+            m_Exercise = m_Exercise ??
+                         await m_ExercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            bool correctAnswer = m_ApplicationManager.IsHardCodedAnswers
+                ? m_Exercise.Answers.ToList()[m_Exercise.CorrectAnswerIndex].Equals(answer)
                 : calculateAnswer(answer);
 
             Debug.Log("Submitting answer:" + answer);
 
-            if (correctAnswer)
-            {
-                // GOOD
-                Debug.Log("Correct!");
-                StartCoroutine(m_feedbackTextController.ShowCorrect());
-            }
-            else
-            {
-                // BASD
-                Debug.Log("BAD!");
-                StartCoroutine(m_feedbackTextController.ShowWrong());
-            }
+            StartCoroutine(
+                correctAnswer ? m_FeedbackTextController.ShowCorrect() : m_FeedbackTextController.ShowWrong());
 
             StartCoroutine(startScene());
+        }
+
+        private async void SendUserAnswer(string answer, bool isCorrect)
+        {
+            string userid = m_ApplicationManager.CurrentUser.userid;
+            StudentExerciseResult studentExerciseResult = new StudentExerciseResult()
+            {
+                AnsweringStudentId = userid,
+                isCorrect = isCorrect,
+                Question = m_Exercise.Question,
+                StudentAnswer = answer
+            };
+            await ServicesManager.GetDataAccessLayer().AddStudentExerciseResultAsync(studentExerciseResult);
         }
 
         IEnumerator startScene()
         {
             yield return new WaitForSeconds(START_SCENE_DELAY_SECONDS);
-            m_questionUI.SetActive(false);
-            m_pendulumScript.enabled = true;
+            m_QuestionUi.SetActive(false);
+            pendulumScript.enabled = true;
         }
 
         private bool calculateAnswer(string answer)
         {
             Debug.Log("Submitting answer: " + answer);
             float answerFloat = float.Parse(answer);
-            List<float> choicesFloat = m_exercise.Answers.Select(choice => float.Parse(choice)).ToList();
+            List<float> choicesFloat = m_Exercise.Answers.Select(choice => float.Parse(choice)).ToList();
 
             float actual = MathEquations.FindClosestToAnswer(choicesFloat, answerFloat);
 
@@ -77,13 +77,13 @@ namespace GameScenes.Pendulum
 
         public bool isSuspended()
         {
-            return m_pendulumScript.enabled;
+            return pendulumScript.enabled;
         }
 
         private void mockCreateSceneAttributes()
         {
-            SceneAttributes.Gravity.Value = 9.8f;
-            SceneAttributes.RopeLength.Value = 150f;
+            m_SceneAttributes.Gravity.Value = 9.8f;
+            m_SceneAttributes.RopeLength.Value = 150f;
         }
     }
 }

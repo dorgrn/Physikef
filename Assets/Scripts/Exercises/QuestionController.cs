@@ -16,7 +16,7 @@ public class QuestionController : MonoBehaviour
 
     private void Awake()
     {
-        m_sceneExercise = m_exercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+
     }
 
     void Start()
@@ -24,7 +24,8 @@ public class QuestionController : MonoBehaviour
         // set question body in scene
         questionText.text = m_sceneExercise.Question;
 
-        // set question answers in scene
+        // set question
+        // in scene
         for (var i = 0; i < choices.Count; i++)
         {
             var textContainer = choices[i].GetComponent<Text>();
