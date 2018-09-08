@@ -14,8 +14,6 @@ public class LoginScreenScript : MonoBehaviour
 
     void Start()
     {
-//        EmailUIElement = GameObject.Find("EmailInput").GetComponent<InputField>();
-//        PasswordUIElement = GameObject.Find("PasswordInput").GetComponent<InputField>();
     }
 
     public void CreateNewAccount_Click()

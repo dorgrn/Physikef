@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Exercises;
-using Questions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
-namespace GameScenes.Pendulum
+namespace Controllers
 {
     public class QuestionTextController : MonoBehaviour
     {
