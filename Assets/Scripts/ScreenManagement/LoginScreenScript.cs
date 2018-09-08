@@ -3,16 +3,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class LoginScreenScript : MonoBehaviour
 {
-    private InputField EmailUIElement;
-    private InputField PasswordUIElement;
+    [Inject] private ApplicationManager m_ApplicationManager;
+    [SerializeField] private InputField EmailUIElement;
+    [SerializeField] private InputField PasswordUIElement;
+
 
     void Start()
     {
-        EmailUIElement = GameObject.Find("EmailInput").GetComponent<InputField>();
-        PasswordUIElement = GameObject.Find("PasswordInput").GetComponent<InputField>();
+//        EmailUIElement = GameObject.Find("EmailInput").GetComponent<InputField>();
+//        PasswordUIElement = GameObject.Find("PasswordInput").GetComponent<InputField>();
     }
 
     public void CreateNewAccount_Click()
@@ -25,26 +28,29 @@ public class LoginScreenScript : MonoBehaviour
         //TODO: add input validation checks
         try
         {
-            var loginResult = await ServicesManager.GetAuthManager().LoginAsync(EmailUIElement.text, PasswordUIElement.text);
+            LoginResult loginResult = await ServicesManager.GetAuthManager()
+                .LoginAsync(EmailUIElement.text, PasswordUIElement.text);
 
-            if (loginResult.IsLoggedIn)
+            if (!loginResult.IsLoggedIn)
             {
-                if (loginResult.LoggedInUser.usertype == "Teacher")
-                {
-                    Debug.Log("Teacher options");
-                    SceneManager.LoadScene("TeacherOptionsScreen");
-                }
-                else
-                {
-                    Debug.Log("Student options");
-                    SceneManager.LoadScene("StudentOptionsScreen");
-                }
+                return;
             }
 
+            m_ApplicationManager.CurrentUser = loginResult.LoggedInUser;
+            if (loginResult.LoggedInUser.usertype == "Teacher")
+            {
+                Debug.Log("Teacher options");
+                SceneManager.LoadScene("TeacherOptionsScreen");
+            }
+            else
+            {
+                Debug.Log("Student options");
+                SceneManager.LoadScene("StudentOptionsScreen");
+            }
         }
         catch (Exception e)
         {
-            Debug.Log(e.Message);
+            Debug.Log(e.StackTrace);
         }
     }
 

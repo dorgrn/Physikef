@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ApplicationManager
 {
-    public User CurrentUser { get; private set; }
+    public User CurrentUser { get; set; }
     public string CurrentScene { get; set; }
     public string CurrentExercise { get; set; }
 

@@ -6,26 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-  - enabled: 1
-    path: Assets/Scripts/GameScenes/UI2D/LoginScreen.unity
-    guid: 24874a991c4a705488acc4a92191d962
-    path: Assets/_Scenes/GameScenes/Pendulum.unity
-    guid: ffe235518ba97ff45aedb18731d7c52d
-  - enabled: 1
     path: Assets/_Scenes/Screens/LoginScreen.unity
     guid: d77d0f59f8152de44847cef72421e97f
   - enabled: 1
     path: Assets/_Scenes/Screens/RegisterScreen.unity
     guid: 76e692e51556da64c8ad68d4c859808e
-  - enabled: 1
-    path: Assets/_Scenes/Screens/AnonymousOptionsScreen.unity
-    guid: e35a0838427e56b48995efa40921b620
-  - enabled: 1
-    path: Assets/_Scenes/Screens/StudentOptionsScreen.unity
-    guid: dc2ef0fa29e6fef46a506182f9c242a5
-  - enabled: 1
-    path: Assets/_Scenes/Screens/TeacherOptionsScreen.unity
-    guid: f57e758178759c749b84ae5949ead927
-  - enabled: 1
-    path: Assets/_Scenes/Screens/ForgotPasswordScreen.unity
-    guid: 8db764cfd956f8f4d896bf55e35e29c0
