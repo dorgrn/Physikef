@@ -9,6 +9,7 @@ using Firebase.Unity.Editor;
 public class DataAccessLayer : IDataAccessLayer
 {
     private readonly DatabaseReference _databaseRef;
+
     public DataAccessLayer()
     {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://physikef-18062.firebaseio.com/");
@@ -18,7 +19,7 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
     {
         var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
-        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userID));      
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userID));
     }
 
     public async Task AddHomeworkAsync(HomeWork newHomework)
@@ -26,10 +27,16 @@ public class DataAccessLayer : IDataAccessLayer
         await AddDataToFirebaseDBAsync(newHomework);
     }
 
-    public async Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName)
+    public async Task<IEnumerable<Exercise>> GetAllExercisesAsync()
     {
         var allExercises = await GetDataFromFirebaseDBAsync("exercise");
-        return allExercises.Cast<Exercise>().Where(exe => exe.SceneName == sceneName);
+        return allExercises.Cast<Exercise>();
+    }
+
+    public async Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName)
+    {
+        var allExercises = await GetAllExercisesAsync();
+        return allExercises.Where(exe => exe.SceneName == sceneName);
     }
 
     public async Task AddExerciseAsync(Exercise newExercise)
@@ -45,7 +52,8 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<IEnumerable<StudentExerciseResult>> GetStudentStatisticsAsync(string studentId)
     {
         var allStudentStatistics = await GetDataFromFirebaseDBAsync("statistics");
-        return allStudentStatistics.Cast<StudentExerciseResult>().Where(result => result.AnsweringStudentId == studentId);
+        return allStudentStatistics.Cast<StudentExerciseResult>()
+            .Where(result => result.AnsweringStudentId == studentId);
     }
 
     public async Task AddUserAsync(User newUser)
@@ -53,10 +61,16 @@ public class DataAccessLayer : IDataAccessLayer
         await AddDataToFirebaseDBAsync(newUser);
     }
 
-    public async Task<User> GetUserAsync(string userEmail)
+    public async Task<User> GetUserAsync(string userId)
+    {
+        var allUsers = await GetAllUsers();
+        return allUsers.First(user => user.userid == userId);
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsers()
     {
         var allUsers = await GetDataFromFirebaseDBAsync("users");
-        return allUsers.Cast<User>().First(user => user.email == userEmail);
+        return allUsers.Cast<User>();
     }
 
     private async Task AddDataToFirebaseDBAsync(IFirebaseConvertable dataObject)
@@ -64,7 +78,7 @@ public class DataAccessLayer : IDataAccessLayer
         var key = _databaseRef.Child(dataObject.GetTableName()).Push().Key;
         Dictionary<string, object> details = new Dictionary<string, object>()
         {
-            {key , dataObject.ToDictionary()}
+            {key, dataObject.ToDictionary()}
         };
 
         await _databaseRef.Child(dataObject.GetTableName()).UpdateChildrenAsync(details);
@@ -83,6 +97,7 @@ public class DataAccessLayer : IDataAccessLayer
             {
                 ourDictionary.Add(dataSnapshotChild.Key, dataSnapshotChild.Value);
             }
+
             var firebaseObject = Provider(tableName);
             firebaseObject.FromDictionary(ourDictionary);
             objects.Add(firebaseObject);

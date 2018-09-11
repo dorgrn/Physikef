@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ModestTree;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DALTesting : MonoBehaviour
 {
+    public Text text;
+
     public async void TestDal()
     {
         await HomeworkDALTest();
@@ -86,4 +90,6 @@ public class DALTesting : MonoBehaviour
             Debug.LogError("StudentExerciseResultDALTest Dal failed test");
         }
     }
+
+
 }
