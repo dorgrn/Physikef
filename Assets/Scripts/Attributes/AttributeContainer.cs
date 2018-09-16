@@ -13,6 +13,8 @@ namespace Attributes
             Friction,
             Velocity,
             angularDragMult,
+            leftWeight,
+            rightWeight,
             Mass
         }
 
@@ -30,6 +32,9 @@ namespace Attributes
             attributeByEnum.Add(AttributeEnum.Mass, new Attribute("mass", "kg"));
             attributeByEnum.Add(AttributeEnum.Velocity, new Attribute("velocity", "m/s"));
             attributeByEnum.Add(AttributeEnum.angularDragMult, new Attribute("angularDragMult", ""));
+            attributeByEnum.Add(AttributeEnum.leftWeight, new Attribute("leftWeight", "kg"));
+            attributeByEnum.Add(AttributeEnum.rightWeight, new Attribute("rightWeight", "kg"));
+
         }
 
         public Attribute GetAttributeFromEnum(AttributeEnum attributeEnum)
