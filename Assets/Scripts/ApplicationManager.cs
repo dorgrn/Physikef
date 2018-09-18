@@ -17,7 +17,7 @@ public class ApplicationManager
     private async void initCurrentUser()
     {
         // TODO: place holder
-        CurrentUser = await ServicesManager.GetDataAccessLayer().GetUserAsync("olga_abir@yahoo.com");
+//        CurrentUser = await ServicesManager.GetDataAccessLayer().GetUserByIdAsync("olga_abir@yahoo.com");
 
     }
 

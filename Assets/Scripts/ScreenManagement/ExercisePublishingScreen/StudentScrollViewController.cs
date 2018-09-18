@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProBuilder2.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,19 +11,49 @@ namespace ScreenManagement.ExercisePublishingScreen
     {
         [SerializeField] private Toggle m_TogglePrefab;
         [SerializeField] private GameObject m_TogglesHolder;
+        [SerializeField] private Text m_InfoText;
         [SerializeField] private InfoScrollViewController m_InfoScrollViewController;
+        private List<Toggle> m_Toggles = new List<Toggle>();
 
         async void Start()
         {
+            await initStudentLayoutAsync();
+        }
+
+        public async void InitStudentLayout()
+        {
+            await initStudentLayoutAsync();
+        }
+
+        public async void InitExeLayout()
+        {
+            await initExeLayoutAsync();
+        }
+
+        private async Task initStudentLayoutAsync()
+        {
+            clearView();
             IEnumerable<User> students =
-                (await ServicesManager.GetDataAccessLayer().GetAllUsers()).Where(user => user.usertype == "Student");
-            foreach (User student in students)
+                (await ServicesManager.GetDataAccessLayer().GetAllUsersAsync()).Where(
+                    user => user.usertype == "Student");
+            foreach (var student in students)
             {
                 AddToggleToContent(student.userid);
             }
         }
 
-        public IEnumerable<string> GetCheckedStudentsId()
+        private async Task initExeLayoutAsync()
+        {
+            clearView();
+            IEnumerable<StudentExerciseResult> exerciseResults =
+                await ServicesManager.GetDataAccessLayer().GetAllStudentStatisticsAsync();
+            foreach (var exerciseResult in exerciseResults)
+            {
+                AddToggleToContent(exerciseResult.Question);
+            }
+        }
+
+        public IEnumerable<string> GetCheckedToggle()
         {
             return m_TogglesHolder.GetComponentsInChildren<Toggle>().Where(toggle => toggle.isOn)
                 .Select(toggle => toggle.GetComponentInChildren<Text>().text);
@@ -31,6 +62,7 @@ namespace ScreenManagement.ExercisePublishingScreen
         public void AddToggleToContent(string toggleText)
         {
             Toggle toggle = Instantiate(m_TogglePrefab);
+            m_Toggles.Add(toggle);
             toggle.group = m_TogglesHolder.GetComponent<ToggleGroup>();
             toggle.GetComponentInChildren<Text>().text = toggleText;
             toggle.transform.SetParent(m_TogglesHolder.transform, false);
@@ -44,10 +76,21 @@ namespace ScreenManagement.ExercisePublishingScreen
                         return;
                     }
 
-                    string checkedStudentId = GetCheckedStudentsId().FirstOrDefault();
+                    string checkedStudentId = GetCheckedToggle().FirstOrDefault();
                     await m_InfoScrollViewController.UpdateInfoTextAsync(checkedStudentId);
                 });
             }
+        }
+
+        private void clearView()
+        {
+            m_InfoText.text = string.Empty;
+            foreach (var toggle in m_Toggles)
+            {
+                GameObject.Destroy(toggle.gameObject);
+            }
+
+            m_Toggles.Clear();
         }
     }
 }

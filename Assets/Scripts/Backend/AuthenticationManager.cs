@@ -5,18 +5,22 @@ using UnityEngine;
 
 public class AuthenticationManager : IAuthenticationManager
 {
-    public async Task RegisterAsync(string email, string userDisplayName, string password,string userID, string userType)
+    public async Task RegisterAsync(string email, string userDisplayName, string password, string userID,
+        string userType)
     {
         var auth = FirebaseAuth.DefaultInstance;
-        await auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(async task => {
+        await auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(async task =>
+        {
             if (task.IsCanceled)
             {
                 Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
                 throw new Exception("task canceled");
             }
+
             if (task.IsFaulted)
             {
-                Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception + task.Exception.Message);
+                Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception +
+                               task.Exception.Message);
                 throw new Exception("task faulted");
             }
 
@@ -44,12 +48,14 @@ public class AuthenticationManager : IAuthenticationManager
     {
         Debug.Log("Trying to login with email and password.");
         var auth = FirebaseAuth.DefaultInstance;
-        var resultTask = await auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(async task => {
+        var resultTask = await auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(async task =>
+        {
             if (task.IsCanceled)
             {
                 Debug.Log("SignInWithEmailAndPasswordAsync was canceled.");
                 throw new Exception("task canceled");
             }
+
             if (task.IsFaulted)
             {
                 Debug.Log("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
@@ -61,7 +67,7 @@ public class AuthenticationManager : IAuthenticationManager
             // get extra info about user
             if (newUser != null)
             {
-                var loggedInUser = await ServicesManager.GetDataAccessLayer().GetUserAsync(email);
+                var loggedInUser = await ServicesManager.GetDataAccessLayer().GetUserByEmailAsync(email);
                 Debug.LogFormat("User signed in successfully: {0} ({1})",
                     newUser.DisplayName, newUser.UserId);
 
@@ -85,12 +91,14 @@ public class AuthenticationManager : IAuthenticationManager
     {
         Debug.Log("Trying to send Password Reset email");
         var auth = FirebaseAuth.DefaultInstance;
-        await auth.SendPasswordResetEmailAsync(email).ContinueWith(task => {
+        await auth.SendPasswordResetEmailAsync(email).ContinueWith(task =>
+        {
             if (task.IsCanceled)
             {
                 Debug.LogError("SendPasswordResetEmailAsync was canceled.");
                 throw new Exception("task canceled");
             }
+
             if (task.IsFaulted)
             {
                 Debug.LogError("SendPasswordResetEmailAsync encountered an error: " + task.Exception);
@@ -105,12 +113,14 @@ public class AuthenticationManager : IAuthenticationManager
     {
         Debug.Log("Trying to login anonymously.");
         var auth = FirebaseAuth.DefaultInstance;
-        await auth.SignInAnonymouslyAsync().ContinueWith(task => {
+        await auth.SignInAnonymouslyAsync().ContinueWith(task =>
+        {
             if (task.IsCanceled)
             {
                 Debug.LogError("SignInAnonymouslyAsync was canceled.");
                 throw new Exception("task canceled");
             }
+
             if (task.IsFaulted)
             {
                 Debug.LogError("SignInAnonymouslyAsync encountered an error: " + task.Exception);

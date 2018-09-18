@@ -18,6 +18,6 @@ public class InfoScrollViewController : MonoBehaviour
 
     public async Task UpdateInfoTextAsync(string userid)
     {
-        infoText.text = userid == null ? "" : await TeachersOptionsController.GetStudentStatsAnalysis(userid);
+        infoText.text = userid == null ? "" : await TeachersOptionsController.GetStudentStatsAnalysisAsync(userid);
     }
 }

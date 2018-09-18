@@ -23,10 +23,10 @@ public class TeachersOptionsController : MonoBehaviour
 //        m_UsernameLabel.text = m_ApplicationManager.CurrentUser.displayname;
     }
 
-    public static async Task<string> GetStudentStatsAnalysis(string userId)
+    public static async Task<string> GetStudentStatsAnalysisAsync(string userId)
     {
         var exercisesAnswered = await ServicesManager.GetDataAccessLayer().GetStudentStatisticsAsync(userId);
-        User student = await ServicesManager.GetDataAccessLayer().GetUserAsync(userId);
+        User student = await ServicesManager.GetDataAccessLayer().GetUserByIdAsync(userId);
 
         StudentExerciseResult[] exerciseResults =
             exercisesAnswered as StudentExerciseResult[] ?? exercisesAnswered.ToArray();
@@ -44,5 +44,17 @@ public class TeachersOptionsController : MonoBehaviour
 
         return
             $"Name:{student.displayname}\nEmail:{student.email}\nId:{student.userid}\nCorrect answers:{correctExeAmount}/{sum}({correctPer:P2})\n";
+    }
+
+    public static async Task<string> GetExeStatsAnalysisAsync(string question)
+    {
+        var exercisesAnswered = await ServicesManager.GetDataAccessLayer().GetAllStudentStatisticsAsync();
+
+        var studentExerciseResults = exercisesAnswered as StudentExerciseResult[] ?? exercisesAnswered.ToArray();
+        var correctExerciseWithQuestion =
+            studentExerciseResults.Select(exe => exe.Question == question && exe.isCorrect);
+
+        return
+            $"Answered percentage:{correctExerciseWithQuestion: P2}";
     }
 }

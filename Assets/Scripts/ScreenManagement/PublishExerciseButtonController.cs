@@ -20,7 +20,7 @@ namespace ScreenManagement
         {
             return !m_ExerciseDropdown.captionText.text.Equals("Empty")
                    && !m_HomeworkNameInput.text.IsEmpty()
-                   && !m_ScrollViewController.GetCheckedStudentsId().IsEmpty();
+                   && !m_ScrollViewController.GetCheckedToggle().IsEmpty();
         }
 
         public async void PublishButton_OnClick()
@@ -30,7 +30,7 @@ namespace ScreenManagement
                 throw new Exception("Form wasn't filled correctly!");
             }
 
-            IEnumerable<string> studentsToPublishTo = m_ScrollViewController.GetCheckedStudentsId();
+            IEnumerable<string> studentsToPublishTo = m_ScrollViewController.GetCheckedToggle();
 
             await ServicesManager.GetDataAccessLayer().AddHomeworkAsync(new HomeWork()
             {

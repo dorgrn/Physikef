@@ -51,9 +51,14 @@ public class DataAccessLayer : IDataAccessLayer
 
     public async Task<IEnumerable<StudentExerciseResult>> GetStudentStatisticsAsync(string studentId)
     {
-        var allStudentStatistics = await GetDataFromFirebaseDBAsync("statistics");
-        return allStudentStatistics.Cast<StudentExerciseResult>()
-            .Where(result => result.AnsweringStudentId == studentId);
+        var allStudentStatistics = await GetAllStudentStatisticsAsync();
+        return allStudentStatistics.Where(result => result.AnsweringStudentId == studentId);
+    }
+
+    public async Task<IEnumerable<StudentExerciseResult>> GetAllStudentStatisticsAsync()
+    {
+        var stats = await GetDataFromFirebaseDBAsync("statistics");
+        return stats.Cast<StudentExerciseResult>();
     }
 
     public async Task AddUserAsync(User newUser)
@@ -61,13 +66,19 @@ public class DataAccessLayer : IDataAccessLayer
         await AddDataToFirebaseDBAsync(newUser);
     }
 
-    public async Task<User> GetUserAsync(string userId)
+    public async Task<User> GetUserByIdAsync(string userId)
     {
-        var allUsers = await GetAllUsers();
+        var allUsers = await GetAllUsersAsync();
         return allUsers.First(user => user.userid == userId);
     }
 
-    public async Task<IEnumerable<User>> GetAllUsers()
+    public async Task<User> GetUserByEmailAsync(string email)
+    {
+        var allUsers = await GetAllUsersAsync();
+        return allUsers.First(user => user.email == email);
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
         var allUsers = await GetDataFromFirebaseDBAsync("users");
         return allUsers.Cast<User>();

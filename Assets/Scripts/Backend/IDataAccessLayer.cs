@@ -10,7 +10,9 @@ public interface IDataAccessLayer
     Task<IEnumerable<Exercise>> GetAllExercisesAsync();
     Task AddStudentExerciseResultAsync(StudentExerciseResult newExerciseResult);
     Task<IEnumerable<StudentExerciseResult>> GetStudentStatisticsAsync(string studentId);
+    Task<IEnumerable<StudentExerciseResult>> GetAllStudentStatisticsAsync();
     Task AddUserAsync(User registeredUser);
-    Task<User> GetUserAsync(string userId);
-    Task<IEnumerable<User>> GetAllUsers();
+    Task<User> GetUserByIdAsync(string userId);
+    Task<User> GetUserByEmailAsync(string email);
+    Task<IEnumerable<User>> GetAllUsersAsync();
 }

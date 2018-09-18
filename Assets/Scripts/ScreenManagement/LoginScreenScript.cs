@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,12 +9,15 @@ using Zenject;
 public class LoginScreenScript : MonoBehaviour
 {
     [Inject] private ApplicationManager m_ApplicationManager;
-    [SerializeField] private InputField EmailUIElement;
-    [SerializeField] private InputField PasswordUIElement;
+
+    [SerializeField] private InputField m_EmailUiElement;
+    [SerializeField] private InputField m_PasswordUiElement;
+    [SerializeField] private Text m_ErrorLabel;
 
 
     void Start()
     {
+        m_ErrorLabel.text = string.Empty;
     }
 
     public void CreateNewAccount_Click()
@@ -23,15 +27,21 @@ public class LoginScreenScript : MonoBehaviour
 
     public async void LoginButton_Click()
     {
-        //TODO: add input validation checks
+        m_ErrorLabel.text = string.Empty;
+        string inputEmail = m_EmailUiElement.text;
+        string inputPassword = m_PasswordUiElement.text;
+
         try
         {
+            validateInputs(inputEmail, inputPassword);
+
             LoginResult loginResult = await ServicesManager.GetAuthManager()
-                .LoginAsync(EmailUIElement.text, PasswordUIElement.text);
+                .LoginAsync(inputEmail, inputPassword);
+
 
             if (!loginResult.IsLoggedIn)
             {
-                return;
+                logError($"User {inputEmail} isn't registered. Try again.");
             }
 
             m_ApplicationManager.CurrentUser = loginResult.LoggedInUser;
@@ -48,9 +58,10 @@ public class LoginScreenScript : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e.StackTrace);
+            Debug.LogError(e.ToString());
         }
     }
+
 
     public async void SkipButton_Click()
     {
@@ -68,5 +79,25 @@ public class LoginScreenScript : MonoBehaviour
     public void ForgotPasswordButton_Click()
     {
         SceneManager.LoadScene("ForgotPasswordScreen");
+    }
+
+    private void logError(string message)
+    {
+        m_ErrorLabel.text = message;
+        throw new Exception(message);
+    }
+
+
+    private void validateInputs(string inputEmail, string inputPassword)
+    {
+        if (!InputValidator.isValidEmail(inputEmail))
+        {
+            logError($"Email {inputEmail} isn't valid.");
+        }
+
+        if (!InputValidator.isValidPassword(inputPassword))
+        {
+            logError($"Password {inputPassword} isn't valid");
+        }
     }
 }
