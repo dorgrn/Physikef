@@ -23,6 +23,15 @@ namespace Questions
                     Question = "Given the length of the rope L=150cm and the gravity is 9.8m/s^2 what would be the oscillation period in seconds?",
                     Answers = new List<string> {"1.2", "1.6", "5.2", "5.7"}, CorrectAnswerIndex = 1, SceneName = "Pendulum"
                 });
+
+            sceneQuestions.Add("Balance",
+                new Exercise()
+                {
+                    Question = "Given the length of the rope L=150cm and the gravity is 9.8m/s^2 what would be the oscillation period in seconds?",
+                    Answers = new List<string> { "1.2", "1.6", "5.2", "5.7" },
+                    CorrectAnswerIndex = 1,
+                    SceneName = "Pendulum"
+                });
         }
 
 
