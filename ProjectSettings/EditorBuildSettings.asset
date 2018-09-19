@@ -11,3 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Screens/RegisterScreen.unity
     guid: 76e692e51556da64c8ad68d4c859808e
+  - enabled: 1
+    path: Assets/_Scenes/Screens/TeacherOptionsScreen.unity
+    guid: f57e758178759c749b84ae5949ead927
+  - enabled: 1
+    path: Assets/_Scenes/Screens/StudentOptionsScreen.unity
+    guid: dc2ef0fa29e6fef46a506182f9c242a5

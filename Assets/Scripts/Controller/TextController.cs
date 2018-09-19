@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Physikef
+namespace Controllers
 {
     public class TextController : MonoBehaviour
     {

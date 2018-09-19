@@ -992,7 +992,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: afc6cd0912d686d4585f45dfca8cde21, type: 2}
+  - {fileID: 2100000, guid: 0edec395166a3244592f3532c7ce794c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2970,9 +2970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd110f02d108a7a498c88c0da195a0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_QuestionUi: {fileID: 1978644714}
   m_FeedbackTextController: {fileID: 1250862165}
-  pendulumScript: {fileID: 1734502830}
+  m_QuestionUi: {fileID: 1978644714}
+  m_PendulumScript: {fileID: 1734502830}
 --- !u!4 &1498595736
 Transform:
   m_ObjectHideFlags: 0
@@ -3369,7 +3369,7 @@ MonoBehaviour:
   Bob: {fileID: 711497363}
   Line: {fileID: 1789853969}
   mass: 1
-  ropeLength: 1.5
+  ropeLength: 1
   bobStartingPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1734502831
 Transform:
