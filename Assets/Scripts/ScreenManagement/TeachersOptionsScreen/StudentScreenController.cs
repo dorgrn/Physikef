@@ -41,8 +41,17 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
 
         public void StartButton_OnClick()
         {
+            string[] scenes = {"BallOnRamp", "CannonLaunch", "Pendulum"};
             SwitchToScene.SwapToVR();
-            SceneManager.LoadScene("SceneSelectionMenu");
+            string chosenOption = m_HwDropdown.options[m_HwDropdown.value].text;
+            if (scenes.Contains(chosenOption))
+            {
+                SceneManager.LoadScene(chosenOption);
+            }
+            else
+            {
+                throw new Exception($"not implemented scene chosen {chosenOption}");
+            }
         }
     }
 }
