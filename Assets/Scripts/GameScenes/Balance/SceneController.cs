@@ -35,7 +35,7 @@ namespace GameScenes.Balance
             leftWeight.SetActive(false);
             // wait for answer
             Physics.gravity = Vector3.zero;
-            initAttributes();
+            initAttributes(); 
         }
 
 
