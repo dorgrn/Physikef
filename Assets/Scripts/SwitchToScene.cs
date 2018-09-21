@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class SwitchToScene : MonoBehaviour
 {
@@ -16,6 +17,18 @@ public class SwitchToScene : MonoBehaviour
     public void SetGazedAt(bool gazedAt)
     {
         this.gazedAt = gazedAt;
+    }
+
+    public static void SwapToVR()
+    {
+        XRSettings.LoadDeviceByName("Cardboard");
+        XRSettings.enabled = true;
+    }
+
+    public static void SwapFromVR()
+    {
+        XRSettings.LoadDeviceByName("None");
+        XRSettings.enabled = false;
     }
 
     private void Update()

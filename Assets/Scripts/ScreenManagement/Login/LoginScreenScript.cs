@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,8 +6,6 @@ using Zenject;
 
 public class LoginScreenScript : MonoBehaviour
 {
-    [Inject] private ApplicationManager m_ApplicationManager;
-
     [SerializeField] private InputField m_EmailUiElement;
     [SerializeField] private InputField m_PasswordUiElement;
     [SerializeField] private Text m_ErrorLabel;
@@ -31,34 +27,26 @@ public class LoginScreenScript : MonoBehaviour
         string inputEmail = m_EmailUiElement.text;
         string inputPassword = m_PasswordUiElement.text;
 
-        try
+        validateInputs(inputEmail, inputPassword);
+
+        LoginResult loginResult = await ServicesManager.GetAuthManager()
+            .LoginAsync(inputEmail, inputPassword);
+
+
+        if (!loginResult.IsLoggedIn)
         {
-            validateInputs(inputEmail, inputPassword);
-
-            LoginResult loginResult = await ServicesManager.GetAuthManager()
-                .LoginAsync(inputEmail, inputPassword);
-
-
-            if (!loginResult.IsLoggedIn)
-            {
-                logError($"User {inputEmail} isn't registered. Try again.");
-            }
-
-            m_ApplicationManager.CurrentUser = loginResult.LoggedInUser;
-            if (loginResult.LoggedInUser.usertype == "Teacher")
-            {
-                Debug.Log("Teacher options");
-                SceneManager.LoadScene("TeacherOptionsScreen");
-            }
-            else
-            {
-                Debug.Log("Student options");
-                SceneManager.LoadScene("StudentOptionsScreen");
-            }
+            logError($"User {inputEmail} isn't registered. Try again.");
         }
-        catch (Exception e)
+
+        if (loginResult.LoggedInUser.usertype == "Teacher")
         {
-            Debug.LogError(e.ToString());
+            Debug.Log("Teacher options");
+            SceneManager.LoadScene("TeacherOptionsScreen");
+        }
+        else
+        {
+            Debug.Log("Student options");
+            SceneManager.LoadScene("StudentOptionsScreen");
         }
     }
 

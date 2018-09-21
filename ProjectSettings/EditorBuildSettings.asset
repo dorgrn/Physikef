@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Screens/StudentOptionsScreen.unity
     guid: dc2ef0fa29e6fef46a506182f9c242a5
+  - enabled: 1
+    path: Assets/_Scenes/SceneSelectionMenu.unity
+    guid: 59d23ac929740614c8a2a2054529add7

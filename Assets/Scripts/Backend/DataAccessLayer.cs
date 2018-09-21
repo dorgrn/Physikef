@@ -69,13 +69,13 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<User> GetUserByIdAsync(string userId)
     {
         var allUsers = await GetAllUsersAsync();
-        return allUsers.First(user => user.userid == userId);
+        return allUsers.FirstOrDefault(user => user.userid == userId);
     }
 
     public async Task<User> GetUserByEmailAsync(string email)
     {
         var allUsers = await GetAllUsersAsync();
-        return allUsers.First(user => user.email == email);
+        return allUsers.FirstOrDefault(user => user.email == email);
     }
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()
