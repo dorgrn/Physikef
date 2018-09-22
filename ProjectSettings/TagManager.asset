@@ -8,6 +8,9 @@ TagManager:
   - Button
   - Ramp
   - Bob
+  - LeftWeight
+  - RightWeight
+  - RightDistance
   layers:
   - Default
   - TransparentFX
