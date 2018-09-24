@@ -29,25 +29,26 @@ public class LoginScreenScript : MonoBehaviour
 
         validateInputs(inputEmail, inputPassword);
 
-        LoginResult loginResult = await ServicesManager.GetAuthManager()
-            .LoginAsync(inputEmail, inputPassword);
-
-
-        if (!loginResult.IsLoggedIn)
+        try
+        {
+            LoginResult loginResult = await ServicesManager.GetAuthManager()
+                .LoginAsync(inputEmail, inputPassword);
+            if (loginResult.LoggedInUser.usertype == "Teacher")
+            {
+                Debug.Log("Teacher options");
+                SceneManager.LoadScene("TeacherOptionsScreen");
+            }
+            else
+            {
+                Debug.Log("Student options");
+                SceneManager.LoadScene("StudentOptionsScreen");
+            }
+        }
+        catch (Exception e)
         {
             logError($"User {inputEmail} isn't registered. Try again.");
         }
 
-        if (loginResult.LoggedInUser.usertype == "Teacher")
-        {
-            Debug.Log("Teacher options");
-            SceneManager.LoadScene("TeacherOptionsScreen");
-        }
-        else
-        {
-            Debug.Log("Student options");
-            SceneManager.LoadScene("StudentOptionsScreen");
-        }
     }
 
 

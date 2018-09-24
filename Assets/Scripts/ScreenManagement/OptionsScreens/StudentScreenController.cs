@@ -76,27 +76,41 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
         async Task populateHwDropdownAsync()
         {
             IEnumerable<HomeWork> homework =
-                await ServicesManager.GetDataAccessLayer().GetHomeWorkAsync(m_CurrentUser.userid);
+                await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email);
             if (!homework.IsEmpty())
             {
                 m_HwDropdown.options = homework.Select(hw => new Dropdown.OptionData(hw.Name)).ToList();
             }
         }
 
-        public void StartButton_OnClick()
+        bool isUserAnonymous()
         {
-            string[] scenes = {"BallOnRamp", "CannonLaunch", "Pendulum"};
-            SwitchToScene.SwapToVR();
-            string chosenOption = m_HwDropdown.isActiveAndEnabled
-                ? m_HwDropdown.options[m_HwDropdown.value].text
-                : m_ExDropdown.options[m_ExDropdown.value].text;
-            if (scenes.Contains(chosenOption))
+            return m_CurrentUser == null;
+        }
+
+        public async void StartButton_OnClick()
+        {
+            string[] scenes = { "CannonLaunch", "Pendulum" };
+            string chosenScene;
+
+            if (isUserAnonymous())
             {
-                SceneManager.LoadScene(chosenOption);
+                chosenScene = m_ExDropdown.options[m_ExDropdown.value].text;
             }
             else
             {
-                throw new Exception($"non implemented scene chosen {chosenOption}");
+                IEnumerable<HomeWork> homeWork = await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email);
+                chosenScene = homeWork.Where(hw => hw.Name == m_HwDropdown.options[m_HwDropdown.value].text).FirstOrDefault()?.SceneName;
+            }
+
+            if (scenes.Contains(chosenScene))
+            {
+                SwitchToScene.SwapToVR();
+                SceneManager.LoadScene(chosenScene);
+            }
+            else
+            {
+                throw new Exception($"non implemented scene chosen {chosenScene}");
             }
         }
     }

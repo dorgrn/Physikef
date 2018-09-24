@@ -6,7 +6,7 @@ namespace GameScenes.BallOnRamp
     public class RingController : MonoBehaviour
     {
         private GameObject target;
-        [SerializeField] GameObject particleSystem;
+        [SerializeField] new GameObject particleSystem;
 
 
         void Start()

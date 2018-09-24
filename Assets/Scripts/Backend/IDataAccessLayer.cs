@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 
 public interface IDataAccessLayer
 {
-    Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID);
+    Task<IEnumerable<HomeWork>> GetHomeworkByUserEmailAsync(string userEmail);
+    Task<HomeWork> GetHomeworkByNameAsync(string homeworkName);
+
     Task AddHomeworkAsync(HomeWork newHomework);
     Task AddExerciseAsync(Exercise newExercise);
     Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName);

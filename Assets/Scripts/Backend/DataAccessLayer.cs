@@ -16,10 +16,16 @@ public class DataAccessLayer : IDataAccessLayer
         _databaseRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
+    public async Task<IEnumerable<HomeWork>> GetHomeworkByUserEmailAsync(string userEmail)
     {
         var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
-        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userID));
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userEmail));
+    }
+
+    public async Task<HomeWork> GetHomeworkByNameAsync(string homeworkName)
+    {
+        var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Name == homeworkName).FirstOrDefault();
     }
 
     public async Task AddHomeworkAsync(HomeWork newHomework)
