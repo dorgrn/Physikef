@@ -56,7 +56,7 @@ public class LoginScreenScript : MonoBehaviour
         try
         {
             await ServicesManager.GetAuthManager().AnonymousLoginAsync();
-            SceneManager.LoadScene("AnonymousOptionsScreen");
+            SceneManager.LoadScene("StudentOptionsScreen");
         }
         catch (Exception e)
         {

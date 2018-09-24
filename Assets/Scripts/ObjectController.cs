@@ -10,7 +10,7 @@ namespace Attributes
         private AttributContainer attributContainer;
         [SerializeField] private int delta = 1;
         private AttributContainer.AttributeEnum attribute;
-        private Renderer renderer;
+        private new Renderer renderer;
         private readonly Color gazedAtColor = Color.cyan;
         private readonly Color notGzedAtColor = Color.white;
         private bool gazedAt;

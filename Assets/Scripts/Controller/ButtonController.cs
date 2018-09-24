@@ -30,7 +30,7 @@ namespace GameScenes.Controllers
             m_GazedAt = gazedAt;
         }
 
-        private void DoAction()
+        private async void DoAction()
         {
             if (m_FillBar.value < 1f)
             {
@@ -38,7 +38,7 @@ namespace GameScenes.Controllers
             }
 
             Text label = GetComponentInChildren<Text>();
-            m_SceneController.SubmitAnswer(label.text);
+            await m_SceneController.SubmitAnswer(label.text);
         }
 
         void FixedUpdate()

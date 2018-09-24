@@ -6,19 +6,19 @@ using UnityEngine.UI;
 
 public class ResetPasswordScreenScript : MonoBehaviour
 {
-    private InputField EmailUIElement;
+    private InputField m_EmailUIElement;
     private Text m_ErrorText;
 
     void Start()
     {
-        EmailUIElement = GameObject.Find("EmailInput").GetComponent<InputField>();
+        m_EmailUIElement = GameObject.Find("EmailInput").GetComponent<InputField>();
         m_ErrorText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
-        m_ErrorText.text = String.Empty;
+        m_ErrorText.text = string.Empty;
     }
 
     public async void SendResetPasswordEmail_Click()
     {
-        string email = EmailUIElement.text;
+        string email = m_EmailUIElement.text;
         if (!InputValidator.isValidEmail(email))
         {
             m_ErrorText.text = $"email {email} isn't valid";

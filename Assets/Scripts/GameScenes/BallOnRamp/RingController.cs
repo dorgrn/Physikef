@@ -17,7 +17,7 @@ namespace GameScenes.BallOnRamp
 
         private void Update()
         {
-            if (particleSystem.active)
+            if (particleSystem.activeInHierarchy)
                 return;
 
             if (transform.position.x - target.transform.position.x <= 0)
