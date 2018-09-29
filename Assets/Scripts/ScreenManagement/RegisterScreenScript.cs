@@ -1,5 +1,4 @@
 ﻿using System;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -61,7 +60,7 @@ public class RegisterScreenScript : MonoBehaviour
             logError($"email {email} isn't a valid email");
         }
 
-        if (userDisplayName.IsEmpty())
+        if (string.IsNullOrEmpty(userDisplayName))
         {
             logError("user name can't be empty");
         }

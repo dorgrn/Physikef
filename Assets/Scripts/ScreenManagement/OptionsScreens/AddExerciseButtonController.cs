@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class AddExerciseButtonController : MonoBehaviour
     {
@@ -24,10 +23,10 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
 
         bool isValidForm()
         {
-            return !m_ExerciseNameInput.text.IsEmpty()
-                   && !m_QuestionInput.text.IsEmpty()
-                   && !m_RadioToggleGroup.ActiveToggles().IsEmpty()
-                   && m_AnswersInputToggles.All(answerTuple => !answerTuple.Item2.text.IsEmpty());
+            return !string.IsNullOrEmpty(m_ExerciseNameInput.text) &&
+                   !string.IsNullOrEmpty(m_QuestionInput.text)
+                   && m_RadioToggleGroup.ActiveToggles().Any()
+                   && m_AnswersInputToggles.All(answerTuple => !string.IsNullOrEmpty(answerTuple.Item2.text));
         }
 
         public async void AddExerciseButton_OnClick()
@@ -57,7 +56,8 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
             throw new ArgumentException(m_ErrorText.text);
         }
 
-        private int? findCorrectIndexInAnswerInputToggles(Tuple<Toggle, InputField>[] answersInputToggles, Toggle onToggle)
+        private int? findCorrectIndexInAnswerInputToggles(Tuple<Toggle, InputField>[] answersInputToggles,
+            Toggle onToggle)
         {
             for (int i = 0; i < answersInputToggles.Length; i++)
             {

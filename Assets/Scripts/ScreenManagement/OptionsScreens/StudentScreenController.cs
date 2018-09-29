@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class StudentScreenController : MonoBehaviour
     {
@@ -31,7 +30,7 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
             string userEmail = ServicesManager.GetAuthManager().GetCurrentUserEmail();
 
             // user is anonymous
-            if (userEmail.IsEmpty())
+            if (string.IsNullOrEmpty(userEmail))
             {
                 await initAnonymousUserAsync();
             }
@@ -67,7 +66,7 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
         async Task populateExDropdwonAsync()
         {
             IEnumerable<Exercise> exercises = await ServicesManager.GetDataAccessLayer().GetAllExercisesAsync();
-            if (!exercises.IsEmpty())
+            if (!exercises.Any())
             {
                 m_ExDropdown.options = exercises.Select(exe => new Dropdown.OptionData(exe.SceneName)).ToList();
             }
@@ -77,7 +76,7 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
         {
             IEnumerable<HomeWork> homework =
                 await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email);
-            if (!homework.IsEmpty())
+            if (!homework.Any())
             {
                 m_HwDropdown.options = homework.Select(hw => new Dropdown.OptionData(hw.Name)).ToList();
             }
@@ -90,7 +89,7 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
 
         public async void StartButton_OnClick()
         {
-            string[] scenes = { "CannonLaunch", "Pendulum" };
+            string[] scenes = {"CannonLaunch", "Pendulum"};
             string chosenScene;
 
             if (isUserAnonymous())
@@ -99,8 +98,10 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
             }
             else
             {
-                IEnumerable<HomeWork> homeWork = await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email);
-                chosenScene = homeWork.Where(hw => hw.Name == m_HwDropdown.options[m_HwDropdown.value].text).FirstOrDefault()?.SceneName;
+                IEnumerable<HomeWork> homeWork = await ServicesManager.GetDataAccessLayer()
+                    .GetHomeworkByUserEmailAsync(m_CurrentUser.email);
+                chosenScene = homeWork
+                    .FirstOrDefault(hw => hw.Name == m_HwDropdown.options[m_HwDropdown.value].text)?.SceneName;
             }
 
             if (scenes.Contains(chosenScene))

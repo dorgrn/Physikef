@@ -1,25 +1,29 @@
 ﻿using System.Collections;
-using Exercises;
-using GameScenes.Controller;
+using Physikef.Controller;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
-namespace GameScenes.Pendulum
+namespace Physikef.GameScenes.Pendulum
 {
     public class PendulumController : SceneController
     {
         [SerializeField] private GameObject m_QuestionUi;
+        [SerializeField] private GameObject m_Pendulum;
         public Pendulum m_PendulumScript;
-        private readonly int START_SCENE_DELAY_SECONDS = 3;
+        private readonly int START_SCENE_DELAY_SECONDS = 1;
+        private DirectionPointer.DirectionPointer m_DirectionPointer;
 
-
+        private void Start()
+        {
+            m_DirectionPointer = FindObjectOfType<DirectionPointer.DirectionPointer>();
+            m_DirectionPointer.SetTarget(m_QuestionUi);
+        }
 
         protected override IEnumerator StartScene()
         {
             yield return new WaitForSeconds(START_SCENE_DELAY_SECONDS);
             m_QuestionUi.SetActive(false);
             m_PendulumScript.enabled = true;
+            m_DirectionPointer.SetTarget(m_Pendulum);
         }
 
 //        private bool calculateAnswer(string answer)

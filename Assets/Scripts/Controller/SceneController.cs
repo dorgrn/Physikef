@@ -1,18 +1,12 @@
 ﻿using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using Exercises;
-using GameScenes.Pendulum;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
-namespace GameScenes.Controller
+namespace Physikef.Controller
 {
     public abstract class SceneController : MonoBehaviour
     {
-        [Inject] public readonly ApplicationManager m_ApplicationManager;
-        [Inject] public readonly IExercisePublisher m_ExercisePublisher;
         public Exercise m_SceneExercise;
         public FeedbackTextController m_FeedbackTextController;
 
@@ -23,7 +17,9 @@ namespace GameScenes.Controller
 
         public async Task SubmitAnswer(string answer)
         {
-            m_SceneExercise = await m_ExercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            m_SceneExercise =
+                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync("Pendulum"))
+                .FirstOrDefault();
             bool isCorrectAnswer =
                 m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex) == answer;
 
@@ -38,7 +34,7 @@ namespace GameScenes.Controller
 
         public async void PostUserAnswer(string answer, bool isCorrect)
         {
-            string userid = m_ApplicationManager.CurrentUser.userid;
+            string userid = ServicesManager.GetAuthManager().GetCurrentUserEmail();
             StudentExerciseResult studentExerciseResult = new StudentExerciseResult()
             {
                 AnsweringStudentId = userid,

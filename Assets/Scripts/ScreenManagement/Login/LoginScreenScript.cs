@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Zenject;
+using UnityEngine.UI;
 
 public class LoginScreenScript : MonoBehaviour
 {

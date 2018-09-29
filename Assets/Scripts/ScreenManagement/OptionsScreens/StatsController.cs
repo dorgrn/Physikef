@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Physikef.ScreenManagement.TeachersOptionsScreen;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ModestTree;
 using UnityEngine;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class StatsController : MonoBehaviour
     {
@@ -31,8 +31,8 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
                 exercisesAnswered as StudentExerciseResult[] ?? exercisesAnswered.ToArray();
             var resultsByCorrectness = exerciseResults.GroupBy(exe => exe.isCorrect).ToArray();
 
-            var correctExe = resultsByCorrectness.FirstOrDefault();
-            var incorrectExe = resultsByCorrectness.SecondOrDefault();
+            var correctExe = resultsByCorrectness[0];
+            var incorrectExe = resultsByCorrectness[1];
 
             int correctExeAmount = correctExe?.Count() ?? 0;
             int incorrectExeAmount = incorrectExe?.Count() ?? 0;
@@ -61,7 +61,7 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
                 : 0;
 
             return
-                $"Answered percentage:{percentageRes :P2}";
+                $"Answered percentage:{percentageRes:P2}";
         }
     }
 }

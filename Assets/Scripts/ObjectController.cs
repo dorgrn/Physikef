@@ -1,12 +1,9 @@
-using System.Xml;
 using UnityEngine;
-using Zenject;
 
 namespace Attributes
 {
     public class ObjectController : MonoBehaviour
     {
-        [Inject] private ApplicationManager applicationManager;
         private AttributContainer attributContainer;
         [SerializeField] private int delta = 1;
         private AttributContainer.AttributeEnum attribute;

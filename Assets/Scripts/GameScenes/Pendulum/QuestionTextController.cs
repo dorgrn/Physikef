@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Exercises;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Zenject;
 
-namespace Controllers
+namespace Physikef.GameScenes.Pendulum
 {
     public class QuestionTextController : MonoBehaviour
     {
-        [Inject] private IExercisePublisher m_ExercisePublisher;
         [SerializeField] private TextMeshProUGUI m_QuestionText;
-        [SerializeField] private Text[] m_ChoicesLabels;
+        [SerializeField] private TextMeshProUGUI[] m_ChoicesLabels;
 
         void Start()
         {
@@ -22,7 +18,13 @@ namespace Controllers
 
         private async void initExercises(string sceneName)
         {
-            Exercise exercise = await m_ExercisePublisher.GetExerciseForScene(sceneName);
+            Exercise exercise =
+                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync("Pendulum")).FirstOrDefault();
+
+            if (exercise == null)
+            {
+                throw new Exception("Didn't find exercise for scene");
+            }
 
             m_QuestionText.text = exercise.Question;
 

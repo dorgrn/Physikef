@@ -1,9 +1,8 @@
-using GameScenes.Controller;
-using GameScenes.Pendulum;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameScenes.Controllers
+namespace Physikef.Controller
 {
     public class ButtonController : MonoBehaviour
     {
@@ -37,7 +36,7 @@ namespace GameScenes.Controllers
                 return;
             }
 
-            Text label = GetComponentInChildren<Text>();
+            TextMeshProUGUI label = GetComponentInChildren<TextMeshProUGUI>();
             await m_SceneController.SubmitAnswer(label.text);
         }
 

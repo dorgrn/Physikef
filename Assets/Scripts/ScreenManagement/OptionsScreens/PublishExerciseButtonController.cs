@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,8 +22,8 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
         private bool IsFormValid(IEnumerable<string> studentsToPublishTo)
         {
             return !m_ExerciseDropdown.captionText.text.Equals("Empty")
-                   && !m_HomeworkNameInput.text.IsEmpty()
-                   && !studentsToPublishTo.IsEmpty();
+                   && !string.IsNullOrEmpty(m_HomeworkNameInput.text)
+                   && studentsToPublishTo.Any();
         }
 
         public async void PublishButton_OnClick()
