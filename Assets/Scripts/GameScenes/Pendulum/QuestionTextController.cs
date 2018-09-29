@@ -19,7 +19,7 @@ namespace Physikef.GameScenes.Pendulum
         private async void initExercises(string sceneName)
         {
             Exercise exercise =
-                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync("Pendulum")).FirstOrDefault();
+                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync(sceneName)).FirstOrDefault();
 
             if (exercise == null)
             {
