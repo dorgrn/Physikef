@@ -1,17 +1,16 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Physikef.Controller
 {
-    public class ButtonController : MonoBehaviour
+    public abstract class ButtonController : MonoBehaviour
     {
         private bool m_GazedAt = false;
         private float m_ProgressBits;
         private float m_ElapsedTime = 0f;
         private Slider m_FillBar;
         private const float m_MillsecsToFill = 200f;
-        private SceneController m_SceneController;
+        protected SceneController m_SceneController;
 
         private void Awake()
         {
@@ -29,16 +28,7 @@ namespace Physikef.Controller
             m_GazedAt = gazedAt;
         }
 
-        private async void DoAction()
-        {
-            if (m_FillBar.value < 1f)
-            {
-                return;
-            }
-
-            TextMeshProUGUI label = GetComponentInChildren<TextMeshProUGUI>();
-            await m_SceneController.SubmitAnswer(label.text);
-        }
+        protected abstract void DoAction();
 
         void FixedUpdate()
         {
