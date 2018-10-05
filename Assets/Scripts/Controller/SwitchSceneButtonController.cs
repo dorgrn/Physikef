@@ -8,7 +8,6 @@ namespace Physikef.Controller
 
         protected override void DoAction()
         {
-            SwitchToScene.SwapFromVR();
             SceneManager.LoadScene(m_SceneName);
         }
     }

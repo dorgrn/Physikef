@@ -25,6 +25,7 @@ namespace Physikef.Controller
 
         void Start()
         {
+            StartCoroutine(SwitchToScene.SwapToVR());
             m_DirectionPointer = FindObjectOfType<DirectionPointer>();
             m_DirectionPointer.SetTarget(m_QuestionUi);
         }

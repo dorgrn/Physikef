@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,9 +20,22 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         async void Start()
         {
-            m_HwDropdown = m_HWDropDownHolder.GetComponentInChildren<Dropdown>();
-            m_ExDropdown = m_ExDropDownHolder.GetComponentInChildren<Dropdown>();
+            m_HwDropdown = createDropDown(m_HWDropDownHolder);
+            m_ExDropdown = createDropDown(m_ExDropDownHolder);
+
             await init();
+        }
+
+
+        private Dropdown createDropDown(GameObject dropDownHolder)
+        {
+            Dropdown created = dropDownHolder.GetComponentInChildren<Dropdown>();
+            created.options = new List<Dropdown.OptionData>()
+            {
+                new Dropdown.OptionData("Empty")
+            };
+
+            return created;
         }
 
         async Task init()
@@ -91,8 +103,6 @@ namespace Physikef.ScreenManagement.OptionsScreens
         public async void StartButton_OnClick()
         {
             string chosenScene;
-            List<String> scenesInBuild = EditorBuildSettings.scenes.Where(scene => scene.enabled)
-                .Select(scene => scene.path.Replace(".unity", string.Empty)).ToList();
             if (isUserAnonymous())
             {
                 chosenScene = m_ExDropdown.options[m_ExDropdown.value].text;
@@ -105,12 +115,11 @@ namespace Physikef.ScreenManagement.OptionsScreens
                     .FirstOrDefault(hw => hw.Name == m_HwDropdown.options[m_HwDropdown.value].text)?.SceneName;
             }
 
-            if (string.IsNullOrEmpty(chosenScene))
+            if (string.IsNullOrEmpty(chosenScene) || chosenScene == "Empty")
             {
                 throw new Exception($"Didn't found wanted scene {chosenScene}");
             }
 
-            SwitchToScene.SwapToVR();
             SceneManager.LoadScene(chosenScene);
         }
     }
