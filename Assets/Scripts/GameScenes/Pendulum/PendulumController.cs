@@ -1,26 +1,13 @@
-﻿using System.Collections;
-using Exercises;
-using GameScenes.Controller;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
+﻿using Physikef.Controller;
 
-namespace GameScenes.Pendulum
+namespace Physikef.GameScenes.Pendulum
 {
     public class PendulumController : SceneController
     {
-        [SerializeField] private GameObject m_QuestionUi;
-        public Pendulum m_PendulumScript;
-        private readonly int START_SCENE_DELAY_SECONDS = 3;
-
-
-
-        protected override IEnumerator StartScene()
+        private void Start()
         {
-            yield return new WaitForSeconds(START_SCENE_DELAY_SECONDS);
-            m_QuestionUi.SetActive(false);
-            m_PendulumScript.enabled = true;
         }
+
 
 //        private bool calculateAnswer(string answer)
 //        {

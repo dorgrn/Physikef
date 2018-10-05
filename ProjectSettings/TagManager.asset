@@ -8,10 +8,12 @@ TagManager:
   - Button
   - Ramp
   - Bob
-  - LeftWeight
+ - ButtonUp
+  - FieldProperty
+  - ButtonDown
+  - ErrorText  - LeftWeight
   - RightWeight
-  - RightDistance
-  layers:
+  - RightDistance  layers:
   - Default
   - TransparentFX
   - Ignore Raycast

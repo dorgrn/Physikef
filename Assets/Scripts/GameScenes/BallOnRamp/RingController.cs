@@ -6,7 +6,7 @@ namespace GameScenes.BallOnRamp
     public class RingController : MonoBehaviour
     {
         private GameObject target;
-        [SerializeField] GameObject particleSystem;
+        [SerializeField] new GameObject particleSystem;
 
 
         void Start()
@@ -17,7 +17,7 @@ namespace GameScenes.BallOnRamp
 
         private void Update()
         {
-            if (particleSystem.active)
+            if (particleSystem.activeInHierarchy)
                 return;
 
             if (transform.position.x - target.transform.position.x <= 0)

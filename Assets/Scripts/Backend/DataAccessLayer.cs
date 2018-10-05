@@ -16,10 +16,16 @@ public class DataAccessLayer : IDataAccessLayer
         _databaseRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
+    public async Task<IEnumerable<HomeWork>> GetHomeworkByUserEmailAsync(string userEmail)
     {
         var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
-        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userID));
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userEmail));
+    }
+
+    public async Task<HomeWork> GetHomeworkByNameAsync(string homeworkName)
+    {
+        var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Name == homeworkName).FirstOrDefault();
     }
 
     public async Task AddHomeworkAsync(HomeWork newHomework)
@@ -69,13 +75,13 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<User> GetUserByIdAsync(string userId)
     {
         var allUsers = await GetAllUsersAsync();
-        return allUsers.First(user => user.userid == userId);
+        return allUsers.FirstOrDefault(user => user.userid == userId);
     }
 
     public async Task<User> GetUserByEmailAsync(string email)
     {
         var allUsers = await GetAllUsersAsync();
-        return allUsers.First(user => user.email == email);
+        return allUsers.FirstOrDefault(user => user.email == email);
     }
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()

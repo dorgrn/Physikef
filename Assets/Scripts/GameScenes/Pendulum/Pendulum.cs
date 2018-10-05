@@ -10,7 +10,7 @@ using UnityEngine;
 // Demonstration: https://i.imgur.com/vOQgFMe.gif
 //
 // Usage: https://i.imgur.com/BM52dbT.png
-namespace GameScenes.Pendulum
+namespace Physikef.GameScenes.Pendulum
 {
     public class Pendulum : MonoBehaviour
     {
@@ -170,7 +170,6 @@ namespace GameScenes.Pendulum
                 this.tensionForce += centripetalForce;
 
                 this.currentVelocity += this.tensionDirection * this.tensionForce * deltaTime;
-
             }
 
 
@@ -191,48 +190,48 @@ namespace GameScenes.Pendulum
             return start + (distanceFromStart * Vector3.Normalize(end - start));
         }
 
-        void OnDrawGizmos()
-        {
-            // purple
-            Gizmos.color = new Color(.5f, 0f, .5f);
-            Gizmos.DrawWireSphere(this.Pivot.transform.position, this.ropeLength);
-            Gizmos.DrawWireCube(this.bobStartingPosition, new Vector3(.5f, .5f, .5f));
-
-
-            // Blue: Auxilary
-            Gizmos.color = new Color(.3f, .3f, 1f); // blue
-            Vector3 auxVel = .3f * this.currentVelocity;
-            Gizmos.DrawRay(this.Bob.transform.position, auxVel);
-            Gizmos.DrawSphere(this.Bob.transform.position + auxVel, .2f);
-
-            // Yellow: Gravity
-            Gizmos.color = new Color(1f, 1f, .2f);
-            Vector3 gravity = .3f * this.gravityForce * this.gravityDirection;
-            Gizmos.DrawRay(this.Bob.transform.position, gravity);
-            Gizmos.DrawSphere(this.Bob.transform.position + gravity, .2f);
-
-            // Orange: Tension
-            Gizmos.color = new Color(1f, .5f, .2f); // Orange
-            Vector3 tension = .3f * this.tensionForce * this.tensionDirection;
-            Gizmos.DrawRay(this.Bob.transform.position, tension);
-            Gizmos.DrawSphere(this.Bob.transform.position + tension, .2f);
-
-            // Red: Resultant
-            Gizmos.color = new Color(1f, .3f, .3f); // red
-            Vector3 resultant = gravity + tension;
-            Gizmos.DrawRay(this.Bob.transform.position, resultant);
-            Gizmos.DrawSphere(this.Bob.transform.position + resultant, .2f);
-
-
-            // Green: Pendulum side direction
-            Gizmos.color = new Color(.3f, 1f, .3f);
-            Gizmos.DrawRay(this.Bob.transform.position, 3f * this.pendulumSideDirection);
-            Gizmos.DrawSphere(this.Bob.transform.position + 3f * this.pendulumSideDirection, .2f);
-
-            // Cyan: tangent direction
-            Gizmos.color = new Color(.2f, 1f, 1f); // cyan
-            Gizmos.DrawRay(this.Bob.transform.position, 3f * this.tangentDirection);
-            Gizmos.DrawSphere(this.Bob.transform.position + 3f * this.tangentDirection, .2f);
-        }
+//        void OnDrawGizmos()
+//        {
+//            // purple
+//            Gizmos.color = new Color(.5f, 0f, .5f);
+//            Gizmos.DrawWireSphere(this.Pivot.transform.position, this.ropeLength);
+//            Gizmos.DrawWireCube(this.bobStartingPosition, new Vector3(.5f, .5f, .5f));
+//
+//
+//            // Blue: Auxilary
+//            Gizmos.color = new Color(.3f, .3f, 1f); // blue
+//            Vector3 auxVel = .3f * this.currentVelocity;
+//            Gizmos.DrawRay(this.Bob.transform.position, auxVel);
+//            Gizmos.DrawSphere(this.Bob.transform.position + auxVel, .2f);
+//
+//            // Yellow: Gravity
+//            Gizmos.color = new Color(1f, 1f, .2f);
+//            Vector3 gravity = .3f * this.gravityForce * this.gravityDirection;
+//            Gizmos.DrawRay(this.Bob.transform.position, gravity);
+//            Gizmos.DrawSphere(this.Bob.transform.position + gravity, .2f);
+//
+//            // Orange: Tension
+//            Gizmos.color = new Color(1f, .5f, .2f); // Orange
+//            Vector3 tension = .3f * this.tensionForce * this.tensionDirection;
+//            Gizmos.DrawRay(this.Bob.transform.position, tension);
+//            Gizmos.DrawSphere(this.Bob.transform.position + tension, .2f);
+//
+//            // Red: Resultant
+//            Gizmos.color = new Color(1f, .3f, .3f); // red
+//            Vector3 resultant = gravity + tension;
+//            Gizmos.DrawRay(this.Bob.transform.position, resultant);
+//            Gizmos.DrawSphere(this.Bob.transform.position + resultant, .2f);
+//
+//
+//            // Green: Pendulum side direction
+//            Gizmos.color = new Color(.3f, 1f, .3f);
+//            Gizmos.DrawRay(this.Bob.transform.position, 3f * this.pendulumSideDirection);
+//            Gizmos.DrawSphere(this.Bob.transform.position + 3f * this.pendulumSideDirection, .2f);
+//
+//            // Cyan: tangent direction
+//            Gizmos.color = new Color(.2f, 1f, 1f); // cyan
+//            Gizmos.DrawRay(this.Bob.transform.position, 3f * this.tangentDirection);
+//            Gizmos.DrawSphere(this.Bob.transform.position + 3f * this.tangentDirection, .2f);
+//        }
     }
 }

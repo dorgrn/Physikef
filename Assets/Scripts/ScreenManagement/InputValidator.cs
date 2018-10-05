@@ -18,5 +18,6 @@ public class InputValidator
     public static bool isIdValid(string id)
     {
         return true; // TODO validate
+        // retrun id.Length == 9;
     }
 }

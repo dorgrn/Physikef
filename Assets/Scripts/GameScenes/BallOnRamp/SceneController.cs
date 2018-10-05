@@ -1,20 +1,15 @@
-using System.Linq;
 using Attributes;
-using Exercises;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace GameScenes.BallOnRamp
 {
     public class SceneController : MonoBehaviour
     {
-        [Inject] private ApplicationManager applicationManager;
         private SceneAttributes sceneAttributes = new SceneAttributes();
         private AttributContainer attributContainer;
 
         // questions
-        [Inject] private IExercisePublisher m_exercisePublisher; // question supplier
         private Exercise m_sceneExercise; // current scene questions
 
 
