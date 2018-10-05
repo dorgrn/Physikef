@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Physikef.ScreenManagement.TeachersOptionsScreen;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class PublishExerciseButtonController : MonoBehaviour
     {
@@ -11,12 +12,13 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
         [SerializeField] private Dropdown m_ExerciseDropdown;
         [SerializeField] private ScrollViewToggleFiller m_ScrollViewToggleFiller;
         private string m_CurrentUser;
-        private Text m_MessagesText;
+        private Text m_ErrorText;
 
         private void Start()
         {
-            m_MessagesText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
+            m_ErrorText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
             m_CurrentUser = ServicesManager.GetAuthManager().GetCurrentUserEmail();
+            clearForm();
         }
 
         private bool IsFormValid(IEnumerable<string> studentsToPublishTo)
@@ -28,13 +30,13 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
 
         public async void PublishButton_OnClick()
         {
-            m_MessagesText.text = string.Empty;
+            m_ErrorText.text = string.Empty;
             var studentsToPublishTo = m_ScrollViewToggleFiller.GetCheckedToggles().ToArray();
 
             if (!IsFormValid(studentsToPublishTo))
             {
-                m_MessagesText.color = Color.red;
-                m_MessagesText.text = "Form wasn't filled correctly!";
+                m_ErrorText.color = Color.red;
+                m_ErrorText.text = "Form wasn't filled correctly!";
             }
 
             await ServicesManager.GetDataAccessLayer().AddHomeworkAsync(new HomeWork()
@@ -45,8 +47,13 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
                 Students = studentsToPublishTo
             });
 
-            m_MessagesText.color = Color.green;
-            m_MessagesText.text = "Exercise published successfully";
+            m_ErrorText.color = Color.green;
+            m_ErrorText.text = "Exercise published successfully";
+        }
+
+        void clearForm()
+        {
+            m_ErrorText.text = string.Empty;
         }
     }
 }

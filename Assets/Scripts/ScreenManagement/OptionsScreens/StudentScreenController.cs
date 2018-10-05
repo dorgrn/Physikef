@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -60,10 +61,10 @@ namespace Physikef.ScreenManagement.OptionsScreens
             m_UsernameText.text = "Anonymous";
             m_Title.text = "Choose exercise";
             m_HWDropDownHolder.SetActive(false);
-            await populateExDropdwonAsync();
+            await PopulateExDropdownAsync();
         }
 
-        async Task populateExDropdwonAsync()
+        async Task PopulateExDropdownAsync()
         {
             IEnumerable<Exercise> exercises = await ServicesManager.GetDataAccessLayer().GetAllExercisesAsync();
             if (!exercises.Any())
@@ -75,8 +76,8 @@ namespace Physikef.ScreenManagement.OptionsScreens
         async Task populateHwDropdownAsync()
         {
             IEnumerable<HomeWork> homework =
-                await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email);
-            if (!homework.Any())
+                (await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email)).ToList();
+            if (homework.Any())
             {
                 m_HwDropdown.options = homework.Select(hw => new Dropdown.OptionData(hw.Name)).ToList();
             }
@@ -89,9 +90,9 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         public async void StartButton_OnClick()
         {
-            string[] scenes = {"CannonLaunch", "Pendulum"};
             string chosenScene;
-
+            List<String> scenesInBuild = EditorBuildSettings.scenes.Where(scene => scene.enabled)
+                .Select(scene => scene.path.Replace(".unity", string.Empty)).ToList();
             if (isUserAnonymous())
             {
                 chosenScene = m_ExDropdown.options[m_ExDropdown.value].text;
@@ -104,15 +105,13 @@ namespace Physikef.ScreenManagement.OptionsScreens
                     .FirstOrDefault(hw => hw.Name == m_HwDropdown.options[m_HwDropdown.value].text)?.SceneName;
             }
 
-            if (scenes.Contains(chosenScene))
+            if (string.IsNullOrEmpty(chosenScene))
             {
-                SwitchToScene.SwapToVR();
-                SceneManager.LoadScene(chosenScene);
+                throw new Exception($"Didn't found wanted scene {chosenScene}");
             }
-            else
-            {
-                throw new Exception($"non implemented scene chosen {chosenScene}");
-            }
+
+            SwitchToScene.SwapToVR();
+            SceneManager.LoadScene(chosenScene);
         }
     }
 }

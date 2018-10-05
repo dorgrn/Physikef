@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 namespace Physikef.Controller
 {
-    public abstract class SceneController : MonoBehaviour
+    public class SceneController : MonoBehaviour
     {
         private readonly float START_SCENE_DELAY_SECONDS = 1;
         protected Exercise m_SceneExercise;

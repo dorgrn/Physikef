@@ -19,6 +19,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
             m_ErrorText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
             populateAnswerInputToggles();
             m_RadioToggleGroup = m_AnswersHolder.GetComponent<ToggleGroup>();
+            clearForm();
         }
 
         bool isValidForm()
@@ -53,7 +54,6 @@ namespace Physikef.ScreenManagement.OptionsScreens
             await ServicesManager.GetDataAccessLayer().AddExerciseAsync(exerciseToAdd);
             m_ErrorText.color = Color.green;
             m_ErrorText.text = "Exercise published correctly";
-            throw new ArgumentException(m_ErrorText.text);
         }
 
         private int? findCorrectIndexInAnswerInputToggles(Tuple<Toggle, InputField>[] answersInputToggles,
@@ -80,6 +80,18 @@ namespace Physikef.ScreenManagement.OptionsScreens
             for (int i = 0; i < toggles.Length; i++)
             {
                 m_AnswersInputToggles[i] = new Tuple<Toggle, InputField>(toggles[i], inputs[i]);
+            }
+        }
+
+        void clearForm()
+        {
+            m_ErrorText.text = string.Empty;
+            m_ExerciseNameInput.text = string.Empty;
+            m_QuestionInput.text = string.Empty;
+            m_RadioToggleGroup.SetAllTogglesOff();
+            foreach (InputField field in m_AnswersHolder.GetComponents<InputField>())
+            {
+                field.text = string.Empty;
             }
         }
     }

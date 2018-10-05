@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 namespace Physikef.Controller
 {
-    public abstract class ButtonController : MonoBehaviour
+    // This class is used to do an action of a button in the VR space
+    // To use, extend it and override DoAction for desired button onClick  
+    public abstract class AbstractButtonAction : MonoBehaviour
     {
         private bool m_GazedAt = false;
         private float m_ProgressBits;

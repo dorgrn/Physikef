@@ -2,7 +2,7 @@
 
 namespace Physikef.Controller
 {
-    public class QuestionSubmitButtonController : ButtonController
+    public class QuestionSubmitButtonController : AbstractButtonAction
     {
         protected override async void DoAction()
         {

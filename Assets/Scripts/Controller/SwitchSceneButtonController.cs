@@ -2,7 +2,7 @@
 
 namespace Physikef.Controller
 {
-    public class SwitchSceneButtonController : ButtonController
+    public class SwitchSceneButtonController : AbstractButtonAction
     {
         public string m_SceneName;
 
