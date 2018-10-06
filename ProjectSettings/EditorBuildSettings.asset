@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/_Scenes/Screens/StudentOptionsScreen.unity
     guid: dc2ef0fa29e6fef46a506182f9c242a5
   - enabled: 1
-    path: Assets/_Scenes/SceneSelectionMenu.unity
-    guid: 59d23ac929740614c8a2a2054529add7
-  - enabled: 1
     path: Assets/_Scenes/GameScenes/Pendulum.unity
-    guid: ffe235518ba97ff45aedb18731d7c52d
+    guid: 376145952bfaced42954bab9e9b21817
+  - enabled: 1
+    path: Assets/_Scenes/GameScenes/Spring.unity
+    guid: 56c7116d716a78e429b2d4f39e2eba59

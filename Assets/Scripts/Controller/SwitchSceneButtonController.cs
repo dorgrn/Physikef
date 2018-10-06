@@ -2,13 +2,12 @@
 
 namespace Physikef.Controller
 {
-    public class SwitchSceneButtonController : ButtonController
+    public class SwitchSceneButtonController : AbstractButtonAction
     {
         public string m_SceneName;
 
         protected override void DoAction()
         {
-            SwitchToScene.SwapFromVR();
             SceneManager.LoadScene(m_SceneName);
         }
     }

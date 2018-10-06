@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Physikef.ScreenManagement.OptionsScreens
 {
@@ -24,18 +25,17 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         public static async Task<string> GetStudentStatsAnalysisAsync(string email)
         {
-            var exercisesAnswered = await ServicesManager.GetDataAccessLayer().GetStudentStatisticsAsync(email);
             User student = await ServicesManager.GetDataAccessLayer().GetUserByEmailAsync(email);
+            IEnumerable<StudentExerciseResult> exercisesAnswered =
+                await ServicesManager.GetDataAccessLayer().GetStudentStatisticsAsync(email);
+            ILookup<bool, StudentExerciseResult> resultsByCorrectness =
+                exercisesAnswered.ToLookup(exe => exe.isCorrect);
 
-            StudentExerciseResult[] exerciseResults =
-                exercisesAnswered as StudentExerciseResult[] ?? exercisesAnswered.ToArray();
-            var resultsByCorrectness = exerciseResults.GroupBy(exe => exe.isCorrect).ToArray();
+            IEnumerable<StudentExerciseResult> correctExercises = resultsByCorrectness[true];
+            IEnumerable<StudentExerciseResult> incorrectExercises = resultsByCorrectness[false];
 
-            var correctExe = resultsByCorrectness[0];
-            var incorrectExe = resultsByCorrectness[1];
-
-            int correctExeAmount = correctExe?.Count() ?? 0;
-            int incorrectExeAmount = incorrectExe?.Count() ?? 0;
+            int correctExeAmount = (int) correctExercises?.Count();
+            int incorrectExeAmount = (int) incorrectExercises?.Count();
             float sum = correctExeAmount + incorrectExeAmount;
             float correctPer = sum.Equals(0)
                 ? 0

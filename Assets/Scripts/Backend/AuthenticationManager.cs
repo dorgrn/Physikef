@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Firebase.Auth;
 using UnityEngine;
@@ -83,19 +84,19 @@ public class AuthenticationManager : IAuthenticationManager
     {
         Debug.Log("Trying to login with email and password.");
 
-        var resultTask = await m_Auth.SignInWithEmailAndPasswordAsync(email, password)
+        Task<LoginResult> resultTask = await m_Auth.SignInWithEmailAndPasswordAsync(email, password)
             .ContinueWith(async task =>
             {
                 if (task.IsCanceled)
                 {
                     Debug.Log("SignInWithEmailAndPasswordAsync was canceled.");
-                    throw new Exception("task canceled");
+                    throw new Exception($"Task canceled: {task.Result}");
                 }
 
                 if (task.IsFaulted)
                 {
                     Debug.Log("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
-                    throw new Exception("task faulted");
+                    throw new Exception($"Task faulted: {task.Result}");
                 }
 
                 FirebaseUser newUser = task.Result;
@@ -119,7 +120,6 @@ public class AuthenticationManager : IAuthenticationManager
                     IsLoggedIn = false,
                 };
             });
-
         return await resultTask;
     }
 

@@ -12,6 +12,7 @@ public class LoginScreenScript : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(SwitchToScene.SwapFromVR());
         m_ErrorLabel.text = string.Empty;
     }
 
@@ -45,9 +46,8 @@ public class LoginScreenScript : MonoBehaviour
         }
         catch (Exception e)
         {
-            logError($"User {inputEmail} isn't registered. Try again.");
+            logError("User or password incorrect. Try again");
         }
-
     }
 
 

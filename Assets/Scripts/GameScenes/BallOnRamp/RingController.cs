@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Physikef.Controller;
 using UnityEngine;
 
 namespace GameScenes.BallOnRamp
@@ -11,7 +12,7 @@ namespace GameScenes.BallOnRamp
 
         void Start()
         {
-            target = SceneController.GetTarget();
+//            target = SceneController.GetTarget();
             particleSystem.SetActive(false);
         }
 

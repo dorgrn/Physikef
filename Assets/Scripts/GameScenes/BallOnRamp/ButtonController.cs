@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Physikef.Controller;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameScenes.BallOnRamp
@@ -32,14 +33,14 @@ namespace GameScenes.BallOnRamp
             this.gazedAt = gazedAt;
         }
 
-        private void DoAction()
+        private async void DoAction()
         {
             if (fillBar.value < 1f)
             {
                 return;
             }
 
-            _sceneController.SubmitAnswer(value);
+            await _sceneController.SubmitAnswer(value);
         }
 
         void FixedUpdate()

@@ -16,13 +16,18 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         private async Task InitLabels()
         {
-            m_MessagesText.text = string.Empty;
+            InitMessage();
             string userEmail = ServicesManager.GetAuthManager().GetCurrentUserEmail();
             if (userEmail != null)
             {
                 User user = await ServicesManager.GetDataAccessLayer().GetUserByEmailAsync(userEmail);
                 m_UsernameLabel.text = user == null ? string.Empty : user.displayname;
             }
+        }
+
+        public void InitMessage()
+        {
+            m_MessagesText.text = string.Empty;
         }
     }
 }
