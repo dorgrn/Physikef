@@ -1,5 +1,4 @@
 ﻿using Physikef.GameScenes.DirectionPointer;
-using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -16,6 +15,7 @@ namespace Physikef.Controller
         protected GameObject m_TargetAction;
         [SerializeField] protected GameObject m_QuestionUi;
         [SerializeField] protected MonoBehaviour m_SceneActionScript;
+        private bool postedAnswer = false;
 
         void Awake()
         {
@@ -43,13 +43,20 @@ namespace Physikef.Controller
             StartCoroutine(
                 isCorrectAnswer ? m_FeedbackTextController.ShowCorrect() : m_FeedbackTextController.ShowWrong());
 
-            StartCoroutine(StartScene());
-            PostUserAnswer(answer, isCorrectAnswer);
+            await PostUserAnswer(answer, isCorrectAnswer);
         }
 
-        public async void PostUserAnswer(string answer, bool isCorrect)
+        public async Task PostUserAnswer(string answer, bool isCorrect)
         {
             string userid = ServicesManager.GetAuthManager().GetCurrentUserEmail();
+            m_DirectionPointer.SetTarget(m_TargetAction);
+            if (string.IsNullOrEmpty(userid) || postedAnswer)
+            {
+                return;
+            }
+
+            postedAnswer = true;
+
             StudentExerciseResult studentExerciseResult = new StudentExerciseResult()
             {
                 AnsweringStudentId = userid,
@@ -60,12 +67,23 @@ namespace Physikef.Controller
             await ServicesManager.GetDataAccessLayer().AddStudentExerciseResultAsync(studentExerciseResult);
         }
 
-        protected IEnumerator StartScene()
+        protected void StartScene()
         {
-            yield return new WaitForSeconds(START_SCENE_DELAY_SECONDS);
             m_QuestionUi.SetActive(false);
             m_SceneActionScript.enabled = true;
-            m_DirectionPointer.SetTarget(m_TargetAction);
+        }
+
+        public void CheckShouldStartScene()
+        {
+            if (postedAnswer || isUserAnonymous())
+            {
+                StartScene();
+            }
+        }
+
+        private bool isUserAnonymous()
+        {
+            return string.IsNullOrEmpty(ServicesManager.GetAuthManager().GetCurrentUserEmail());
         }
     }
 }
