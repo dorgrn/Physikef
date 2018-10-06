@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
 using Attributes;
-using Zenject;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Collections;
-using GameScenes.Controller;
+using Physikef.Controller;
 using Controllers;
 using System.Linq;
 
 namespace GameScenes.Balance
 {
-    public class BalanceController : SceneController
+    public class BalanceController  : SceneController
     {
-        [Inject] private ApplicationManager applicationManager;
         private SceneAttributes sceneAttributes = new SceneAttributes();
         private AttributContainer attributContainer;
         [SerializeField] private GameObject questionUI;
@@ -30,7 +28,7 @@ namespace GameScenes.Balance
             leftWeight.GetComponent<Rigidbody>().isKinematic = true;
             rightWeight.GetComponent<Rigidbody>().isKinematic = true;
             leftWeight.SetActive(false);
-            rightWeight.SetActive(false);
+            rightWeight.SetActive(true);
 
         }
 

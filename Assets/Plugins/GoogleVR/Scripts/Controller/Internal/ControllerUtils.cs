@@ -19,7 +19,7 @@ using Gvr;
 
 /// @cond
 namespace Gvr.Internal {
-    public class ControllerUtils {
+  class ControllerUtils {
 
     /// Convenience array of all hands.
     public static GvrControllerHand[] AllHands = {

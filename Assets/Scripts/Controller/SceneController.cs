@@ -60,7 +60,7 @@ namespace Physikef.Controller
             await ServicesManager.GetDataAccessLayer().AddStudentExerciseResultAsync(studentExerciseResult);
         }
 
-        protected IEnumerator StartScene()
+        virtual protected IEnumerator StartScene()
         {
             yield return new WaitForSeconds(START_SCENE_DELAY_SECONDS);
             m_QuestionUi.SetActive(false);
