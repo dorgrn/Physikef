@@ -20,7 +20,8 @@ namespace GameScenes.Pendulum
             if (other.CompareTag("Bob"))
             {
                 m_collisionNumber++;
-                Debug.Log("Hit number:" + m_collisionNumber);
+                Debug.Log("Hit number:"
+                          + m_collisionNumber);
 
                 if (m_collisionNumber % 2 == 0) // is oscillation of bob
                 {

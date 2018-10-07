@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Firebase;
@@ -9,16 +10,23 @@ using Firebase.Unity.Editor;
 public class DataAccessLayer : IDataAccessLayer
 {
     private readonly DatabaseReference _databaseRef;
+
     public DataAccessLayer()
     {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://physikef-18062.firebaseio.com/");
         _databaseRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public async Task<IEnumerable<HomeWork>> GetHomeWorkAsync(string userID)
+    public async Task<IEnumerable<HomeWork>> GetHomeworkByUserEmailAsync(string userEmail)
     {
         var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
-        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userID));      
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Students.Contains(userEmail));
+    }
+
+    public async Task<HomeWork> GetHomeworkByNameAsync(string homeworkName)
+    {
+        var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
+        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Name == homeworkName).FirstOrDefault();
     }
 
     public async Task AddHomeworkAsync(HomeWork newHomework)
@@ -26,10 +34,16 @@ public class DataAccessLayer : IDataAccessLayer
         await AddDataToFirebaseDBAsync(newHomework);
     }
 
-    public async Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName)
+    public async Task<IEnumerable<Exercise>> GetAllExercisesAsync()
     {
         var allExercises = await GetDataFromFirebaseDBAsync("exercise");
-        return allExercises.Cast<Exercise>().Where(exe => exe.SceneName == sceneName);
+        return allExercises.Cast<Exercise>();
+    }
+
+    public async Task<IEnumerable<Exercise>> GetExercisesAsync(string sceneName)
+    {
+        var allExercises = await GetAllExercisesAsync();
+        return allExercises.Where(exe => exe.SceneName == sceneName);
     }
 
     public async Task AddExerciseAsync(Exercise newExercise)
@@ -44,8 +58,14 @@ public class DataAccessLayer : IDataAccessLayer
 
     public async Task<IEnumerable<StudentExerciseResult>> GetStudentStatisticsAsync(string studentId)
     {
-        var allStudentStatistics = await GetDataFromFirebaseDBAsync("statistics");
-        return allStudentStatistics.Cast<StudentExerciseResult>().Where(result => result.AnsweringStudentId == studentId);
+        var allStudentStatistics = await GetAllStudentStatisticsAsync();
+        return allStudentStatistics.Where(result => result.AnsweringStudentId == studentId);
+    }
+
+    public async Task<IEnumerable<StudentExerciseResult>> GetAllStudentStatisticsAsync()
+    {
+        var stats = await GetDataFromFirebaseDBAsync("statistics");
+        return stats.Cast<StudentExerciseResult>();
     }
 
     public async Task AddUserAsync(User newUser)
@@ -53,10 +73,22 @@ public class DataAccessLayer : IDataAccessLayer
         await AddDataToFirebaseDBAsync(newUser);
     }
 
-    public async Task<User> GetUserAsync(string userEmail)
+    public async Task<User> GetUserByIdAsync(string userId)
+    {
+        var allUsers = await GetAllUsersAsync();
+        return allUsers.FirstOrDefault(user => user.userid == userId);
+    }
+
+    public async Task<User> GetUserByEmailAsync(string email)
+    {
+        var allUsers = await GetAllUsersAsync();
+        return allUsers.FirstOrDefault(user => user.email == email);
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
         var allUsers = await GetDataFromFirebaseDBAsync("users");
-        return allUsers.Cast<User>().First(user => user.email == userEmail);
+        return allUsers.Cast<User>();
     }
 
     private async Task AddDataToFirebaseDBAsync(IFirebaseConvertable dataObject)
@@ -64,7 +96,7 @@ public class DataAccessLayer : IDataAccessLayer
         var key = _databaseRef.Child(dataObject.GetTableName()).Push().Key;
         Dictionary<string, object> details = new Dictionary<string, object>()
         {
-            {key , dataObject.ToDictionary()}
+            {key, dataObject.ToDictionary()}
         };
 
         await _databaseRef.Child(dataObject.GetTableName()).UpdateChildrenAsync(details);
@@ -83,6 +115,7 @@ public class DataAccessLayer : IDataAccessLayer
             {
                 ourDictionary.Add(dataSnapshotChild.Key, dataSnapshotChild.Value);
             }
+
             var firebaseObject = Provider(tableName);
             firebaseObject.FromDictionary(ourDictionary);
             objects.Add(firebaseObject);

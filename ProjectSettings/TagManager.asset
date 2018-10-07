@@ -8,6 +8,10 @@ TagManager:
   - Button
   - Ramp
   - Bob
+  - ButtonUp
+  - FieldProperty
+  - ButtonDown
+  - ErrorText
   layers:
   - Default
   - TransparentFX

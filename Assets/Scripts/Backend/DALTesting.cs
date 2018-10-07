@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DALTesting : MonoBehaviour
 {
+    public Text text;
+
     public async void TestDal()
     {
         await HomeworkDALTest();
@@ -27,7 +29,7 @@ public class DALTesting : MonoBehaviour
 
         await ServicesManager.GetDataAccessLayer().AddHomeworkAsync(hw);
 
-        var getHw = await ServicesManager.GetDataAccessLayer().GetHomeWorkAsync("1111");
+        var getHw = await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync("1111");
 
         if (getHw.Any(current => current.Name == hw.Name))
         {

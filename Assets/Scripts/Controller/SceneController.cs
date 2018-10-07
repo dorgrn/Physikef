@@ -1,29 +1,40 @@
-﻿using System.Collections;
+﻿using Physikef.GameScenes.DirectionPointer;
 using System.Linq;
 using System.Threading.Tasks;
-using Exercises;
-using GameScenes.Pendulum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
-namespace GameScenes.Controller
+namespace Physikef.Controller
 {
-    public abstract class SceneController : MonoBehaviour
+    public class SceneController : MonoBehaviour
     {
-        [Inject] public readonly ApplicationManager m_ApplicationManager;
-        [Inject] public readonly IExercisePublisher m_ExercisePublisher;
-        public Exercise m_SceneExercise;
-        public FeedbackTextController m_FeedbackTextController;
+        private readonly float START_SCENE_DELAY_SECONDS = 1;
+        protected Exercise m_SceneExercise;
+        protected FeedbackTextController m_FeedbackTextController;
+        protected DirectionPointer m_DirectionPointer;
+        protected GameObject m_TargetAction;
+        [SerializeField] protected GameObject m_QuestionUi;
+        [SerializeField] protected MonoBehaviour m_SceneActionScript;
+        private bool postedAnswer = false;
 
         void Awake()
         {
             m_FeedbackTextController = FindObjectOfType<FeedbackTextController>();
+            m_TargetAction = GameObject.FindGameObjectWithTag("Target");
+        }
+
+        void Start()
+        {
+            StartCoroutine(SwitchToScene.SwapToVR());
+            m_DirectionPointer = FindObjectOfType<DirectionPointer>();
+            m_DirectionPointer.SetTarget(m_QuestionUi);
         }
 
         public async Task SubmitAnswer(string answer)
         {
-            m_SceneExercise = await m_ExercisePublisher.GetExerciseForScene(SceneManager.GetActiveScene().name);
+            m_SceneExercise =
+                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync(SceneManager.GetActiveScene().name))
+                .FirstOrDefault();
             bool isCorrectAnswer =
                 m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex) == answer;
 
@@ -32,13 +43,20 @@ namespace GameScenes.Controller
             StartCoroutine(
                 isCorrectAnswer ? m_FeedbackTextController.ShowCorrect() : m_FeedbackTextController.ShowWrong());
 
-            StartCoroutine(StartScene());
-            PostUserAnswer(answer, isCorrectAnswer);
+            await PostUserAnswer(answer, isCorrectAnswer);
         }
 
-        public async void PostUserAnswer(string answer, bool isCorrect)
+        public async Task PostUserAnswer(string answer, bool isCorrect)
         {
-            string userid = m_ApplicationManager.CurrentUser.userid;
+            string userid = ServicesManager.GetAuthManager().GetCurrentUserEmail();
+            m_DirectionPointer.SetTarget(m_TargetAction);
+            if (string.IsNullOrEmpty(userid) || postedAnswer)
+            {
+                return;
+            }
+
+            postedAnswer = true;
+
             StudentExerciseResult studentExerciseResult = new StudentExerciseResult()
             {
                 AnsweringStudentId = userid,
@@ -49,6 +67,23 @@ namespace GameScenes.Controller
             await ServicesManager.GetDataAccessLayer().AddStudentExerciseResultAsync(studentExerciseResult);
         }
 
-        protected abstract IEnumerator StartScene();
+        protected void StartScene()
+        {
+            m_QuestionUi.SetActive(false);
+            m_SceneActionScript.enabled = true;
+        }
+
+        public void CheckShouldStartScene()
+        {
+            if (postedAnswer || isUserAnonymous())
+            {
+                StartScene();
+            }
+        }
+
+        private bool isUserAnonymous()
+        {
+            return string.IsNullOrEmpty(ServicesManager.GetAuthManager().GetCurrentUserEmail());
+        }
     }
 }

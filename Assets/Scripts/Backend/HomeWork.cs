@@ -13,12 +13,10 @@ public class HomeWork : IFirebaseConvertable
 
     public void FromDictionary(IDictionary<string, object> data)
     {
-        Name = (string)data[nameof(Name)];
-        SceneName = (string)data[nameof(SceneName)];
-        CreatorName = (string)data[nameof(CreatorName)];
-        Students = ((List<object>)data[nameof(Students)]).Cast<string>();
-
-        int a = 5;
+        Name = (string) data[nameof(Name)];
+        SceneName = (string) data[nameof(SceneName)];
+        CreatorName = (string) data[nameof(CreatorName)];
+        Students = ((List<object>) data[nameof(Students)]).Cast<string>();
     }
 
     public string GetTableName()
@@ -28,7 +26,6 @@ public class HomeWork : IFirebaseConvertable
 
     public IDictionary<string, object> ToDictionary()
     {
-        
         return new Dictionary<string, object>()
         {
             {nameof(Name), Name},

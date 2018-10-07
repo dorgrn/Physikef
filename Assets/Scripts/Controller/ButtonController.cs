@@ -1,18 +1,18 @@
-using GameScenes.Controller;
-using GameScenes.Pendulum;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameScenes.Controllers
+namespace Physikef.Controller
 {
-    public class ButtonController : MonoBehaviour
+    // This class is used to do an action of a button in the VR space
+    // To use, extend it and override DoAction for desired button onClick  
+    public abstract class AbstractButtonAction : MonoBehaviour
     {
         private bool m_GazedAt = false;
         private float m_ProgressBits;
         private float m_ElapsedTime = 0f;
         private Slider m_FillBar;
         private const float m_MillsecsToFill = 200f;
-        private SceneController m_SceneController;
+        protected SceneController m_SceneController;
 
         private void Awake()
         {
@@ -30,16 +30,7 @@ namespace GameScenes.Controllers
             m_GazedAt = gazedAt;
         }
 
-        private void DoAction()
-        {
-            if (m_FillBar.value < 1f)
-            {
-                return;
-            }
-
-            Text label = GetComponentInChildren<Text>();
-            m_SceneController.SubmitAnswer(label.text);
-        }
+        protected abstract void DoAction();
 
         void FixedUpdate()
         {

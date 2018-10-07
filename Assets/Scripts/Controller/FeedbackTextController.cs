@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace GameScenes.Pendulum
+namespace Physikef.Controller
 {
     public class FeedbackTextController : MonoBehaviour
     {

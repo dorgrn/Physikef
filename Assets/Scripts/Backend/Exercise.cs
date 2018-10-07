@@ -23,10 +23,10 @@ public class Exercise : IFirebaseConvertable
     {
         var type = data[nameof(CorrectAnswerIndex)].GetType();
 
-        SceneName = (string)data[nameof(SceneName)];
-        Question = (string)data[nameof(Question)];
-        Answers = ((List<object>)data[nameof(Answers)]).Cast<string>();
-        CorrectAnswerIndex = (int)(long)data[nameof(CorrectAnswerIndex)];
+        SceneName = (string) data[nameof(SceneName)];
+        Question = (string) data[nameof(Question)];
+        Answers = ((List<object>) data[nameof(Answers)]).Cast<string>();
+        CorrectAnswerIndex = (int) (long) data[nameof(CorrectAnswerIndex)];
     }
 
     public string GetTableName()
