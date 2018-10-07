@@ -46,7 +46,7 @@ public class LoginScreenScript : MonoBehaviour
         }
         catch (Exception e)
         {
-            logError("User or password incorrect. Try again");
+            logError("Username or password incorrect. Try again");
         }
     }
 

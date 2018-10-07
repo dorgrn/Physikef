@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/_Scenes/Screens/RegisterScreen.unity
     guid: 76e692e51556da64c8ad68d4c859808e
   - enabled: 1
+    path: Assets/_Scenes/Screens/ForgotPasswordScreen.unity
+    guid: 8db764cfd956f8f4d896bf55e35e29c0
+  - enabled: 1
     path: Assets/_Scenes/Screens/TeacherOptionsScreen.unity
     guid: f57e758178759c749b84ae5949ead927
   - enabled: 1
