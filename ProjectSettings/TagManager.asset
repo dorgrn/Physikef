@@ -4,16 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Target
-  - Button
-  - Ramp
-  - Bob
- - ButtonUp
-  - FieldProperty
-  - ButtonDown
-  - ErrorText  - LeftWeight
   - RightWeight
-  - RightDistance  layers:
+  - LeftWeight
+  - Target
+  layers:
   - Default
   - TransparentFX
   - Ignore Raycast
@@ -22,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - Objects
-  - Feedback
+  - 
+  - 
   - 
   - 
   - 
@@ -47,12 +41,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Feedback
-    uniqueID: 3480517441
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: 1
-    uniqueID: 3143775095
     locked: 0

@@ -4,13 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Physikef.GameScenes.Pendulum
+namespace Physikef.GameScenes.Balance
 {
     public class QuestionTextController : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_QuestionText;
         [SerializeField] private TextMeshProUGUI[] m_ChoicesLabels;
-        private Exercise m_Exercise;
+        public Exercise sceneExercise;
 
         void Start()
         {
@@ -19,31 +19,26 @@ namespace Physikef.GameScenes.Pendulum
 
         private async void initExercises(string sceneName)
         {
-            m_Exercise =
+            sceneExercise =
                 //ATTENTION!! if you modify this line so make sure to also modify it in BalanceControllet.cs
                 (await ServicesManager.GetDataAccessLayer().GetExercisesAsync(sceneName)).FirstOrDefault();
 
-            if (m_Exercise == null)
+            if (sceneExercise == null)
             {
                 throw new Exception("Didn't find exercise for scene");
             }
 
-            m_QuestionText.text = m_Exercise.Question;
+            m_QuestionText.text = sceneExercise.Question;
 
-            if (m_ChoicesLabels.Length != m_Exercise.Answers.Count())
+            if (m_ChoicesLabels.Length != sceneExercise.Answers.Count())
             {
                 throw new Exception("Question choices and actual text labels differ in size!");
             }
 
             for (var i = 0; i < m_ChoicesLabels.Length; i++)
             {
-                m_ChoicesLabels[i].text = m_Exercise.Answers.ToList()[i];
+                m_ChoicesLabels[i].text = sceneExercise.Answers.ToList()[i];
             }
-        }
-
-        public Exercise getExcercisee()
-        {
-            return m_Exercise;
         }
     }
 }

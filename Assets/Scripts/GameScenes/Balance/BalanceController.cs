@@ -5,110 +5,91 @@ using UnityEngine.UI;
 using System.Collections;
 using Physikef.Controller;
 using Controllers;
+using System;
+using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
+using Physikef.GameScenes.Balance;
 
 namespace GameScenes.Balance
 {
-    public class BalanceController  : SceneController
+    public class BalanceController  : MonoBehaviour
     {
-        private SceneAttributes sceneAttributes = new SceneAttributes();
-        private AttributContainer attributContainer;
-        [SerializeField] private GameObject questionUI;
-
         public GameObject seesaw;
         public GameObject leftWeight;
         public GameObject rightWeight;
-       // public Text question;
+        private Exercise m_SceneExercise;
+
+        private readonly int RIGHT_KG = 0;
+        private readonly int RIGHT_DIST = 1;
+        private readonly int LEFT_KG = 2;
+        
 
         private readonly float seesawLengthSingleSide = 10f;
+        public QuestionTextController questionController;
+
+        private void initExercise()
+        {
+            m_SceneExercise = questionController.sceneExercise;
+        }
 
         void Start()
         {
+            //this.enabled = true;
             seesaw.GetComponent<Rigidbody>().isKinematic = true;
             leftWeight.GetComponent<Rigidbody>().isKinematic = true;
             rightWeight.GetComponent<Rigidbody>().isKinematic = true;
             leftWeight.SetActive(false);
             rightWeight.SetActive(true);
-
         }
 
-        protected override IEnumerator StartScene()
+        private void Update()
         {
-            parseExercise();
-            yield return new WaitForSeconds(3);
-            questionUI.SetActive(false);
-            initComponents();
-
-            leftWeight.SetActive(true);
-            rightWeight.SetActive(true);
-            seesaw.GetComponent<Rigidbody>().isKinematic = false;
-            leftWeight.GetComponent<Rigidbody>().isKinematic = false;
-            rightWeight.GetComponent<Rigidbody>().isKinematic = false;
-
+           // if(this.enabled)
+            { 
+                initExercise();
+                parseExercise();
+                leftWeight.SetActive(true);
+                rightWeight.SetActive(true);
+                seesaw.GetComponent<Rigidbody>().isKinematic = false;
+                leftWeight.GetComponent<Rigidbody>().isKinematic = false;
+                rightWeight.GetComponent<Rigidbody>().isKinematic = false;
+            }
         }
 
         private void parseExercise()
         {
-            //Canvas c = questionUI.GetComponent<Canvas>();
             string question = m_SceneExercise.Question;
-            // the order of numbers: right kg, right distance, left kg
+            // the order of numbers: right kg[0], right distance[1], left kg[2]
             try
             {
                 string[] numbers = Regex.Split(question, @"\D+");
 
                 numbers = numbers.Where( str => !string.IsNullOrEmpty(str)).ToArray();
                 int x = numbers.Length;
-            if(numbers.Length == 3)
-            {
-                if(!string.IsNullOrEmpty(numbers[0]))
+                if(numbers.Length == 3)
                 {
-                    sceneAttributes.RightWeight.Value = float.Parse(numbers[0]);
-                    Debug.Log("right weight attribute got " + numbers[0]);
+                    rightWeight.GetComponent<Rigidbody>().mass = float.Parse(numbers[RIGHT_KG]);
+                    rightWeight.GetComponent<Rigidbody>().position = new Vector3(intervalValueMap(float.Parse(numbers[RIGHT_DIST])), 1.8f, 0);
+                    leftWeight.GetComponent<Rigidbody>().mass = float.Parse(numbers[LEFT_KG]);
                 }
-
-                if (!string.IsNullOrEmpty(numbers[1]))
-                {
-                    sceneAttributes.RightDistance.Value = float.Parse(numbers[1]);
-                    Debug.Log("right distance attribute got " + numbers[1]);
-                }
-
-                if (!string.IsNullOrEmpty(numbers[2]))
-                {
-                    sceneAttributes.LeftWeight.Value = float.Parse(numbers[2]);
-                    Debug.Log("left weight attribute got " + numbers[2]);
-                }
-            }
             }
             catch (System.Exception e)
             {
-
+                // ??
             }
-        }
-
-        private void initComponents()
-        {
-            leftWeight.GetComponent<Rigidbody>().mass = sceneAttributes.LeftWeight.Value;
-            rightWeight.GetComponent<Rigidbody>().mass = sceneAttributes.RightWeight.Value;
-
-            // fix positions for the ui
-            rightWeight.GetComponent<Rigidbody>().position = new Vector3(intervalValueMap(sceneAttributes.RightDistance.Value), 1.8f, 0);    
         }
 
         private float intervalValueMap(float value)
         {
-            float ans = float.Parse(m_SceneExercise.Answers.ToList()[m_SceneExercise.CorrectAnswerIndex]);
-            //float maxValue = Mathf.Max(seesawLengthSingleSide, sceneAttributes.RightDistance.Value, calculateRightAnswer());
-            float maxValue = Mathf.Max(seesawLengthSingleSide, sceneAttributes.RightDistance.Value, float.Parse(m_SceneExercise.Answers.ToList()[m_SceneExercise.CorrectAnswerIndex]));
+            String ansString = m_SceneExercise.Answers.ToList()[m_SceneExercise.CorrectAnswerIndex];
+            float ans = float.Parse(ansString.Remove(ansString.IndexOf(' ')));
+            float maxValue = Mathf.Max(seesawLengthSingleSide, rightWeight.GetComponent<Rigidbody>().position.x, ans);
             if (maxValue > seesawLengthSingleSide)
             {
                 return value * seesawLengthSingleSide / maxValue;
             }
             return value;
-        }
-
-        public SceneAttributes GetSceneAttributes()
-        {
-            return sceneAttributes;
         }
 
         public static GameObject GetLeftWeight()
@@ -126,7 +107,7 @@ namespace GameScenes.Balance
             return GameObject.FindGameObjectWithTag("RightWeight");
         }
 
-        private float calculateRightAnswer() => sceneAttributes.RightWeight.Value * sceneAttributes.RightDistance.Value / sceneAttributes.LeftWeight.Value;
+        private float calculateRightAnswer() => rightWeight.GetComponent<Rigidbody>().mass * rightWeight.GetComponent<Rigidbody>().position.x / leftWeight.GetComponent<Rigidbody>().mass;
     }
 }
 
