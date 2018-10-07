@@ -1,12 +1,13 @@
 ﻿using Controllers;
+using Physikef.Controller;
 using UnityEngine;
 
-namespace GameScenes.Pendulum
+namespace Physikef.GameScenes.Pendulum
 {
     public class PendulumInfoTextController : InfoTextController
     {
         [SerializeField] private ColliderDetector m_PendulumColliderDetector;
-        [SerializeField] private Physikef.GameScenes.Pendulum.Pendulum m_PendulumScript;
+        [SerializeField] private Pendulum m_PendulumScript;
         [SerializeField] private GameObject m_Bob;
 
         private void FixedUpdate()

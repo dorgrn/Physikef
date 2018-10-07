@@ -460,7 +460,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2004755097}
-        m_MethodName: LoginButton_Click
+        m_MethodName: SkipButton_Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1457,7 +1457,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2004755097}
-        m_MethodName: ForgotPasswordButton_Click
+        m_MethodName: SkipButton_Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1937,7 +1937,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2004755097}
-        m_MethodName: CreateNewAccount_Click
+        m_MethodName: SkipButton_Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2049,6 +2049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2004755098}
   - component: {fileID: 2004755097}
+  - component: {fileID: 2004755099}
   m_Layer: 0
   m_Name: _SCRIPTS_
   m_TagString: Untagged
@@ -2083,6 +2084,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2004755099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2004755096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8505be258cdf01f46aa50b1793948e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ButtonClickSound: {fileID: 8300000, guid: 7b31447401490de4dba9f4d8ec7cde6e, type: 3}
 --- !u!1 &2028136402
 GameObject:
   m_ObjectHideFlags: 0
