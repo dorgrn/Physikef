@@ -82,7 +82,7 @@ namespace Physikef.Controller
             m_SceneActionScript.enabled = true;
         }
 
-        public void StartSceneIConditionally()
+        public void StartSceneConditionally()
         {
             if (m_ShouldStartScene)
             {
