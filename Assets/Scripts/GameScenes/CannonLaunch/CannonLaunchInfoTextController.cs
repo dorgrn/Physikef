@@ -1,20 +1,21 @@
 ﻿using Controllers;
 using UnityEngine;
 
-namespace GameScenes.CannonLaunch
+namespace Physikef.GameScenes.CannonLaunch
 {
     public class CannonLaunchInfoTextController : InfoTextController
     {
-        [SerializeField] private Physikef.GameScenes.CannonLaunch.CannonLaunch m_CannonLaunchScript;
-        [SerializeField] private GameObject m_CannonBall;
+        [SerializeField] private CannonLaunchAction m_CannonLaunchScript;
 
         private void FixedUpdate()
         {
             // TODO: figure out how to get ball's velocity
 
-            string text = string.Format("Cannon ball velocity:{0}\nGravity:{1}\nDistance:{2}",
-                0, Physics.gravity.magnitude, 0
-              );
+            string text =
+                $@"Cannon ball velocity:{m_CannonLaunchScript.GetCannonBallVelocity()}
+Gravity:{Physics.gravity.magnitude}
+Distance:{m_CannonLaunchScript.GetCanonBallDistanceFromCannon()}
+Cannon degree:{m_CannonLaunchScript.GetCannonRotationDegree()}";
             UpdateInfoText(text);
         }
     }

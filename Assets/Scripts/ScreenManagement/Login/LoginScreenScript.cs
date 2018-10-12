@@ -12,7 +12,7 @@ public class LoginScreenScript : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SwitchToScene.SwapFromVR());
+        StartCoroutine(SceneSwitcher.SwapFromVR());
         m_ErrorLabel.text = string.Empty;
     }
 
