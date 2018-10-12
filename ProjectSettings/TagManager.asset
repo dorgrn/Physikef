@@ -12,6 +12,7 @@ TagManager:
   - FieldProperty
   - ButtonDown
   - ErrorText
+  - Room
   layers:
   - Default
   - TransparentFX
