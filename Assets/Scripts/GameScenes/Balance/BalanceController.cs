@@ -35,7 +35,7 @@ namespace GameScenes.Balance
 
         void Start()
         {
-            //this.enabled = true;
+          //this.enabled = false;
             seesaw.GetComponent<Rigidbody>().isKinematic = true;
             leftWeight.GetComponent<Rigidbody>().isKinematic = true;
             rightWeight.GetComponent<Rigidbody>().isKinematic = true;
@@ -45,7 +45,7 @@ namespace GameScenes.Balance
 
         private void Update()
         {
-           // if(this.enabled)
+            if(this.enabled)
             { 
                 initExercise();
                 parseExercise();

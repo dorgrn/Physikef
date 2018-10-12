@@ -2,32 +2,38 @@
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace GameScenes.Pendulum
+namespace Physikef.Controller
 {
     public class ColliderDetector : MonoBehaviour
     {
-        private Stopwatch m_collisionTimer;
-        private int m_collisionNumber = 0;
-        private float m_sumOscillationPeriod = 0f;
+        private Stopwatch m_CollisionTimer;
+        private int m_CollisionNumber = 0;
+        private float m_SumOscillationPeriod = 0f;
+        private bool m_IsDebugMode = false;
 
         private void Start()
         {
-            m_collisionTimer = Stopwatch.StartNew();
+            m_CollisionTimer = Stopwatch.StartNew();
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!m_IsDebugMode)
+            {
+                return;
+            }
+
             if (other.CompareTag("Bob"))
             {
-                m_collisionNumber++;
+                m_CollisionNumber++;
                 Debug.Log("Hit number:"
-                          + m_collisionNumber);
+                          + m_CollisionNumber);
 
-                if (m_collisionNumber % 2 == 0) // is oscillation of bob
+                if (m_CollisionNumber % 2 == 0) // is oscillation of bob
                 {
-                    Debug.Log("timer is: " + m_collisionTimer.ElapsedMilliseconds);
-                    m_sumOscillationPeriod += m_collisionTimer.ElapsedMilliseconds;
-                    m_collisionTimer = Stopwatch.StartNew();
+                    Debug.Log("timer is: " + m_CollisionTimer.ElapsedMilliseconds);
+                    m_SumOscillationPeriod += m_CollisionTimer.ElapsedMilliseconds;
+                    m_CollisionTimer = Stopwatch.StartNew();
                 }
             }
             else
@@ -38,7 +44,7 @@ namespace GameScenes.Pendulum
 
         public float GetAvgOscillationPeriodInMillisec()
         {
-            return m_collisionNumber == 0 ? 0 : m_sumOscillationPeriod / m_collisionNumber;
+            return m_CollisionNumber == 0 ? 0 : m_SumOscillationPeriod / m_CollisionNumber;
         }
     }
 }

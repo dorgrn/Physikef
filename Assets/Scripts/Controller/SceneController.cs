@@ -15,7 +15,7 @@ namespace Physikef.Controller
         protected GameObject m_TargetAction;
         [SerializeField] protected GameObject m_QuestionUi;
         [SerializeField] protected MonoBehaviour m_SceneActionScript;
-        private bool postedAnswer = false;
+        private bool m_ShouldStartScene = false;
 
         void Awake()
         {
@@ -43,6 +43,13 @@ namespace Physikef.Controller
             StartCoroutine(
                 isCorrectAnswer ? m_FeedbackTextController.ShowCorrect() : m_FeedbackTextController.ShowWrong());
 
+            if (isUserAnonymous())
+            {
+                // simulate posting answer to allow trigger StartScene
+                triggerShouldStartScene();
+                return;
+            }
+
             await PostUserAnswer(answer, isCorrectAnswer);
         }
 
@@ -50,12 +57,12 @@ namespace Physikef.Controller
         {
             string userid = ServicesManager.GetAuthManager().GetCurrentUserEmail();
             m_DirectionPointer.SetTarget(m_TargetAction);
-            if (string.IsNullOrEmpty(userid) || postedAnswer)
+            if (isUserAnonymous() || m_ShouldStartScene)
             {
                 return;
             }
 
-            postedAnswer = true;
+            triggerShouldStartScene();
 
             StudentExerciseResult studentExerciseResult = new StudentExerciseResult()
             {
@@ -67,15 +74,17 @@ namespace Physikef.Controller
             await ServicesManager.GetDataAccessLayer().AddStudentExerciseResultAsync(studentExerciseResult);
         }
 
-
-        protected void StartScene()        {
+        // notice: StartScene is triggered by a GvrRayCast target that stands in front of target.
+        // this is to allow the user to look around before the scene starts
+        protected void StartScene()
+        {
             m_QuestionUi.SetActive(false);
             m_SceneActionScript.enabled = true;
         }
 
-        public void CheckShouldStartScene()
+        public void StartSceneConditionally()
         {
-            if (postedAnswer || isUserAnonymous())
+            if (m_ShouldStartScene)
             {
                 StartScene();
             }
@@ -84,6 +93,12 @@ namespace Physikef.Controller
         private bool isUserAnonymous()
         {
             return string.IsNullOrEmpty(ServicesManager.GetAuthManager().GetCurrentUserEmail());
+        }
+
+        private void triggerShouldStartScene()
+        {
+            m_ShouldStartScene = true;
+            m_DirectionPointer.SetTarget(m_TargetAction);
         }
     }
 }
