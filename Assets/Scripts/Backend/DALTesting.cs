@@ -24,12 +24,12 @@ public class DALTesting : MonoBehaviour
             CreatorName = "Olga",
             Name = "Test" + DateTime.Now,
             SceneName = "Pendullum",
-            Students = new List<string>() {"1111", "2222"},
+            Students = new List<string>() {"s1@gmail.com", "s2@gmail.com"},
         };
 
         await ServicesManager.GetDataAccessLayer().AddHomeworkAsync(hw);
 
-        var getHw = await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync("1111");
+        var getHw = await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync("s1@gmail.com");
 
         if (getHw.Any(current => current.Name == hw.Name))
         {
@@ -45,10 +45,11 @@ public class DALTesting : MonoBehaviour
     {
         var exe = new Exercise()
         {
+            ExerciseName = "test" + DateTime.Now,
             SceneName = "Pendullum",
             Answers = new List<string>() {"1", "2", "3", "4"},
             CorrectAnswerIndex = 3,
-            Question = "Ad Matai?" + DateTime.Now
+            Question = "test" + DateTime.Now
         };
 
         await ServicesManager.GetDataAccessLayer().AddExerciseAsync(exe);
@@ -69,8 +70,9 @@ public class DALTesting : MonoBehaviour
     {
         var exe = new StudentExerciseResult()
         {
-            Question = "Ad Matai?" + DateTime.Now,
-            AnsweringStudentId = "1111",
+            ExerciseName = "test" + DateTime.Now,
+            Question = "test?" + DateTime.Now,
+            AnsweringStudentId = "s1@gmail.com",
             isCorrect = true,
             StudentAnswer = "1"
         };
