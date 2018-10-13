@@ -2,6 +2,7 @@
 
 public class StudentExerciseResult: IFirebaseConvertable
 {
+    public string ExerciseName { get; set; }
     public string AnsweringStudentId { get; set; }
     public string Question { get; set; }
     public string StudentAnswer { get; set; }
@@ -9,6 +10,7 @@ public class StudentExerciseResult: IFirebaseConvertable
 
     public void FromDictionary(IDictionary<string, object> data)
     {
+        ExerciseName = (string)data[nameof(ExerciseName)];
         AnsweringStudentId = (string)data[nameof(AnsweringStudentId)];
         Question = (string)data[nameof(Question)];
         StudentAnswer = (string)data[nameof(StudentAnswer)];
@@ -24,6 +26,7 @@ public class StudentExerciseResult: IFirebaseConvertable
     {
         return new Dictionary<string, object>()
         {
+            {nameof(ExerciseName), ExerciseName},
             {nameof(AnsweringStudentId), AnsweringStudentId},
             {nameof(Question), Question},
             {nameof(StudentAnswer), StudentAnswer},
@@ -33,7 +36,7 @@ public class StudentExerciseResult: IFirebaseConvertable
 
     public override string ToString()
     {
-        return "Student ID: " + AnsweringStudentId + "\n, Question: " + Question
+        return "Exercise Name: "+ ExerciseName + "Student ID: " + AnsweringStudentId + "\n, Question: " + Question
                 + ",\n Student Answer: " + StudentAnswer + ",\n which is " + (isCorrect ? "Correct" : "Wrong");
     }
 }
