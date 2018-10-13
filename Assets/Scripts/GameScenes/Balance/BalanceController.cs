@@ -33,7 +33,7 @@ namespace GameScenes.Balance
             m_SceneExercise = questionController.sceneExercise;
         }
 
-        void Start()
+        void awake()
         {
           //this.enabled = false;
             seesaw.GetComponent<Rigidbody>().isKinematic = true;
@@ -41,6 +41,7 @@ namespace GameScenes.Balance
             rightWeight.GetComponent<Rigidbody>().isKinematic = true;
             leftWeight.SetActive(false);
             rightWeight.SetActive(true);
+            this.enabled = false;
         }
 
         private void Update()
