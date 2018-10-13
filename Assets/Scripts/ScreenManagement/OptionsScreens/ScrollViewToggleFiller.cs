@@ -4,15 +4,16 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
-    // This class is used to fill a scrollview with toggles with text from an ITextInputSupplier
+    // This class is used to fill a scrollview with toggles with text from an AbstractTextInputSupplier
     public class ScrollViewToggleFiller : MonoBehaviour
     {
         [SerializeField] private GameObject m_TogglesHolder;
         [SerializeField] private AbstractInputTextSupplier m_TextInputSupplier;
         [SerializeField] private Toggle m_TogglePrefab;
-        [SerializeField] private InfoScrollViewController m_CallBackHolder;
+        [SerializeField] private InfoScrollViewController m_CallBackHolder; // can be null
+
         private ToggleGroup m_ToggleGroup;
 
         async void Start()
@@ -40,6 +41,7 @@ namespace Physikef.ScreenManagement.TeachersOptionsScreen
                 toggle.group = m_ToggleGroup;
             }
 
+            // update a cbHolder with the inforamtion changed
             if (m_CallBackHolder != null)
             {
                 toggle.onValueChanged.AddListener(async delegate

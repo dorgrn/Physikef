@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Controllers
+namespace Physikef.Controller
 {
     public abstract class InfoTextController : MonoBehaviour
     {

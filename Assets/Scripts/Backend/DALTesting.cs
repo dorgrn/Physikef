@@ -23,7 +23,7 @@ public class DALTesting : MonoBehaviour
         {
             CreatorName = "Olga",
             Name = "Test" + DateTime.Now,
-            SceneName = "Pendullum",
+            SceneName = "Pendulum",
             Students = new List<string>() {"s1@gmail.com", "s2@gmail.com"},
         };
 
@@ -46,7 +46,7 @@ public class DALTesting : MonoBehaviour
         var exe = new Exercise()
         {
             ExerciseName = "test" + DateTime.Now,
-            SceneName = "Pendullum",
+            SceneName = "Pendulum",
             Answers = new List<string>() {"1", "2", "3", "4"},
             CorrectAnswerIndex = 3,
             Question = "test" + DateTime.Now

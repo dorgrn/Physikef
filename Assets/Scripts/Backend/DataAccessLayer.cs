@@ -26,7 +26,7 @@ public class DataAccessLayer : IDataAccessLayer
     public async Task<HomeWork> GetHomeworkByNameAsync(string homeworkName)
     {
         var allHomeworks = await GetDataFromFirebaseDBAsync("homework");
-        return allHomeworks.Cast<HomeWork>().Where(hw => hw.Name == homeworkName).FirstOrDefault();
+        return allHomeworks.Cast<HomeWork>().FirstOrDefault(hw => hw.Name == homeworkName);
     }
 
     public async Task AddHomeworkAsync(HomeWork newHomework)

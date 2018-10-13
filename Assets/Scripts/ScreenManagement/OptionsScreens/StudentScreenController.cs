@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -142,15 +141,25 @@ namespace Physikef.ScreenManagement.OptionsScreens
                 ScreenManagementGeneral.LogError($"Didn't found wanted scene {chosenScene}");
             }
 
+            // static insertion of player's chosen homework 
+            if (isUserAnonymous())
+            {
+                PlayerPrefs.SetString("chosenScene", chosenScene);
+            }
+            else
+            {
+                PlayerPrefs.SetString("chosenHomework", chosenScene);
+            }
+
             StartCoroutine(showSplashAndMoveToScene(chosenScene));
         }
 
-        private IEnumerator showSplashAndMoveToScene(string chosenScene)
+        private IEnumerator showSplashAndMoveToScene(string chosenHw)
         {
             m_ExerciseCanvas.SetActive(false);
             m_SplashCanvas.SetActive(true);
             yield return new WaitForSeconds(SPLASH_SCREEN_SECONDS);
-            SceneManager.LoadScene(chosenScene);
+            SceneManager.LoadScene(chosenHw);
         }
     }
 }

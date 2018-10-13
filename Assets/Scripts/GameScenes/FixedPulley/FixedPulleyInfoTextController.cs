@@ -1,4 +1,4 @@
-﻿using Controllers;
+﻿using Physikef.Controller;
 using UnityEngine;
 
 namespace Physikef.GameScenes.FixedPulley

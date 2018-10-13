@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public abstract class AbstractInputTextSupplier : MonoBehaviour
     {

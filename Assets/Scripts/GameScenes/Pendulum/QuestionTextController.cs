@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,15 +12,14 @@ namespace Physikef.GameScenes.Pendulum
         [SerializeField] private TextMeshProUGUI m_QuestionText;
         [SerializeField] private TextMeshProUGUI[] m_ChoicesLabels;
 
-        void Start()
+        async void Start()
         {
-            initExercises(SceneManager.GetActiveScene().name);
+            await initExercises();
         }
 
-        private async void initExercises(string sceneName)
+        private async Task initExercises()
         {
-            Exercise exercise =
-                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync(sceneName)).FirstOrDefault();
+            Exercise exercise = await GetExerciseForStudentAsync();
 
             if (exercise == null)
             {
@@ -37,6 +37,29 @@ namespace Physikef.GameScenes.Pendulum
             {
                 m_ChoicesLabels[i].text = exercise.Answers.ToList()[i];
             }
+        }
+
+        public static async Task<Exercise> GetExerciseForStudentAsync()
+        {
+            Exercise result;
+            var exercisesForScene = await ServicesManager.GetDataAccessLayer()
+                .GetExercisesAsync(SceneManager.GetActiveScene().name);
+
+            // check for homework name for player (if exists)
+            // TODO: when available field swiitch
+//            if (PlayerPrefs.HasKey("chosenHomework"))
+//            {
+//                HomeWork hw = await ServicesManager.GetDataAccessLayer()
+//                    .GetHomeworkByNameAsync(PlayerPrefs.GetString("chosenHomework"));
+//
+//                result = exercisesForScene.FirstOrDefault(exe => exe.ExerciseName == hw.ExerciseName);
+//            }
+//            else
+//            {
+                result = exercisesForScene.FirstOrDefault();
+//            }
+
+            return result;
         }
     }
 }
