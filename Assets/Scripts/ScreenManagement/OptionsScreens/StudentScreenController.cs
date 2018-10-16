@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,54 +14,48 @@ namespace Physikef.ScreenManagement.OptionsScreens
         [SerializeField] private GameObject m_ExerciseCanvas;
         [SerializeField] private GameObject m_SplashCanvas;
         [SerializeField] private GameObject m_HWDropDownHolder;
-        [SerializeField] private GameObject m_ExDropDownHolder;
+        [SerializeField] private GameObject m_SceneDropDownHolder;
         [SerializeField] private Text m_UsernameText;
         [SerializeField] private Text m_Title;
         [SerializeField] private Text m_SceneForHw;
         private Dropdown m_HwDropdown;
-        private Dropdown m_ExDropdown;
+        private Dropdown m_SceneDropdown;
         private User m_CurrentUser;
-        private const string CHOSEN_HOMEWORK = "chosenHomework";
         private const float SPLASH_SCREEN_SECONDS = 2;
+        private string m_ChosenScene = string.Empty;
 
 
         async void Start()
         {
             m_HwDropdown = createDropDown(m_HWDropDownHolder);
-            m_ExDropdown = createDropDown(m_ExDropDownHolder);
-            m_HwDropdown.onValueChanged.AddListener(async delegate
-            {
-                string hwDropdownOption = m_HwDropdown.options[m_HwDropdown.value].text;
-                await updateSceneForHW(hwDropdownOption);
-            });
-
-
+            m_SceneDropdown = createDropDown(m_SceneDropDownHolder);
+            m_HwDropdown.onValueChanged.AddListener(async delegate { await UpdateHwDropdownAsync(); });
             await init();
         }
 
-        private async Task updateSceneForHW(string homeworkName)
+        public async Task UpdateHwDropdownAsync()
         {
-            string sceneName = (await ServicesManager.GetDataAccessLayer().GetHomeworkByNameAsync(homeworkName))
+            string hw = m_HwDropdown.options[m_HwDropdown.value].text;
+            await updateExDropdownForHW(hw);
+        }
+
+        private async Task updateExDropdownForHW(string homeworkName)
+        {
+            m_ChosenScene = (await ServicesManager.GetDataAccessLayer().GetHomeworkByNameAsync(homeworkName))
                 .SceneName;
-            m_SceneForHw.text = $"Exercise for chosen homework: {sceneName}";
+            m_SceneForHw.text = $"Scene for chosen homework: {m_ChosenScene}";
         }
 
         private Dropdown createDropDown(GameObject dropDownHolder)
         {
-            Dropdown created = dropDownHolder.GetComponentInChildren<Dropdown>();
-            created.options = new List<Dropdown.OptionData>()
-            {
-                new Dropdown.OptionData("Empty")
-            };
-
-            return created;
+            return dropDownHolder.GetComponentInChildren<Dropdown>();
         }
 
         async Task init()
         {
             string userEmail = ServicesManager.GetAuthManager().GetCurrentUserEmail();
 
-            // user is anonymous
+//             user is anonymous
             if (string.IsNullOrEmpty(userEmail))
             {
                 await initAnonymousUserAsync();
@@ -71,9 +66,18 @@ namespace Physikef.ScreenManagement.OptionsScreens
             }
         }
 
+        private async void Update()
+        {
+            if (string.IsNullOrEmpty(m_SceneForHw.text))
+            {
+                await UpdateHwDropdownAsync();
+            }
+        }
+
         private async Task initLoggedInUserAsync(string userEmail)
         {
             m_CurrentUser = await ServicesManager.GetDataAccessLayer().GetUserByEmailAsync(userEmail);
+
             m_Title.text = "Choose homework";
 
             if (m_CurrentUser == null)
@@ -81,31 +85,34 @@ namespace Physikef.ScreenManagement.OptionsScreens
                 ScreenManagementGeneral.LogError($"User not defined {userEmail}");
             }
 
-            m_UsernameText.text = m_CurrentUser.displayname;
-            m_ExDropDownHolder.SetActive(false);
-            await populateHwDropdownAsync();
+            m_UsernameText.text = m_CurrentUser?.displayname;
+            m_SceneDropDownHolder.SetActive(false);
+            await PopulateHwDropdownAsync();
         }
 
         private async Task initAnonymousUserAsync()
         {
             m_UsernameText.text = "Anonymous";
-            m_Title.text = "Choose exercise";
+            m_Title.text = "Choose scene";
             m_HWDropDownHolder.SetActive(false);
-            await PopulateExDropdownAsync();
+            await PopulateSceneDropdownAsync();
         }
 
-        async Task PopulateExDropdownAsync()
+        async Task PopulateSceneDropdownAsync()
         {
-            IEnumerable<Exercise> exercises =
-                (await ServicesManager.GetDataAccessLayer().GetAllExercisesAsync()).ToList();
-            if (exercises.Any())
+            m_ChosenScene = m_SceneDropdown.options[m_SceneDropdown.value].text;
+
+            IEnumerable<string> scenes =
+                (await ServicesManager.GetDataAccessLayer().GetAllExercisesAsync()).Select(ex => ex.SceneName).ToList();
+
+            if (scenes.Any())
             {
-                m_ExDropdown.options = exercises.Select(exe => exe.SceneName).Distinct()
-                    .Select(sceneName => new Dropdown.OptionData(sceneName)).ToList();
+                m_SceneDropdown.options = scenes.Select(sc => new Dropdown.OptionData(sc)).Distinct()
+                    .ToList();
             }
         }
 
-        async Task populateHwDropdownAsync()
+        async Task PopulateHwDropdownAsync()
         {
             IEnumerable<HomeWork> homework =
                 (await ServicesManager.GetDataAccessLayer().GetHomeworkByUserEmailAsync(m_CurrentUser.email)).ToList();
@@ -115,51 +122,34 @@ namespace Physikef.ScreenManagement.OptionsScreens
             }
         }
 
-        bool isUserAnonymous()
+        public void StartButton_OnClick()
         {
-            return m_CurrentUser == null;
+            string sceneInDropdown = m_SceneDropdown.options[m_SceneDropdown.value].text;
+            string chosenExercise = sceneInDropdown;
+
+            if (sceneInDropdown != "Empty")
+            {
+                m_ChosenScene = sceneInDropdown;
+            }
+            else if (string.IsNullOrEmpty(m_ChosenScene))
+            {
+                ScreenManagementGeneral.LogError("No scene found to start");
+                throw new Exception("No scene found");
+            }
+
+            Debug.LogFormat("Scene:{0} Ex:{1}", m_ChosenScene, chosenExercise);
+
+            PlayerPrefs.SetString("chosenExercise", chosenExercise);
+
+            StartCoroutine(showSplashAndMoveToScene());
         }
 
-        public async void StartButton_OnClick()
-        {
-            string chosenScene;
-            if (isUserAnonymous())
-            {
-                chosenScene = m_ExDropdown.options[m_ExDropdown.value].text;
-            }
-            else
-            {
-                IEnumerable<HomeWork> homeWork = (await ServicesManager.GetDataAccessLayer()
-                    .GetHomeworkByUserEmailAsync(m_CurrentUser.email)).ToList();
-                PlayerPrefs.SetString(CHOSEN_HOMEWORK, homeWork.FirstOrDefault()?.Name);
-                chosenScene = homeWork
-                    .FirstOrDefault(hw => hw.Name == m_HwDropdown.options[m_HwDropdown.value].text)?.SceneName;
-            }
-
-            if (string.IsNullOrEmpty(chosenScene) || chosenScene == "Empty")
-            {
-                ScreenManagementGeneral.LogError($"Didn't found wanted scene {chosenScene}");
-            }
-
-            // static insertion of player's chosen homework 
-            if (isUserAnonymous())
-            {
-                PlayerPrefs.SetString("chosenScene", chosenScene);
-            }
-            else
-            {
-                PlayerPrefs.SetString("chosenHomework", chosenScene);
-            }
-
-            StartCoroutine(showSplashAndMoveToScene(chosenScene));
-        }
-
-        private IEnumerator showSplashAndMoveToScene(string chosenHw)
+        private IEnumerator showSplashAndMoveToScene()
         {
             m_ExerciseCanvas.SetActive(false);
             m_SplashCanvas.SetActive(true);
             yield return new WaitForSeconds(SPLASH_SCREEN_SECONDS);
-            SceneManager.LoadScene(chosenHw);
+            SceneManager.LoadScene(m_ChosenScene);
         }
     }
 }

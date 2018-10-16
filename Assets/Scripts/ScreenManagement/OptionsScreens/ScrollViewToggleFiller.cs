@@ -60,8 +60,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
         public IEnumerable<string> GetCheckedToggles()
         {
             return m_TogglesHolder.GetComponentsInChildren<Toggle>().Where(toggle => toggle.isOn)
-                .Select(toggle => toggle.GetComponentInChildren<Text>())
-                .Select(toggleText => toggleText.text);
+                .Select(toggle => toggle.GetComponentInChildren<Text>()?.text);
         }
 
         private void clearView()
@@ -69,7 +68,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
             var toggles = m_TogglesHolder.GetComponentsInChildren<Toggle>();
             foreach (var toggle in toggles)
             {
-                GameObject.Destroy(toggle.gameObject);
+                Destroy(toggle.gameObject);
             }
         }
     }
