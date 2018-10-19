@@ -7,6 +7,7 @@ namespace Physikef.Controller
         protected override void DoAction()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(SceneSwitcher.SwapToVR());
         }
     }
 }

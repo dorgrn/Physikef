@@ -16,9 +16,9 @@ namespace Physikef.ScreenManagement.OptionsScreens
         private AbstractScreenOptionsUser m_ScreenOptionsUser;
         private const float SPLASH_SCREEN_SECONDS = 2;
 
-
         async void Start()
         {
+            StartCoroutine(SceneSwitcher.SwapFromVR());
             var user = await GetUserFromDBAsync();
 
             if (user == null)
