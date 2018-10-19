@@ -13,6 +13,9 @@ TagManager:
   - ButtonDown
   - ErrorText
   - Room
+  - SceneDropdownHolder
+  - HwDropdownHolder
+  - ExForSceneDropdwon
   layers:
   - Default
   - TransparentFX
