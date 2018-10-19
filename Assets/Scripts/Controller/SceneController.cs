@@ -31,8 +31,10 @@ namespace Physikef.Controller
 
         public async Task SubmitAnswer(string answer)
         {
+            // make sure QuestionTextController is on QuestionUI and is enabled
             m_SceneExercise =
-                await QuestionTextController.GetExerciseForStudentAsync();
+                m_QuestionUi.GetComponent<QuestionTextController>().CurrentExercise;
+            
             bool isCorrectAnswer =
                 m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex) == answer;
 

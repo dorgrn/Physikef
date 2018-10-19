@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
@@ -11,53 +12,51 @@ namespace Physikef.GameScenes.Pendulum
     {
         [SerializeField] private TextMeshProUGUI m_QuestionText;
         [SerializeField] private TextMeshProUGUI[] m_ChoicesLabels;
+        private Exercise m_CurrentExercise;
+
+        public Exercise CurrentExercise => m_CurrentExercise;
 
         async void Start()
         {
-            await initExercises();
+            await initExercise();
         }
 
-        private async Task initExercises()
+        private async Task initExercise()
         {
-            Exercise exercise = await GetExerciseForStudentAsync();
+            m_CurrentExercise = await getExerciseForStudentAsync();
 
-            if (exercise == null)
+            if (m_CurrentExercise == null)
             {
                 throw new Exception("Didn't find exercise for scene");
             }
 
-            m_QuestionText.text = exercise.Question;
+            m_QuestionText.text = m_CurrentExercise.Question;
 
-            if (m_ChoicesLabels.Length != exercise.Answers.Count())
+            if (m_ChoicesLabels.Length != m_CurrentExercise.Answers.Count())
             {
                 throw new Exception("Question choices and actual text labels differ in size!");
             }
 
             for (var i = 0; i < m_ChoicesLabels.Length; i++)
             {
-                m_ChoicesLabels[i].text = exercise.Answers.ToList()[i];
+                m_ChoicesLabels[i].text = m_CurrentExercise.Answers.ToList()[i];
             }
         }
 
-        public static async Task<Exercise> GetExerciseForStudentAsync()
+        private async Task<Exercise> getExerciseForStudentAsync()
         {
             Exercise result;
-            var exercisesForScene = await ServicesManager.GetDataAccessLayer()
-                .GetExercisesAsync(SceneManager.GetActiveScene().name);
+            IEnumerable<Exercise> allExercises = (await ServicesManager.GetDataAccessLayer()
+                .GetAllExercisesAsync()).ToList();
+            string chosenExercise = PlayerPrefs.GetString("chosenExercise");
 
-            // check for homework name for player (if exists)
-            // TODO: when available field swiitch
-//            if (PlayerPrefs.HasKey("chosenHomework"))
-//            {
-//                HomeWork hw = await ServicesManager.GetDataAccessLayer()
-//                    .GetHomeworkByNameAsync(PlayerPrefs.GetString("chosenHomework"));
-//
-//                result = exercisesForScene.FirstOrDefault(exe => exe.ExerciseName == hw.ExerciseName);
-//            }
-//            else
-//            {
-                result = exercisesForScene.FirstOrDefault();
-//            }
+            Exercise chosenExerciseInstance =
+                allExercises.FirstOrDefault(ex => ex.SceneName == SceneManager.GetActiveScene().name);
+
+            result = chosenExerciseInstance != null &&
+                     SceneManager.GetActiveScene().name == chosenExerciseInstance.SceneName
+                ? chosenExerciseInstance
+                : allExercises.FirstOrDefault(ex => ex.ExerciseName == chosenExercise);
 
             return result;
         }

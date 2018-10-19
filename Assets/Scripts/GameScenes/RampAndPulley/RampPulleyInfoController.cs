@@ -1,8 +1,7 @@
-﻿using Controllers;
-using Physikef.Controller;
+﻿using Physikef.Controller;
 using UnityEngine;
 
-namespace Physikef.GameScenes.BallOnRamp
+namespace Physikef.GameScenes.RampAndPulley
 {
     public class RampPulleyInfoController : InfoTextController
     {
@@ -15,8 +14,8 @@ namespace Physikef.GameScenes.BallOnRamp
         {
             string text =
                 $@"Ramp incline:30 deg
-Box on ramp velocity:{m_BoxOnRamp.GetComponent<Rigidbody>().velocity.magnitude}
-Box in air velocity:{m_BoxInAir.GetComponent<Rigidbody>().velocity.magnitude}";
+Box on ramp velocity:{m_BoxOnRamp.GetComponent<Rigidbody>().velocity.magnitude.ToString("0.00")}
+Box in air velocity:{m_BoxInAir.GetComponent<Rigidbody>().velocity.magnitude.ToString("0.00")}";
             UpdateInfoText(text);
         }
     }
