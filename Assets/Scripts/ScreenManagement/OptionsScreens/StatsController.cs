@@ -1,17 +1,22 @@
-﻿using Physikef.ScreenManagement.TeachersOptionsScreen;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class StatsController : MonoBehaviour
     {
         [SerializeField] private ScrollViewToggleFiller m_ScrollViewToggleFiller;
-        private StudentInputTextSupplier m_StudentInputTextSupplier = new StudentInputTextSupplier();
-        private ExerciseInputTextSupplier m_ExerciseInputTextSupplier = new ExerciseInputTextSupplier();
+        private StudentInputTextSupplier m_StudentInputTextSupplier;
+        private ExerciseInputTextSupplier m_ExerciseInputTextSupplier;
+
+        private void Start()
+        {
+            m_StudentInputTextSupplier = gameObject.AddComponent<StudentInputTextSupplier>();
+            m_ExerciseInputTextSupplier = gameObject.AddComponent<ExerciseInputTextSupplier>();
+        }
+
 
         public async void StudentButton_OnClick()
         {
@@ -45,13 +50,13 @@ namespace Physikef.ScreenManagement.OptionsScreens
                 $"Name:{student.displayname}\nEmail:{student.email}\nId:{student.userid}\nCorrect answers:{correctExeAmount}/{sum}({correctPer:P2})\n";
         }
 
-        public static async Task<string> GetExeStatsAnalysisAsync(string question)
+        public static async Task<string> GetExeStatsAnalysisAsync(string exerciseName)
         {
             IEnumerable<StudentExerciseResult> allExercisesAnswered =
                 await ServicesManager.GetDataAccessLayer().GetAllStudentStatisticsAsync();
 
             IEnumerable<StudentExerciseResult> answeredExWithGivenQuestion =
-                allExercisesAnswered.Where(ex => ex.Question == question);
+                allExercisesAnswered.Where(ex => ex.ExerciseName == exerciseName);
 
             StudentExerciseResult[] exWithGivenQuestion = answeredExWithGivenQuestion as StudentExerciseResult[] ??
                                                           answeredExWithGivenQuestion.ToArray();

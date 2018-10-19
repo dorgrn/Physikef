@@ -35,7 +35,10 @@ namespace GameScenes.Balance
 
         void awake()
         {
-          //this.enabled = false;
+            //this.enabled = false;
+            initExercise();
+            parseExercise();
+
             seesaw.GetComponent<Rigidbody>().isKinematic = true;
             leftWeight.GetComponent<Rigidbody>().isKinematic = true;
             rightWeight.GetComponent<Rigidbody>().isKinematic = true;
@@ -46,10 +49,12 @@ namespace GameScenes.Balance
 
         private void Update()
         {
+
+
             if(this.enabled)
             { 
-                initExercise();
-                parseExercise();
+               // initExercise();
+             //   parseExercise();
                 leftWeight.SetActive(true);
                 rightWeight.SetActive(true);
                 seesaw.GetComponent<Rigidbody>().isKinematic = false;

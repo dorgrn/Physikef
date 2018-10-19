@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class StudentInputTextSupplier : AbstractInputTextSupplier
     {

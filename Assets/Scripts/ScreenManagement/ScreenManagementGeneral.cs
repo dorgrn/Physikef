@@ -1,39 +1,41 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScreenManagementGeneral : MonoBehaviour
+namespace Physikef.ScreenManagement
 {
-    [SerializeField] private AudioClip m_ButtonClickSound;
-    private AudioSource m_AudioSource;
-
-    private void Start()
+    public class ScreenManagementGeneral : MonoBehaviour
     {
-        m_AudioSource = gameObject.AddComponent<AudioSource>();
-        m_AudioSource.clip = m_ButtonClickSound;
-        setButtonsClip();
-    }
+        [SerializeField] private AudioClip m_ButtonClickSound;
+        private AudioSource m_AudioSource;
 
-    private void setButtonsClip()
-    {
-        Button[] buttons = FindObjectsOfType<Button>();
-        foreach (Button button in buttons)
+        private void Start()
         {
-            button.onClick.AddListener(delegate { m_AudioSource.Play(); });
+            m_AudioSource = gameObject.AddComponent<AudioSource>();
+            m_AudioSource.clip = m_ButtonClickSound;
+            setButtonsClip();
         }
-    }
 
+        private void setButtonsClip()
+        {
+            Button[] buttons = FindObjectsOfType<Button>();
+            foreach (Button button in buttons)
+            {
+                button.onClick.AddListener(delegate { m_AudioSource.Play(); });
+            }
+        }
 
-    public static void LogError(string errorMessage)
-    {
-        Text errorText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
-        errorText.color = Color.red;
-        errorText.text = errorMessage;
-    }
+        public static void LogError(string errorMessage)
+        {
+            Text errorText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
+            errorText.color = Color.red;
+            errorText.text = errorMessage;
+        }
 
-    public static void LogSuccess(string message)
-    {
-        Text text = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
-        text.color = Color.green;
-        text.text = message;
+        public static void LogSuccess(string message)
+        {
+            Text text = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
+            text.color = Color.green;
+            text.text = message;
+        }
     }
 }

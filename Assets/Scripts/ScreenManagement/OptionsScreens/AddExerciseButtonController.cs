@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,16 +8,16 @@ namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class AddExerciseButtonController : MonoBehaviour
     {
+        private const string EMPTY = "Empty";
+        [SerializeField] private Dropdown m_SceneNameDropdown;
         [SerializeField] private InputField m_ExerciseNameInput;
         [SerializeField] private InputField m_QuestionInput;
         [SerializeField] private GameObject m_AnswersHolder;
         private Tuple<Toggle, InputField>[] m_AnswersInputToggles;
         private ToggleGroup m_RadioToggleGroup;
-        private Text m_ErrorText;
 
         void Start()
         {
-            m_ErrorText = GameObject.FindGameObjectWithTag("ErrorText").GetComponent<Text>();
             populateAnswerInputToggles();
             m_RadioToggleGroup = m_AnswersHolder.GetComponent<ToggleGroup>();
             clearForm();
@@ -24,19 +25,18 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         bool isValidForm()
         {
-            return !string.IsNullOrEmpty(m_ExerciseNameInput.text) &&
-                   !string.IsNullOrEmpty(m_QuestionInput.text)
-                   && m_RadioToggleGroup.ActiveToggles().Any()
-                   && m_AnswersInputToggles.All(answerTuple => !string.IsNullOrEmpty(answerTuple.Item2.text));
+            return m_SceneNameDropdown.captionText.text != EMPTY &&
+                   !string.IsNullOrEmpty(m_ExerciseNameInput.text) &&
+                   !string.IsNullOrEmpty(m_QuestionInput.text) &&
+                   m_RadioToggleGroup.ActiveToggles().Any() &&
+                   m_AnswersInputToggles.All(answerTuple => !string.IsNullOrEmpty(answerTuple.Item2.text));
         }
 
         public async void AddExerciseButton_OnClick()
         {
             if (!isValidForm())
             {
-                m_ErrorText.color = Color.red;
-                m_ErrorText.text = "Form isn't valid!";
-                throw new ArgumentException(m_ErrorText.text);
+                ScreenManagementGeneral.LogError("Form isn't valid!");
             }
 
             // assume on toggle is singular since its part of a toggle group
@@ -45,15 +45,16 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
             var exerciseToAdd = new Exercise()
             {
-                SceneName = m_ExerciseNameInput.text,
+                SceneName = m_SceneNameDropdown.captionText.text,
+                ExerciseName = m_ExerciseNameInput.text,
                 Answers = m_AnswersInputToggles.Select(answerWithToggle => answerWithToggle.Item2.text),
                 Question = m_QuestionInput.text,
                 CorrectAnswerIndex = correctAnswerIndex.Value // checked in isValidForm
             };
 
             await ServicesManager.GetDataAccessLayer().AddExerciseAsync(exerciseToAdd);
-            m_ErrorText.color = Color.green;
-            m_ErrorText.text = "Exercise published correctly";
+            clearForm();
+            ScreenManagementGeneral.LogSuccess("Exercise added successfully");
         }
 
         private int? findCorrectIndexInAnswerInputToggles(Tuple<Toggle, InputField>[] answersInputToggles,
@@ -85,10 +86,15 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         void clearForm()
         {
-            m_ErrorText.text = string.Empty;
+            m_SceneNameDropdown.options = new List<Dropdown.OptionData>()
+            {
+                new Dropdown.OptionData(EMPTY)
+            };
+
             m_ExerciseNameInput.text = string.Empty;
             m_QuestionInput.text = string.Empty;
             m_RadioToggleGroup.SetAllTogglesOff();
+
             foreach (InputField field in m_AnswersHolder.GetComponents<InputField>())
             {
                 field.text = string.Empty;

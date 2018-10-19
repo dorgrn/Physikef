@@ -1,5 +1,4 @@
-﻿using Physikef.ScreenManagement.TeachersOptionsScreen;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,9 +22,11 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
         private bool IsFormValid(IEnumerable<string> studentsToPublishTo)
         {
-            return !m_ExerciseDropdown.captionText.text.Equals("Empty")
-                   && !string.IsNullOrEmpty(m_HomeworkNameInput.text)
-                   && studentsToPublishTo.Any();
+            Dropdown[] dropdowns = FindObjectsOfType<Dropdown>();
+
+            return dropdowns.All(dropdown => dropdown.captionText.text != "Empty") &&
+                   (!string.IsNullOrEmpty(m_HomeworkNameInput.text) &&
+                    studentsToPublishTo.Any());
         }
 
         public async void PublishButton_OnClick()
@@ -35,8 +36,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
             if (!IsFormValid(studentsToPublishTo))
             {
-                m_ErrorText.color = Color.red;
-                m_ErrorText.text = "Form wasn't filled correctly!";
+                ScreenManagementGeneral.LogError("Form wasn't filled correctly!");
             }
 
             await ServicesManager.GetDataAccessLayer().AddHomeworkAsync(new HomeWork()
@@ -47,8 +47,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
                 Students = studentsToPublishTo
             });
 
-            m_ErrorText.color = Color.green;
-            m_ErrorText.text = "Exercise published successfully";
+            ScreenManagementGeneral.LogSuccess("Exercise published successfully");
         }
 
         void clearForm()

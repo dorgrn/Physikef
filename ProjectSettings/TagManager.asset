@@ -7,6 +7,10 @@ TagManager:
   - RightWeight
   - LeftWeight
   - Target
+  - Room
+  - SceneDropdownHolder
+  - HwDropdownHolder
+  - ExForSceneDropdwon
   layers:
   - Default
   - TransparentFX

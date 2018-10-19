@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Physikef.ScreenManagement.OptionsScreens;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Physikef.ScreenManagement.TeachersOptionsScreen
+namespace Physikef.ScreenManagement.OptionsScreens
 {
     public class InfoScrollViewController : MonoBehaviour
     {

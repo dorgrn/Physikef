@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,40 +12,53 @@ namespace Physikef.GameScenes.Pendulum
     {
         [SerializeField] private TextMeshProUGUI m_QuestionText;
         [SerializeField] private TextMeshProUGUI[] m_ChoicesLabels;
-        private Exercise m_Exercise;
+        private Exercise m_CurrentExercise;
 
-        void Start()
+        public Exercise CurrentExercise => m_CurrentExercise;
+
+        async void Start()
         {
-            initExercises(SceneManager.GetActiveScene().name);
+            await initExercise();
         }
 
-        private async void initExercises(string sceneName)
+        private async Task initExercise()
         {
-            m_Exercise =
-                //ATTENTION!! if you modify this line so make sure to also modify it in BalanceControllet.cs
-                (await ServicesManager.GetDataAccessLayer().GetExercisesAsync(sceneName)).FirstOrDefault();
+            m_CurrentExercise = await getExerciseForStudentAsync();
 
-            if (m_Exercise == null)
+            if (m_CurrentExercise == null)
             {
                 throw new Exception("Didn't find exercise for scene");
             }
 
-            m_QuestionText.text = m_Exercise.Question;
+            m_QuestionText.text = m_CurrentExercise.Question;
 
-            if (m_ChoicesLabels.Length != m_Exercise.Answers.Count())
+            if (m_ChoicesLabels.Length != m_CurrentExercise.Answers.Count())
             {
                 throw new Exception("Question choices and actual text labels differ in size!");
             }
 
             for (var i = 0; i < m_ChoicesLabels.Length; i++)
             {
-                m_ChoicesLabels[i].text = m_Exercise.Answers.ToList()[i];
+                m_ChoicesLabels[i].text = m_CurrentExercise.Answers.ToList()[i];
             }
         }
 
-        public Exercise getExcercisee()
+        private async Task<Exercise> getExerciseForStudentAsync()
         {
-            return m_Exercise;
+            Exercise result;
+            IEnumerable<Exercise> allExercises = (await ServicesManager.GetDataAccessLayer()
+                .GetAllExercisesAsync()).ToList();
+            string chosenExercise = PlayerPrefs.GetString("chosenExercise");
+
+            Exercise chosenExerciseInstance =
+                allExercises.FirstOrDefault(ex => ex.SceneName == SceneManager.GetActiveScene().name);
+
+            result = chosenExerciseInstance != null &&
+                     SceneManager.GetActiveScene().name == chosenExerciseInstance.SceneName
+                ? chosenExerciseInstance
+                : allExercises.FirstOrDefault(ex => ex.ExerciseName == chosenExercise);
+
+            return result;
         }
     }
 }
