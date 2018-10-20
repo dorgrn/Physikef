@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 
-public class FixedPulleyImpl : PulleyImpl
+namespace Physikef.GameScenes.FixedPulley
 {
-    private const float MAX_HEIGHT = 5.5f;
-
-    new void FixedUpdate()
+    public class FixedPulleyImpl : PulleyImpl
     {
-        base.FixedUpdate();
-        if (m_ObjectRight.transform.position.y < MAX_HEIGHT)
+        private const float MAX_HEIGHT = 5.5f;
+
+        new void FixedUpdate()
         {
-            rbObjectLeft.MovePosition(rbObjectLeft.transform.position +
-                                      -rbObjectLeft.transform.up * Time.deltaTime);
-            rbObjectRight.MovePosition(rbObjectRight.transform.position +
-                                       rbObjectRight.transform.up * Time.deltaTime);
+            base.FixedUpdate();
+            if (m_ObjectRight.transform.position.y < MAX_HEIGHT)
+            {
+                rbObjectLeft.MovePosition(rbObjectLeft.transform.position +
+                                          -rbObjectLeft.transform.up * Time.deltaTime);
+                rbObjectRight.MovePosition(rbObjectRight.transform.position +
+                                           rbObjectRight.transform.up * Time.deltaTime);
+            }
         }
     }
 }

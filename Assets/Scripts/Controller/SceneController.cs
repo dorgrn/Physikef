@@ -15,6 +15,8 @@ namespace Physikef.Controller
         [SerializeField] protected GameObject m_QuestionUi;
         [SerializeField] protected MonoBehaviour m_SceneActionScript;
         private bool m_ShouldStartScene;
+        private QuestionTextController m_QuestionTextController;
+
 
         void Awake()
         {
@@ -25,14 +27,16 @@ namespace Physikef.Controller
         void Start()
         {
             StartCoroutine(SceneSwitcher.SwapToVR());
+            m_QuestionTextController = m_QuestionUi.GetComponent<QuestionTextController>();
             m_DirectionPointer = FindObjectOfType<DirectionPointer>();
             m_DirectionPointer.SetTarget(m_QuestionUi);
         }
 
         public async Task SubmitAnswer(string answer)
         {
-            m_SceneExercise =
-                await QuestionTextController.GetExerciseForStudentAsync();
+            // make sure QuestionTextController is on QuestionUI and is enabled
+            m_SceneExercise = m_QuestionTextController.CurrentExercise;
+
             bool isCorrectAnswer =
                 m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex) == answer;
 
@@ -64,6 +68,7 @@ namespace Physikef.Controller
 
             StudentExerciseResult studentExerciseResult = new StudentExerciseResult()
             {
+                ExerciseName = m_QuestionTextController.CurrentExercise.ExerciseName,
                 AnsweringStudentId = userid,
                 isCorrect = isCorrect,
                 Question = m_SceneExercise.Question,
