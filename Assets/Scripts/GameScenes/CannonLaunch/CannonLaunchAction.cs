@@ -11,7 +11,7 @@ namespace Physikef.GameScenes.CannonLaunch
         public LineRenderer Line;
 
         public Vector3 ballStartingPosition;
-        private float angle = 45;
+        private float angle = 30;
 
 
         void Start()
