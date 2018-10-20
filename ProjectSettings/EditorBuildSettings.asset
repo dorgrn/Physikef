@@ -24,6 +24,10 @@ EditorBuildSettings:
     path: Assets/_Scenes/GameScenes/CannonLaunch.unity
     guid: 90993888603ea024b97fcae223b7f41a
   - enabled: 1
+<<<<<<< HEAD
+    path: Assets/_Scenes/GameScenes/Pendulum.unity
+    guid: 376145952bfaced42954bab9e9b21817
+=======
     path: Assets/_Scenes/GameScenes/FixedPulley.unity
     guid: 1bb74292225daa849bffc7de4e51f516
   - enabled: 1
@@ -35,3 +39,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/GameScenes/Spring.unity
     guid: 56c7116d716a78e429b2d4f39e2eba59
+>>>>>>> b57f750f9fec8d931f8539448b538c4b7f49d1e3
