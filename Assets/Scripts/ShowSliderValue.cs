@@ -12,3 +12,4 @@ public class ShowSliderValue : MonoBehaviour
 			lbl.text = Mathf.RoundToInt (value * 100) + "%";
 	}
 }
+ 
