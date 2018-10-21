@@ -753,7 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb194b5fca68f841a6b5ec6f9765493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneName: LoginScreen
+  m_SceneName: StudentOptionsScreen
 --- !u!114 &89186599
 MonoBehaviour:
   m_ObjectHideFlags: 0

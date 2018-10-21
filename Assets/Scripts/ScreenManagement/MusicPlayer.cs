@@ -10,6 +10,9 @@ namespace Physikef.ScreenManagement
         private void Awake()
         {
             m_AudioSource = GetComponent<AudioSource>();
+            if (FindObjectsOfType<MusicPlayer>().Length > 1)
+                return;
+
             DontDestroyOnLoad(transform.gameObject);
             m_AudioSource.Play();
         }
