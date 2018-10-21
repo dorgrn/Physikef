@@ -8,7 +8,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
     public class PublishExerciseButtonController : MonoBehaviour
     {
         [SerializeField] private InputField m_HomeworkNameInput;
-        [SerializeField] private Dropdown m_ExerciseDropdown;
+        [SerializeField] private Dropdown m_SceneDropdown;
         [SerializeField] private ScrollViewToggleFiller m_ScrollViewToggleFiller;
         private string m_CurrentUser;
         private Text m_ErrorText;
@@ -41,7 +41,7 @@ namespace Physikef.ScreenManagement.OptionsScreens
 
             await ServicesManager.GetDataAccessLayer().AddHomeworkAsync(new HomeWork()
             {
-                SceneName = m_ExerciseDropdown.captionText.text,
+                SceneName = m_SceneDropdown.captionText.text,
                 CreatorName = m_CurrentUser,
                 Name = m_HomeworkNameInput.text,
                 Students = studentsToPublishTo
