@@ -29,3 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/GameScenes/Spring.unity
     guid: 56c7116d716a78e429b2d4f39e2eba59
+  - enabled: 1
+    path: Assets/_Scenes/GameScenes/Balance.unity
+    guid: 061439ad1bf01c740b4f8730cc738c62

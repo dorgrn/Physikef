@@ -44,7 +44,7 @@ namespace GameScenes.Balance
              {
                  parseExercise();
                 int correctAns = int.Parse(Regex.Split(m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex), @"\D+")[0]);
-                rightWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(correctAns, 3.24f, 3f);
+                leftWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(correctAns, 3.24f, 3f);
             }
 
             seesaw.GetComponent<Rigidbody>().isKinematic = true;
@@ -63,7 +63,7 @@ namespace GameScenes.Balance
                 {
                     parseExercise();
                     int correctAns = int.Parse(Regex.Split(m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex), @"\D+")[0]);
-                    rightWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(correctAns, 3.24f, 3f);
+                    leftWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(-correctAns, 3.24f, 3f);
                     leftWeight.SetActive(false);
                     parsed = true;
                 }
@@ -86,12 +86,12 @@ namespace GameScenes.Balance
                 if(numbers.Length == 3)
                 {
 
-                    leftWeight.GetComponent<Rigidbody>().mass = float.Parse(numbers[RIGHT_KG]);
-                    leftWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(-intervalValueMap(float.Parse(numbers[RIGHT_DIST])), 3.24f, 3f);
+                    rightWeight.GetComponent<Rigidbody>().mass = float.Parse(numbers[RIGHT_KG]);
+                    rightWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(intervalValueMap(float.Parse(numbers[RIGHT_DIST])), 3.24f, 3f);
 
-                    rightWeight.GetComponent<Rigidbody>().mass = float.Parse(numbers[LEFT_KG]);
+                    leftWeight.GetComponent<Rigidbody>().mass = float.Parse(numbers[LEFT_KG]);
                     int correctAns = int.Parse(Regex.Split(m_SceneExercise.Answers.ElementAt(m_SceneExercise.CorrectAnswerIndex), @"\D+")[0]);
-                    rightWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(correctAns, 3.24f, 3f);
+                   leftWeight.GetComponent<Rigidbody>().transform.localPosition = new Vector3(-correctAns, 3.24f, 3f);
                 }
             }
             catch (System.Exception e)
@@ -111,24 +111,6 @@ namespace GameScenes.Balance
             return value;
         }
 
-        /*
-        public static GameObject GetLeftWeight()
-        {
-            return GameObject.FindGameObjectWithTag("LeftWeight");
-        }
-
-        public static GameObject GetRightDistance()
-        {
-            return GameObject.FindGameObjectWithTag("RightDistance");
-        }
-
-        public static GameObject GetRightWeight()
-        {
-            return GameObject.FindGameObjectWithTag("RightWeight");
-        }
-
-        private float calculateRightAnswer() => rightWeight.GetComponent<Rigidbody>().mass * rightWeight.GetComponent<Rigidbody>().position.x / leftWeight.GetComponent<Rigidbody>().mass;
-        */
     }
 }
 
